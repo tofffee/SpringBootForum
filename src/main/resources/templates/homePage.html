@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <title>Home Page</title>
+    <div th:replace="fragments/common :: common_head"></div>
+
+</head>
+
+<body>
+
+<div th:insert ="fragments/navbar :: top_navigation_bar"></div>
+
+<h1>Hello, it is home page</h1>
+
+<div th:each="board : ${boardsList}">
+    <a th:href="@{/boards/{boardName}(boardName=${board.getName()})}" th:text="${board.getName()}"></a>
+</div>
+
+</body>
+
+</html>

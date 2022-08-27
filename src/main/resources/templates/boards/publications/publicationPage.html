@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+  <title>Publication Page</title>
+  <div th:replace="fragments/common :: common_head"></div>
+
+</head>
+
+<body>
+
+<div th:insert ="fragments/navbar :: top_navigation_bar"></div>
+
+<h1>Hello, it is publication page</h1>
+
+<p th:text="${publication.getNameOfPublication()}"></p>
+<p th:text="${publication.getTextOfPublication()}"></p>
+
+</body>
+
+</html>
