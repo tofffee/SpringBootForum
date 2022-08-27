@@ -16,6 +16,25 @@
 <p th:text="${publication.getNameOfPublication()}"></p>
 <p th:text="${publication.getTextOfPublication()}"></p>
 
+<p> Comments : </p>
+
+<div th:each="comment: ${publication.getComments()}">
+  <p th:text="${comment.getId()}"></p>
+  <p th:text="${comment.getTimeOfComment()}"></p>
+  <p th:text="${comment.getTextOfComment()}"></p>
+</div>
+
+<div>
+  <p>Leave your comment:</p>
+  <form th:method="POST" th:action="@{/boards/{boardName}/{publicationId}/create(boardName=${board.getName()},publicationId=${publication.getId()})}" th:object="${comment}">
+    <label for="textOfComment">Enter text: </label>
+    <input type="text" th:field="*{textOfComment}" id="textOfComment"/>
+    <div style="color:red" th:if="${#fields.hasErrors('textOfComment')}" th:errors="*{textOfComment}">text error</div>
+    <br/>
+    <input type="submit" value="Create!"/>
+  </form>
+</div>
+
 </body>
 
 </html>

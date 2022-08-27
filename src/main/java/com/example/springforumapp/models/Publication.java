@@ -1,5 +1,6 @@
 package com.example.springforumapp.models;
 
+import org.hibernate.annotations.Cascade;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -7,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "Publications")
@@ -35,14 +37,20 @@ public class Publication {
     @JoinColumn(name = "board_id", referencedColumnName = "id")
     private Board board;
 
-    public Publication(){};
 
-    public Publication(int id, String nameOfPublication, String textOfPublication, LocalDate timeOfPublication, Board board) {
+    @OneToMany(mappedBy = "publication")
+    @Cascade(org.hibernate.annotations.CascadeType.REMOVE)
+    private List<Comment> comments;
+
+    public Publication() {}
+
+    public Publication(int id, String nameOfPublication, String textOfPublication, LocalDate timeOfPublication, Board board, List<Comment> comments) {
         this.id = id;
         this.nameOfPublication = nameOfPublication;
         this.textOfPublication = textOfPublication;
         this.timeOfPublication = timeOfPublication;
         this.board = board;
+        this.comments = comments;
     }
 
     public int getId() {
@@ -83,5 +91,13 @@ public class Publication {
 
     public void setBoard(Board board) {
         this.board = board;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 }

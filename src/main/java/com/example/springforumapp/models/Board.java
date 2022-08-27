@@ -16,7 +16,7 @@ public class Board {
 
     @OneToMany(mappedBy = "board")
     private List<Publication> publications;
-    public Board(){};
+    public Board() {}
 
     public Board(int id, String name, List<Publication> publications) {
         this.id = id;
