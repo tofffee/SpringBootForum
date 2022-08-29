@@ -41,7 +41,7 @@ public class BoardsController {
     }
 
     //Создать публикацию в борде
-    @PostMapping("/{boardName}/create")
+    @PostMapping("/{boardName}")
     public String addPublication(
             @PathVariable("boardName") String boardName,
             Model model,

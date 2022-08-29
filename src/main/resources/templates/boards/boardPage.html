@@ -1,37 +1,26 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-
   <title>Board Page</title>
   <div th:replace="fragments/common :: common_head"></div>
-
+  <script type="text/javascript" th:src="@{/js/boards/publicationForm.js}"></script>
+  <script type="text/javascript" th:src="@{/js/boards/publicationFormValidation.js}"></script>
 </head>
-
 <body>
-
 <div th:insert ="fragments/navbar :: top_navigation_bar"></div>
+
 
 <h1 th:text="${board.getName()}"></h1>
 
-<div th:each="publication : ${board.getPublications()}">
-  <a th:href="@{/boards/{boardName}/{publicationId}(boardName=${board.getName()},publicationId = ${publication.getId()})}" th:text="${publication.getNameOfPublication()}"></a>
-  <p th:text="${publication.getTextOfPublication()}"></p>
+<button onclick="show_hide_PublicationForm()">Create a new publication</button>
+<div style="display: none;" id="publicationFormDivContainer" th:insert ="fragments/publications/publicationFormFragment :: publication_form_fragment"></div>
+
+<div class="container" th:each="publication : ${board.getPublications()}">
+  <div th:replace="fragments/publications/publicationFragment :: publication_fragment"></div>
 </div>
 
-<div>
-  <form th:method="POST" th:action="@{/boards/{boardName}/create(boardName=${board.getName()})}" th:object="${publication}">
-    <label for="nameOfPublication">Enter name: </label>
-    <input type="text" th:field="*{nameOfPublication}" id="nameOfPublication"/>
-    <div style="color:red" th:if="${#fields.hasErrors('nameOfPublication')}" th:errors="*{nameOfPublication}">name error</div>
-    <br/>
-    <label for="textOfPublication">Enter text: </label>
-    <input type="text" th:field="*{textOfPublication}" id="textOfPublication"/>
-    <div style="color:red" th:if="${#fields.hasErrors('textOfPublication')}" th:errors="*{textOfPublication}">text error</div>
-    <br/>
-    <input type="submit" value="Create!"/>
-  </form>
-</div>
+
+
 
 </body>
-
 </html>

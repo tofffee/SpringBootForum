@@ -1,0 +1,18 @@
+<div th:fragment="publication_fragment">
+
+    <div class = "row">
+        <div class="col">
+            <p th:text="${publication.getId()}"></p>
+        </div>
+        <div class="col">
+            <a th:href="@{/boards/{boardName}/{publicationId}(boardName=${board.getName()},publicationId = ${publication.getId()})}" th:text="${publication.getNameOfPublication()}"></a>
+        </div>
+    </div>
+
+    <div class = "row">
+        <div class="col">
+            <p th:text="${publication.getTextOfPublication()}"></p>
+        </div>
+    </div>
+
+</div>
