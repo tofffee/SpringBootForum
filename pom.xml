@@ -75,6 +75,21 @@
             <version>${postgre_sql_version}</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-mail -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+            <version>${spring_boot_version}</version>
+        </dependency>
+
+
+        <!--        needed for check if user authorized in thymeleaf-->
+        <!-- https://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-springsecurity5 -->
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity5</artifactId>
+            <version>3.0.4.RELEASE</version>
+        </dependency>
 
 <!--        Webjars for bootstrap, jquery , jquery-validation-->
         <!-- https://mvnrepository.com/artifact/org.webjars/bootstrap -->
@@ -99,13 +114,7 @@
         </dependency>
 
 
-<!--        needed for check if user authorized in thymeleaf-->
-        <!-- https://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-springsecurity5 -->
-        <dependency>
-            <groupId>org.thymeleaf.extras</groupId>
-            <artifactId>thymeleaf-extras-springsecurity5</artifactId>
-            <version>3.0.4.RELEASE</version>
-        </dependency>
+
 
 
     </dependencies>

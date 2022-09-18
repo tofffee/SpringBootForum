@@ -8,6 +8,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.transaction.Transactional;
 import java.util.Optional;
@@ -25,5 +28,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if(user.isEmpty())
             throw new UsernameNotFoundException("User not found");
         else return new UserDetailsImpl(user.get());
+    }
+
+    public boolean activateUser(String code)
+    {
+        Optional<User> user = usersRepository.findUserByActivationCode(code);
+        if(user.isEmpty()){
+            return false;
+        } else{
+            user.get().setEnabled(true);
+            return true;
+        }
     }
 }
