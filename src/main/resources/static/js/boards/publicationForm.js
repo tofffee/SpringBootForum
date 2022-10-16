@@ -13,10 +13,11 @@ function show_hide_PublicationForm(){
 
 }
 
+/*
 function validatePublicationForm() {
     let x = document.forms["myForm"]["fname"].value;
     if (x == "") {
         alert("Name must be filled out");
         return false;
     }
-}
+}*/

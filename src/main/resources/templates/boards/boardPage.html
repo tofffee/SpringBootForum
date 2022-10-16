@@ -13,10 +13,10 @@
 <h1 th:text="${board.getName()}"></h1>
 
 <button onclick="show_hide_PublicationForm()">Create a new publication</button>
-<div style="display: none;" id="publicationFormDivContainer" th:insert ="fragments/publications/publicationFormFragment :: publication_form_fragment"></div>
+<div style="display: none;" id="publicationFormDivContainer" th:insert ="fragments/boards/publicationFormFragment :: publication_form_fragment"></div>
 
 <div class="container" th:each="publication : ${board.getPublications()}">
-  <div th:replace="fragments/publications/publicationFragment :: publication_fragment"></div>
+  <div th:replace="fragments/boards/publicationFragment :: publication_fragment"></div>
 </div>
 
 

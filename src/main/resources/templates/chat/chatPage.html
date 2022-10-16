@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Chat Page</title>
+  <div th:replace="fragments/common :: common_head"></div>
+  <script type="text/javascript" th:src="@{/js/chat/sendMessageRest.js}"></script>
+</head>
+<body>
+<div th:insert ="fragments/navbar :: top_navigation_bar"></div>
+
+<h1>Chat</h1>
+
+
+
+<div class = "container" th:each="message : ${messages}">
+  <div th:replace="fragments/chat/messageFragment :: messagefragment_chat"></div>
+</div>
+
+<div>
+  <p>Leave your message:</p>
+  <label for="textOfMessage">Enter text: </label>
+  <input type="text" id="textOfMessage"/>
+  <br/>
+  <button onclick="sendMessageRest()"> Send message </button>
+</div>
+
+
+</body>
+</html>

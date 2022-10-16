@@ -27,9 +27,10 @@ public class Comment {
     @JoinColumn(name = "publication_id", referencedColumnName = "id")
     private Publication publication;
 
-    public Comment() {}
+    public Comment() { }
 
-    public Comment(int id, String textOfComment, LocalDate timeOfComment, Publication publication) {
+    public Comment(int id, String textOfComment, LocalDate timeOfComment, Publication publication)
+    {
         this.id = id;
         this.textOfComment = textOfComment;
         this.timeOfComment = timeOfComment;
