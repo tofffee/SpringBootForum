@@ -3,6 +3,7 @@
 <head>
   <title>Board Page</title>
   <div th:replace="fragments/common :: common_head"></div>
+  <link th:href="@{/css/test.css}" rel="stylesheet" type="text/css" >
   <script type="text/javascript" th:src="@{/js/boards/publicationForm.js}"></script>
   <script type="text/javascript" th:src="@{/js/boards/publicationFormValidation.js}"></script>
 </head>
@@ -15,9 +16,47 @@
 <button onclick="show_hide_PublicationForm()">Create a new publication</button>
 <div style="display: none;" id="publicationFormDivContainer" th:insert ="fragments/boards/publicationFormFragment :: publication_form_fragment"></div>
 
-<div class="container" th:each="publication : ${board.getPublications()}">
-  <div th:replace="fragments/boards/publicationFragment :: publication_fragment"></div>
+<h3>q test</h3>
+
+<!--<div class="container w-50, p-3 mb-2 bg-success text-white">
+
+  <div class = "row justify-content-md-center">
+      <div class="col">
+        <p th:text="q"></p>
+      </div>
+      <div class="col">
+        <p th:text="rr"></p>
+      </div>
+  </div>
+
+  <div class = "row">
+    <div class="col">
+      <p th:text="tt"></p>
+    </div>
+  </div>
+
+<div class = "row">
+  <div class="col">
+    <p th:text="v"></p>
+  </div>
 </div>
+
+</div>-->
+
+</br>
+</br>
+</br>
+
+<div th:each="publication : ${board.getPublications()}">
+
+  <div th:replace="fragments/boards/publicationFragment :: publication_fragment"> </div>
+
+</div>
+
+
+<!--  <div th:replace="fragments/boards/publicationFragment :: publication_fragment"></div>-->
+
+
 
 
 

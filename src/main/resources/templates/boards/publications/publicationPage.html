@@ -4,7 +4,6 @@
 
   <title>Publication Page</title>
   <div th:replace="fragments/common :: common_head"></div>
-
   <script type="text/javascript" th:src="@{/js/boards/publications/commentForm.js}"></script>
 </head>
 
@@ -12,7 +11,7 @@
 
 <div th:insert ="fragments/navbar :: top_navigation_bar"></div>
 
-<h1>Hello, it is publication page</h1>
+<h1 >Hello, it is publication page</h1>
 
 <p th:text="${publication.getNameOfPublication()}"></p>
 <p th:text="${publication.getTextOfPublication()}"></p>

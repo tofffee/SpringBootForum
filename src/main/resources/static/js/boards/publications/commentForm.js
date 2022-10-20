@@ -2,21 +2,19 @@
 function sendCommentRest(){
     let text = $("#textOfComment").val();
 
-    $.ajax({
-        url: '/boards/Music/2',
-        method: 'post',
-        headers: {
-            'Content-Type':'application/json'
-        },
-        data:
-            JSON.stringify({
+    fetch("/boards/Music/2",
+        {
+            headers:
+                {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+            method: "POST",
+            body: JSON.stringify({
                 textOfComment: text
-                }),
-        success: function(data){
-            console.log("commentForm.js : success sendCommentRest " + " ( "+ data + " ) " )
-        },
-        error : function (data){
-            console.log("commentForm.js : error sendCommentRest " + " ( "+ data + " ) " )
-        }
-    });
+            }),
+        })
+        .then(function(res){ console.log(res) })
+        .catch(function(res){ console.log(res) })
+
 }
