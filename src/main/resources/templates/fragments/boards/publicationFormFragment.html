@@ -12,7 +12,7 @@
 
         <div class="form-group">
             <label for="textOfPublication">Enter text: </label>
-            <textarea th:field="*{textOfPublication}" id="textOfPublication"  class="form-control" placeholder="Write your message here." rows="4"></textarea>
+            <textarea th:field="*{textOfPublication}" id="textOfPublication"  class="form-control" placeholder="Write your chatMessage here." rows="4"></textarea>
             <div style="color:red" th:if="${#fields.hasErrors('textOfPublication')}" th:errors="*{textOfPublication}">text error</div>
         </div>
 

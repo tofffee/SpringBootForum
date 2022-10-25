@@ -1,6 +1,6 @@
 package com.example.springforumapp.services;
 
-import com.example.springforumapp.models.chat.Message;
+import com.example.springforumapp.models.chat.ChatMessage;
 import com.example.springforumapp.repositories.ChatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,15 +21,15 @@ public class ChatService
         this.chatRepository = chatRepository;
     }
 
-    public List<Message> getAllMessages()
+    public List<ChatMessage> getAllMessages()
     {
-        List<Message> messagesList = chatRepository.findAll();
+        List<ChatMessage> messagesList = chatRepository.findAll();
         return messagesList;
     }
-    public void saveMessage(Message message)
+    public void saveMessage(ChatMessage chatMessage)
     {
-        message.setTimeOfMessage(LocalDate.now());
-        chatRepository.save(message);
+        chatMessage.setTimeOfChatMessage(LocalDate.now());
+        chatRepository.save(chatMessage);
     }
 
 }

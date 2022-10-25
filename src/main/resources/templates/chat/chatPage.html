@@ -3,27 +3,31 @@
 <head>
   <title>Chat Page</title>
   <div th:replace="fragments/common :: common_head"></div>
-  <script type="text/javascript" th:src="@{/js/chat/sendMessageRest.js}"></script>
+  <script type="text/javascript" th:src="@{/js/chat/chat.js}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 </head>
-<body>
+
+<body onload="connect()">
+
+
 <div th:insert ="fragments/navbar :: top_navigation_bar"></div>
 
 <h1>Chat</h1>
 
 
 
-<div class = "container" th:each="message : ${messages}">
-  <div th:replace="fragments/chat/messageFragment :: messagefragment_chat"></div>
-</div>
-
-<div>
-  <p>Leave your message:</p>
-  <label for="textOfMessage">Enter text: </label>
-  <input type="text" id="textOfMessage"/>
-  <br/>
-  <button onclick="sendMessageRest()"> Send message </button>
-</div>
+<!--<div class = "container" th:each="chatMessage : ${chatMessages}">-->
+<!--  <div th:replace="fragments/chat/messageFragment :: messagefragment_chat"></div>-->
+<!--</div>-->
 
 
+        <div>
+          <input type="text" id="messageInput"  />
+          <button onclick="sendMessageJs()" >Send</button>
+        </div>
+
+
+<button onclick="disconnectFromChat()" >Disconnect</button>
 </body>
 </html>
