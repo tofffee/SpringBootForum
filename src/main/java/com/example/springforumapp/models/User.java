@@ -5,6 +5,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Table(name = "Users")
@@ -16,16 +17,13 @@ public class User {
     private int id;
 
     @Column(name = "username")
-    @NotNull
     @Size(min = 4 ,max = 15, message = "User error (username must be > 4 and < 15)")
     private String username;
 
     @Email
     @Column(name = "email")
-    @NotNull
     private String email;
     @Column(name = "password")
-    @NotNull
     @Size(min = 5 , message = "User error (Password must contain more than 5 symbols)")
     private String password;
 
@@ -37,14 +35,17 @@ public class User {
     private String activationCode;
     @Column(name = "enabled")
     private Boolean enabled;
+
+
     public User(){}
 
-    public User(int id, String username, String email,String password,String role,Boolean enabled) {
+    public User(int id, String username, String email, String password, String role, String activationCode, Boolean enabled) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.activationCode = activationCode;
         this.enabled = enabled;
     }
 

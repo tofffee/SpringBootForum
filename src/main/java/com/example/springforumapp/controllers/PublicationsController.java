@@ -39,7 +39,7 @@ public class PublicationsController {
     }
 
     //получить страницу публикации в борде
-    @GetMapping()
+    @GetMapping("")
     public String getPublicationPage(
             @PathVariable("boardName") String boardName,
             @PathVariable("publicationId") int publicationId,
@@ -48,59 +48,97 @@ public class PublicationsController {
 
         Board board = boardsService.findBoardByName(boardName);
         Optional<Publication> publication = publicationsService.findPublicationById(publicationId);
+
         Comment comment = new Comment();
+        comment.setReplied_to_comment(new Comment());
 
         model.addAttribute("board",board);
         model.addAttribute("publication",publication.get());
-        model.addAttribute("comment", comment);
+        model.addAttribute("newComment", comment);
 
         return "/boards/publications/publicationPage";
     }
 
     // создать комментарий в публикации в борде
-    @ResponseBody
-    @PostMapping()
-    public ResponseEntity<HttpStatus> addComment(
+    @PostMapping("")
+    public String addComment(
             @PathVariable("boardName") String boardName,
             @PathVariable("publicationId") int publicationId,
-            @RequestBody @Valid CommentDTO commentDTO,
+            Model model,
+            @ModelAttribute("newComment") @Valid Comment comment,
             BindingResult bindingResult
-    ) {
-
-        if (bindingResult.hasErrors()) {
-            StringBuilder errorMessage = new StringBuilder();
-            List<FieldError> errors = bindingResult.getFieldErrors();
-            for(FieldError error : errors){
-                errorMessage
-                        .append(error.getField())
-                        .append("-")
-                        .append(error.getDefaultMessage())
-                        .append("; ");
-            }
-
-            throw new CommentNotSavedException(errorMessage.toString());
-        }
+    ){
 
         Board board = boardsService.findBoardByName(boardName);
         Optional<Publication> publication = publicationsService.findPublicationById(publicationId);
+        model.addAttribute("board",board);
+        model.addAttribute("publication",publication.get());
 
-        Comment comment = new Comment();
-        comment.setTextOfComment(commentDTO.getTextOfComment());
-        comment.setPublication(publication.get());
-        commentsService.saveComment(comment);
+        if(bindingResult.hasErrors())
+        {
+            return "/boards/publications/publicationPage";
+        }else
+        {
+            comment.setPublication(publication.get());
 
-        return ResponseEntity.ok(HttpStatus.OK);
+            if(comment.getReplied_to_comment()!=null)
+            {
+                Comment replied_to_comment = commentsService.findCommentById(comment.getReplied_to_comment().getId());
+                comment.setReplied_to_comment(replied_to_comment);
+            }
+
+            commentsService.saveComment(comment);
+            return "/boards/publications/publicationPage";
+        }
+
     }
 
-    @ExceptionHandler
-    private ResponseEntity<CommentResponseError> handleException(CommentNotSavedException commentNotSavedException)
-    {
-        CommentResponseError commentResponseError = new CommentResponseError(
-                commentNotSavedException.getMessage(),
-                System.currentTimeMillis()
-        );
-        return new ResponseEntity<>(commentResponseError, HttpStatus.BAD_REQUEST);
-    }
+
+//    // создать комментарий в публикации в борде
+//    @ResponseBody
+//    @PostMapping("")
+//    public ResponseEntity<HttpStatus> addComment(
+//            @PathVariable("boardName") String boardName,
+//            @PathVariable("publicationId") int publicationId,
+//            @RequestBody @Valid CommentDTO commentDTO,
+//            BindingResult bindingResult
+//    ) {
+//
+//        if (bindingResult.hasErrors()) {
+//            StringBuilder errorMessage = new StringBuilder();
+//            List<FieldError> errors = bindingResult.getFieldErrors();
+//            for(FieldError error : errors){
+//                errorMessage
+//                        .append(error.getField())
+//                        .append("-")
+//                        .append(error.getDefaultMessage())
+//                        .append("; ");
+//            }
+//
+//            throw new CommentNotSavedException(errorMessage.toString());
+//        }
+//
+//        Board board = boardsService.findBoardByName(boardName);
+//        Optional<Publication> publication = publicationsService.findPublicationById(publicationId);
+//
+//        Comment comment = new Comment();
+//        comment.setTextOfComment(commentDTO.getTextOfComment());
+//        comment.setPublication(publication.get());
+//        comment.setResponed_to_comment(commentDTO.getResponed_to_comment_id());
+//        commentsService.saveComment(comment);
+//
+//        return ResponseEntity.ok(HttpStatus.OK);
+//    }
+//
+//    @ExceptionHandler
+//    private ResponseEntity<CommentResponseError> handleException(CommentNotSavedException commentNotSavedException)
+//    {
+//        CommentResponseError commentResponseError = new CommentResponseError(
+//                commentNotSavedException.getMessage(),
+//                System.currentTimeMillis()
+//        );
+//        return new ResponseEntity<>(commentResponseError, HttpStatus.BAD_REQUEST);
+//    }
 
 
 }

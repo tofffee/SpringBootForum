@@ -2,12 +2,77 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 
-  <title>Publication Page</title>
-  <div th:replace="fragments/common :: common_head"></div>
-  <script type="text/javascript" th:src="@{/js/boards/publications/commentForm.js}"></script>
+    <title>Publication Page</title>
+    <div th:replace="fragments/common :: common_head"></div>
+    <script type="text/javascript" th:src="@{/js/boards/publications/publicationsscripts.js}"></script>
 </head>
 
 <body>
+
+<div th:insert ="fragments/navbar :: top_navigation_bar"></div>
+
+<h1>Hello, it is publication page</h1>
+
+<p th:text="${publication.getNameOfPublication()}"></p>
+<p th:text="${publication.getTextOfPublication()}"></p>
+
+<p> Comments : </p>
+
+
+<div th:each="comment: ${publication.getComments()}">
+
+    <p th:text="${comment.getId()}"></p>
+    <p th:text="${comment.getTimeOfComment()}"></p>
+    <p th:text="${comment.getTextOfComment()}"></p>
+
+
+
+    <button th:onclick="showHiddenReplyToCommentDiv([[${comment.getId()}]])">reply to comment</button>>
+
+    <div style="display: none;" th:id="'reply_to_comment_div_'+${comment.getId()}">
+        <form th:method="POST" th:action="@{/boards/{boardName}/{publicationId}(boardName=${board.getName()},publicationId=${publication.getId()})}" th:object="${newComment}">
+            <input type="hidden" th:value="${comment.getId()}" name="replied_to_comment.id" />
+            <label for="textOfComment">Enter text: </label>
+            <input type="text" th:field="*{textOfComment}" id="textOfReplyComment"/>
+            <input type="submit" value="reply to comment"/>
+        </form>
+    </div>
+    <br> </br>
+
+
+</div>
+
+<div>
+    <p>Leave your comment:</p>
+    <form th:method="POST" th:action="@{/boards/{boardName}/{publicationId}(boardName=${board.getName()},publicationId=${publication.getId()})}" th:object="${newComment}">
+        <label for="textOfComment">Enter text: </label>
+        <input type="text" th:field="*{textOfComment}" id="textOfComment"/>
+        <div style="color:red" th:if="${#fields.hasErrors('textOfComment')}" th:errors="*{textOfComment}">text error</div>
+        <br/>
+        <input type="submit" value="Create!"/>
+    </form>
+</div>
+
+</body>
+
+</html>
+
+
+<!--
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <title>Publication Page</title>
+    <div th:replace="fragments/common :: common_head"></div>
+    <script type="text/javascript" th:src="@{/js/boards/publications/publicationsscripts.js}"></script>
+</head>
+
+<body>
+
+&lt;!&ndash;hidden value is needed to pass publicationId to send comments javascript&ndash;&gt;
+<input type="hidden" id="publicationIdHiddenValue" th:value="${publication.getId()}">
 
 <div th:insert ="fragments/navbar :: top_navigation_bar"></div>
 
@@ -19,19 +84,20 @@
 <p> Comments : </p>
 
 <div th:each="comment: ${publication.getComments()}">
-  <p th:text="${comment.getId()}"></p>
-  <p th:text="${comment.getTimeOfComment()}"></p>
-  <p th:text="${comment.getTextOfComment()}"></p>
+
+    <p th:text="${comment.getId()}"></p>
+    &lt;!&ndash;  <p th:text="${comment.getTimeOfComment()}"></p>&ndash;&gt;
+    <p th:text="${comment.getTextOfComment()}"></p>
 </div>
 
 <div>
-  <p>Leave your comment:</p>
-      <label for="textOfComment">Enter text: </label>
-      <input type="text" id="textOfComment"/>
-      <br/>
-  <button onclick="sendCommentRest()"> Send comment </button>
+    <p>Leave your comment:</p>
+    <label for="textOfComment">Enter text: </label>
+    <input type="text" id="textOfComment"/>
+    <br/>
+    <button onclick="sendCommentRest()"> Send comment </button>
 </div>
 
 </body>
 
-</html>
+</html>-->

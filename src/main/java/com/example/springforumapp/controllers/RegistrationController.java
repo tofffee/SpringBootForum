@@ -2,7 +2,7 @@ package com.example.springforumapp.controllers;
 
 import com.example.springforumapp.models.User;
 import com.example.springforumapp.services.RegistrationService;
-import com.example.springforumapp.services.UserDetailsServiceImpl;
+import com.example.springforumapp.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,10 +16,10 @@ import javax.validation.Valid;
 public class RegistrationController {
 
     private final RegistrationService registrationService;
-    private final UserDetailsServiceImpl userDetailsService;
+    private final UsersService userDetailsService;
 
     @Autowired
-    public RegistrationController(RegistrationService registrationService, UserDetailsServiceImpl userDetailsService) {
+    public RegistrationController(RegistrationService registrationService, UsersService userDetailsService) {
         this.registrationService = registrationService;
         this.userDetailsService = userDetailsService;
     }

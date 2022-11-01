@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "Comments")
@@ -27,14 +28,22 @@ public class Comment {
     @JoinColumn(name = "publication_id", referencedColumnName = "id")
     private Publication publication;
 
-    public Comment() { }
 
-    public Comment(int id, String textOfComment, LocalDate timeOfComment, Publication publication)
-    {
+    @ManyToOne
+    private Comment replied_to_comment;
+
+    @OneToMany(mappedBy = "replied_to_comment")
+    private List<Comment> comments_replied_to_this_comment;
+
+    public Comment() {}
+
+    public Comment(int id, String textOfComment, LocalDate timeOfComment, Publication publication, Comment replied_to_comment, List<Comment> comments_replied_to_this_comment) {
         this.id = id;
         this.textOfComment = textOfComment;
         this.timeOfComment = timeOfComment;
         this.publication = publication;
+        this.replied_to_comment = replied_to_comment;
+        this.comments_replied_to_this_comment = comments_replied_to_this_comment;
     }
 
     public int getId() {
@@ -67,5 +76,21 @@ public class Comment {
 
     public void setPublication(Publication publication) {
         this.publication = publication;
+    }
+
+    public Comment getReplied_to_comment() {
+        return replied_to_comment;
+    }
+
+    public void setReplied_to_comment(Comment replied_to_comment) {
+        this.replied_to_comment = replied_to_comment;
+    }
+
+    public List<Comment> getComments_replied_to_this_comment() {
+        return comments_replied_to_this_comment;
+    }
+
+    public void setComments_replied_to_this_comment(List<Comment> comments_replied_to_this_comment) {
+        this.comments_replied_to_this_comment = comments_replied_to_this_comment;
     }
 }

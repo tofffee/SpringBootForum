@@ -1,6 +1,6 @@
 package com.example.springforumapp.config;
 
-import com.example.springforumapp.services.UserDetailsServiceImpl;
+import com.example.springforumapp.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -14,11 +14,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
-    private final UserDetailsServiceImpl userDetailsServiceImpl;
+    private final UsersService usersService;
 
     @Autowired
-    public SecurityConfig(UserDetailsServiceImpl userDetailsServiceImpl) {
-        this.userDetailsServiceImpl = userDetailsServiceImpl;
+    public SecurityConfig(UsersService usersService) {
+        this.usersService = usersService;
     }
 
 
@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     protected void configure(AuthenticationManagerBuilder auth) throws Exception  {
-        auth.userDetailsService(userDetailsServiceImpl)
+        auth.userDetailsService(usersService)
                 .passwordEncoder(getPasswordEncoder());
     }
 

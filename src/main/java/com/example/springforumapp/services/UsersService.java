@@ -8,16 +8,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Service
 @Transactional
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class UsersService implements UserDetailsService {
 
     @Autowired
     private UsersRepository usersRepository;
@@ -39,5 +36,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             user.get().setEnabled(true);
             return true;
         }
+    }
+
+    public void createGuestUser(User user)
+    {
+        usersRepository.save(user);
     }
 }
