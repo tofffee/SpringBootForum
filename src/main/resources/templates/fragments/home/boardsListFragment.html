@@ -1,3 +1,0 @@
-<div th:each="board : ${boardsList}" th:fragment="boardsListFragment" class="container text-center">
-  <a th:href="@{/boards/{boardName}(boardName=${board.getName()})}" th:text="${board.getName()}"></a>
-</div>

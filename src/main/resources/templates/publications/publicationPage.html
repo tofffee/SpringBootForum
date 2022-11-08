@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <title>Publication Page</title>
+    <div th:replace="fragments/general/common :: common_css_js"></div>
+    <script type="text/javascript" th:src="@{/js/publications/publicationsPageScript.js}"></script>
+</head>
+
+<body>
+<div th:insert ="fragments/general/navbar :: top_navigation_bar"></div>
+
+<h1>Hello, it is publication page</h1>
+
+<p th:text="${publication.getNameOfPublication()}"></p>
+<p th:text="${publication.getTextOfPublication()}"></p>
+
+<p> Comments : </p>
+
+
+
+<div th:each="commentFromDB: ${publication.getComments()}">
+
+    <p th:text="${commentFromDB.getId()}"></p>
+    <p th:text="${commentFromDB.getTimeOfComment()}"></p>
+    <p th:text="${commentFromDB.getTextOfComment()}"></p>
+
+    <button th:onclick="|showHiddenReplyToCommentDiv('${commentFromDB.getId()}')|">Reply</button>
+
+    <div  name ="publicationPage_replyToCommentDiv_name" style="display: none;" th:id="'publicationPage_replyToCommentDiv_id_'+${commentFromDB.getId()}">
+        <form th:method="POST" th:action="@{/boards/{boardName}/{publicationId}(boardName=${publication.getBoard().getName()},publicationId=${publication.getId()})}" th:object="${comment}">
+            <input type="hidden" th:value="${comment.getId()}" name="replied_to_comment.id" />
+            <label for="textOfComment">Enter text: </label>
+            <input type="text" th:field="*{textOfComment}" id="textOfReplyComment"/>
+            <input type="submit" value="reply to comment"/>
+        </form>
+    </div>
+    <br>
+</div>
+
+
+
+
+
+
+<div>
+    <p>Leave your comment:</p>
+    <form th:method="POST" th:action="@{/boards/{boardName}/{publicationId}(boardName=${publication.getBoard().getName()},publicationId=${publication.getId()})}" th:object="${comment}">
+        <label for="textOfComment">Enter text: </label>
+        <input type="text" th:field="*{textOfComment}" id="textOfComment"/>
+        <div style="color:red" th:if="${#fields.hasErrors('textOfComment')}" th:errors="*{textOfComment}">text error</div>
+        <br/>
+        <input type="submit" value="Create!"/>
+    </form>
+</div>
+
+
+</body>
+
+</html>
+

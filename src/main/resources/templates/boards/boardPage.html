@@ -2,61 +2,72 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>Board Page</title>
-  <div th:replace="fragments/common :: common_head"></div>
-  <link th:href="@{/css/test.css}" rel="stylesheet" type="text/css" >
-  <script type="text/javascript" th:src="@{/js/boards/publicationForm.js}"></script>
-  <script type="text/javascript" th:src="@{/js/boards/publicationFormValidation.js}"></script>
+  <div th:replace="fragments/general/common :: common_css_js"></div>
+  <script type="text/javascript" th:src="@{/js/boards/boardsPageScripts.js}"></script>
 </head>
-<body>
-<div th:insert ="fragments/navbar :: top_navigation_bar"></div>
 
+<body>
+<div th:insert ="fragments/general/navbar :: top_navigation_bar"></div>
 
 <h1 th:text="${board.getName()}"></h1>
 
-<button onclick="show_hide_PublicationForm()">Create a new publication</button>
-<div style="display: none;" id="publicationFormDivContainer" th:insert ="fragments/boards/publicationFormFragment :: publication_form_fragment"></div>
+<button id="boardPage_show_hide_PublicationForm_button_id" onclick="show_hide_PublicationForm()">Create a new publication</button>
 
-<!--<div class="container w-50, p-3 mb-2 bg-success text-white">
-
-  <div class = "row justify-content-md-center">
-      <div class="col">
-        <p th:text="q"></p>
+<!--Form for publication a social publication-->
+<div style="display: none;" id="boardPage_publicationFormDiv_id" class="container" >
+  <form name="boardPage_publicationForm_name" id="boardPage_publicationForm_id" th:method="POST" th:action="@{/boards/{boardName}(boardName=${board.getName()})}" th:object="${publication}"  >
+    <div class="form-group row">
+      <label for="nameOfPublication" class="col-sm-2 col-form-label">Enter name: </label>
+      <div class="col-sm-10">
+        <input id="nameOfPublication" type="text" th:field="*{nameOfPublication}"  class="form-control"/>
+        <div style="color:red" th:if="${#fields.hasErrors('nameOfPublication')}" th:errors="*{nameOfPublication}">text error</div>
       </div>
-      <div class="col">
-        <p th:text="rr"></p>
-      </div>
-  </div>
-
-  <div class = "row">
-    <div class="col">
-      <p th:text="tt"></p>
     </div>
-  </div>
-
-<div class = "row">
-  <div class="col">
-    <p th:text="v"></p>
-  </div>
+    <div class="form-group">
+      <label for="textOfPublication">Enter text: </label>
+      <textarea th:field="*{textOfPublication}" id="textOfPublication"  class="form-control" placeholder="Write your chatMessage here." rows="4"></textarea>
+      <div style="color:red" th:if="${#fields.hasErrors('textOfPublication')}" th:errors="*{textOfPublication}">text error</div>
+    </div>
+    <div class="col-md-12">
+      <input type="submit" class="btn btn-success btn-send  pt-2 btn-block" value="Publish" >
+    </div>
+  </form>
 </div>
 
-</div>-->
-
 </br>
 </br>
 </br>
 
+<!--List of publications in this board-->
 <div th:each="publication : ${board.getPublications()}">
-
-  <div th:replace="fragments/boards/publicationFragment :: publication_fragment"> </div>
-
+  <div class= "container w-50, p-3 mb-2 bg-success text-white">
+    <div class = "row justify-content-md-center">
+      <div class="col">
+        <p th:text="author"></p>
+      </div>
+    </div>
+    <div class = "row justify-content-md-center">
+      <div class="col">
+        <p th:text="${publication.getNameOfPublication()}"></p>
+      </div>
+    </div>
+    <div class = "row justify-content-md-center">
+      <div class="col">
+        <p th:text="${publication.getId()}"></p>
+      </div>
+      <div class="col">
+        <a th:href="@{/boards/{boardName}/{publicationId}(boardName=${board.getName()},publicationId = ${publication.getId()})}" th:text="${publication.getNameOfPublication()}"></a>
+      </div>
+    </div>
+    <div class = "row justify-content-md-center">
+      <div class="col">
+        <p th:text="${publication.getTextOfPublication()}"></p>
+      </div>
+    </div>
+    </br>
+    </br>
+  </div>
 </div>
-
-
-<!--  <div th:replace="fragments/boards/publicationFragment :: publication_fragment"></div>-->
-
-
-
-
 
 
 </body>

@@ -1,6 +1,6 @@
 package com.example.springforumapp.config;
 
-import com.example.springforumapp.services.UsersService;
+import com.example.springforumapp.users.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;

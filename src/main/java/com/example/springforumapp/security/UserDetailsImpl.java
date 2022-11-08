@@ -1,7 +1,7 @@
 package com.example.springforumapp.security;
 
 
-import com.example.springforumapp.models.User;
+import com.example.springforumapp.users.models.domain.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
