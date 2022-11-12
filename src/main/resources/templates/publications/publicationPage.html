@@ -19,28 +19,28 @@
 
 
 
-<div th:each="commentFromDB: ${publication.getComments()}">
+<!--<div th:each="commentFromDB: ${publication.getComments()}">-->
 
-    <p th:text="${commentFromDB.getId()}"></p>
-    <p th:text="${commentFromDB.getTimeOfComment()}"></p>
-    <p th:text="${commentFromDB.getTextOfComment()}"></p>
+<!--    <p th:text="${commentFromDB.getId()}"></p>-->
+<!--    <p th:text="${commentFromDB.getTimeOfComment()}"></p>-->
+<!--    <p th:text="${commentFromDB.getTextOfComment()}"></p>-->
 
-    <button th:onclick="|showHiddenReplyToCommentDiv('${commentFromDB.getId()}')|">Reply</button>
+<!--    <button th:onclick="|showHiddenReplyToCommentDiv('${commentFromDB.getId()}')|">Reply</button>-->
 
-    <div  name ="publicationPage_replyToCommentDiv_name" style="display: none;" th:id="'publicationPage_replyToCommentDiv_id_'+${commentFromDB.getId()}">
-        <form th:method="POST" th:action="@{/boards/{boardName}/{publicationId}(boardName=${publication.getBoard().getName()},publicationId=${publication.getId()})}" th:object="${comment}">
-            <input type="hidden" th:value="${comment.getId()}" name="replied_to_comment.id" />
-            <label for="textOfComment">Enter text: </label>
-            <input type="text" th:field="*{textOfComment}" id="textOfReplyComment"/>
-            <input type="submit" value="reply to comment"/>
-        </form>
-    </div>
-    <br>
-</div>
+<!--    <div  name ="publicationPage_replyToCommentDiv_name" style="display: none;" th:id="'publicationPage_replyToCommentDiv_id_'+${commentFromDB.getId()}">-->
+<!--        <form th:method="POST" th:action="@{/boards/{boardName}/{publicationId}(boardName=${publication.getBoard().getName()},publicationId=${publication.getId()})}" th:object="${comment}">-->
+<!--            <input type="hidden" th:value="${commentFromDB.id}" name="parentComment.id" />-->
+<!--            <label for="textOfComment">Enter text: </label>-->
+<!--            <input type="text" th:field="*{textOfComment}" id="textOfReplyComment"/>-->
+<!--            <input type="submit" value="reply to comment"/>-->
+<!--        </form>-->
+<!--    </div>-->
+
+<!--    <br>-->
+<!--</div>-->
 
 
-
-
+<div th:replace="fragments/publications/publicationComment :: commentTree"></div>
 
 
 <div>

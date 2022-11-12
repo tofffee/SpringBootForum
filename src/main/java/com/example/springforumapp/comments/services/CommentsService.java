@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Transactional
@@ -34,6 +34,18 @@ public class CommentsService {
     public void saveComment(Comment comment){
         comment.setTimeOfComment(LocalDate.now());
         commentsRepository.save(comment);
+    }
+
+    //return list without any reply ;
+    public List<Comment> getCommentsForShowingInPublication(int publicationId){
+        List<Comment> commentsList = commentsRepository.findAllByPublicationId(publicationId);
+        List<Comment> commentsListEdited = new ArrayList<Comment>();
+        for(Comment comment:commentsList){
+            if (comment.getParentComment() == null){
+                commentsListEdited.add(comment);
+            }
+        }
+        return commentsListEdited;
     }
 
 }

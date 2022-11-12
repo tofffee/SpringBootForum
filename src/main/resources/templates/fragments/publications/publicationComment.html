@@ -1,0 +1,16 @@
+<html>
+<body>
+
+
+<div th:fragment="commentTree">
+  <ul>
+    <li th:each="comment :${comments}">
+      <span th:text="${comment.textOfComment}"></span>
+      <div th:with="comments = ${comment.childComments}" th:include="fragments/publications/publicationComment :: commentTree">
+      </div>
+    </li>
+  </ul>
+</div>
+
+</body>
+</html>

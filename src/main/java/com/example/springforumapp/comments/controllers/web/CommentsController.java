@@ -44,6 +44,8 @@ public class CommentsController {
 
         model.addAttribute("comment",new Comment());
         comment.setPublication(publicationsService.findPublicationById(publicationId));
+
+
 //        if(comment.getReplied_to_comment()!=null)
 //        {
 //            Comment replied_to_comment = commentsService.findCommentById(comment.getReplied_to_comment().getId());
