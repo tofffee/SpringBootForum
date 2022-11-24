@@ -1,6 +1,7 @@
 package com.example.springforumapp.boards.models.domain;
 
 import com.example.springforumapp.publications.models.domain.Publication;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.List;

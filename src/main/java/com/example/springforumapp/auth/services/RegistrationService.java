@@ -1,7 +1,8 @@
-package com.example.springforumapp.users.services;
+package com.example.springforumapp.auth.services;
 
 import com.example.springforumapp.users.models.domain.User;
 import com.example.springforumapp.users.repositories.UsersRepository;
+import com.example.springforumapp.users.services.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ public class RegistrationService {
     }
 
     //Проверка существует ли уже пользователем с таким именем в БД
-    public Boolean checkIfUserAlreadyExists(String username){
+    public boolean checkUsernameIsAlreadyTaken(String username){
         Optional<User> user = usersRepository.findUserByUsername(username);
         return user.isPresent();
     }

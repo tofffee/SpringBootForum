@@ -1,4 +1,4 @@
-package com.example.springforumapp.users.controllers.web;
+package com.example.springforumapp.auth.controllers.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

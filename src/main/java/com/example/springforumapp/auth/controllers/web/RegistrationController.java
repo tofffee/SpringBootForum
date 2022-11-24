@@ -1,7 +1,7 @@
-package com.example.springforumapp.users.controllers.web;
+package com.example.springforumapp.auth.controllers.web;
 
 import com.example.springforumapp.users.models.domain.User;
-import com.example.springforumapp.users.services.RegistrationService;
+import com.example.springforumapp.auth.services.RegistrationService;
 import com.example.springforumapp.users.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,12 +24,12 @@ public class RegistrationController {
         this.userDetailsService = userDetailsService;
     }
 
-    @GetMapping("")
+    @GetMapping()
     public String getRegistrationPage(@ModelAttribute("user") User user){
         return "registration/registrationPage";
     }
 
-    @PostMapping("")
+    @PostMapping()
     public String registerUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult){
 
         //userValidator.validate(user, bindingResult);

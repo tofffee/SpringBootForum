@@ -1,4 +1,4 @@
-package com.example.springforumapp.util;
+package com.example.springforumapp.boards.util;
 
 public class IdRandomGenerator {
 
