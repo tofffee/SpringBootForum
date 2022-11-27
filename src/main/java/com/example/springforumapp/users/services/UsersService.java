@@ -28,6 +28,11 @@ public class UsersService implements UserDetailsService {
         else return new UserDetailsImpl(user.get());
     }
 
+    public User getUserById(int id){
+        Optional<User> user = usersRepository.findById(id);
+        return user.get();
+    }
+
     public boolean checkUserExists(String username) {
         Optional<User> user =  usersRepository.findUserByUsername(username);
         return user.isPresent();

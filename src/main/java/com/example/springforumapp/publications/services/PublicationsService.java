@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,6 +18,14 @@ public class PublicationsService {
     @Autowired
     public PublicationsService(PublicationsRepository publicationsRepository) {
         this.publicationsRepository = publicationsRepository;
+    }
+
+    public List<Publication> getAllPublications(){
+        return publicationsRepository.findAll();
+    }
+
+    public List<Publication> getAllPublicationsByBoardName(String boardName){
+        return publicationsRepository.findAllByBoardName(boardName);
     }
 
     public Publication findPublicationById(int id){

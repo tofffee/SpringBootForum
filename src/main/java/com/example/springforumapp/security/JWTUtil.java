@@ -13,7 +13,6 @@ import java.time.ZonedDateTime;
 import java.util.Date;
 
 @Component
-@PropertySource("classpath:security.properties")
 public class JWTUtil {
     @Value("${jwt.secret}")
     private String secretkey;

@@ -4,6 +4,7 @@ import com.example.springforumapp.security.JWTFilter;
 import com.example.springforumapp.users.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -33,15 +34,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/profile").authenticated()
+                .antMatchers(HttpMethod.POST,"/api/boards/{boardName}").authenticated()
                 .antMatchers("/**").permitAll()
                 .and()
-                .formLogin().loginPage("/auth/login")
-                .loginProcessingUrl("/login_auth")
-                .defaultSuccessUrl("/",true)
-                .failureUrl("/auth/login?error")
-                .and()
-                .logout().logoutUrl("/auth/logout").logoutSuccessUrl("/")
-                .and()
+//                .formLogin().loginPage("/auth/login")
+//                .loginProcessingUrl("/login_auth")
+//                .defaultSuccessUrl("/",true)
+//                .failureUrl("/auth/login?error")
+//                .and()
+//                .logout().logoutUrl("/auth/logout").logoutSuccessUrl("/")
+//                .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

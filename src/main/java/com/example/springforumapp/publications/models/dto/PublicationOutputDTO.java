@@ -1,17 +1,13 @@
 package com.example.springforumapp.publications.models.dto;
 
-import com.example.springforumapp.boards.models.domain.Board;
-import com.example.springforumapp.comments.models.domain.Comment;
-
-import javax.persistence.OneToMany;
 import java.time.LocalDate;
-import java.util.List;
 
 
-public class PublicationDTO {
+public class PublicationOutputDTO {
 
     private int id;
 
+    private int userId;
     private String nameOfPublication;
 
 
@@ -21,19 +17,15 @@ public class PublicationDTO {
     private LocalDate timeOfPublication;
 
 
-    private Board board;
+    public PublicationOutputDTO() {}
 
-    private List<Comment> comments;
 
-    public PublicationDTO() {}
-
-    public PublicationDTO(int id, String nameOfPublication, String textOfPublication, LocalDate timeOfPublication, Board board, List<Comment> comments) {
+    public PublicationOutputDTO(int id, int userId, String nameOfPublication, String textOfPublication, LocalDate timeOfPublication) {
         this.id = id;
+        this.userId = userId;
         this.nameOfPublication = nameOfPublication;
         this.textOfPublication = textOfPublication;
         this.timeOfPublication = timeOfPublication;
-        this.board = board;
-        this.comments = comments;
     }
 
     public int getId() {
@@ -42,6 +34,14 @@ public class PublicationDTO {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getNameOfPublication() {
@@ -66,21 +66,5 @@ public class PublicationDTO {
 
     public void setTimeOfPublication(LocalDate timeOfPublication) {
         this.timeOfPublication = timeOfPublication;
-    }
-
-    public Board getBoard() {
-        return board;
-    }
-
-    public void setBoard(Board board) {
-        this.board = board;
-    }
-
-    public List<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
     }
 }

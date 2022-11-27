@@ -2,6 +2,7 @@ package com.example.springforumapp.publications.models.domain;
 
 import com.example.springforumapp.boards.models.domain.Board;
 import com.example.springforumapp.comments.models.domain.Comment;
+import com.example.springforumapp.users.models.domain.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.Cascade;
 
@@ -35,6 +36,10 @@ public class Publication {
     private LocalDate timeOfPublication;
 
     @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
+
+    @ManyToOne
     @JoinColumn(name = "board_id", referencedColumnName = "id")
     private Board board;
 
@@ -44,11 +49,12 @@ public class Publication {
 
     public Publication() {}
 
-    public Publication(int id, String nameOfPublication, String textOfPublication, LocalDate timeOfPublication, Board board, List<Comment> comments) {
+    public Publication(int id, String nameOfPublication, String textOfPublication, LocalDate timeOfPublication, User user, Board board, List<Comment> comments) {
         this.id = id;
         this.nameOfPublication = nameOfPublication;
         this.textOfPublication = textOfPublication;
         this.timeOfPublication = timeOfPublication;
+        this.user = user;
         this.board = board;
         this.comments = comments;
     }
@@ -83,6 +89,14 @@ public class Publication {
 
     public void setTimeOfPublication(LocalDate timeOfPublication) {
         this.timeOfPublication = timeOfPublication;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Board getBoard() {
