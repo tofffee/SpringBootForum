@@ -7,6 +7,7 @@ import com.example.springforumapp.publications.models.dto.PublicationInputDTO;
 import com.example.springforumapp.publications.models.dto.PublicationOutputDTO;
 import com.example.springforumapp.publications.services.PublicationsService;
 import com.example.springforumapp.security.UserDetailsImpl;
+import com.example.springforumapp.users.models.dto.UserDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/boards/{boardName}")
+//@RequestMapping("/api/publications")
 public class PublicationsControllerApi {
 
     private final PublicationsService publicationsService;
@@ -35,7 +36,22 @@ public class PublicationsControllerApi {
         this.modelMapper = modelMapper;
     }
 
-    @GetMapping()
+
+    @GetMapping("/api/publications")
+    public ResponseEntity<?> getAllPublicationsApi(){
+        List<PublicationOutputDTO> dtos = publicationsService.getAllPublications()
+                .stream()
+                .map(publication -> {
+                    UserDTO userDTO = modelMapper.map(publication.getUser(), UserDTO.class);
+                    PublicationOutputDTO publicationOutputDTO = modelMapper.map(publication, PublicationOutputDTO.class);
+                    publicationOutputDTO.setUserDTO(userDTO);
+                    return publicationOutputDTO;
+                        })
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(dtos);
+    }
+
+    @GetMapping("/api/boards/{boardName}")
     public ResponseEntity<?> getAllPublicationsInBoardApi(@PathVariable("boardName") String boardName){
         List<PublicationOutputDTO> dtos = publicationsService.getAllPublicationsByBoardName(boardName)
                 .stream()
@@ -44,7 +60,7 @@ public class PublicationsControllerApi {
         return ResponseEntity.ok(dtos);
     }
 
-    @PostMapping()
+    @PostMapping("/api/boards/{boardName}")
     public ResponseEntity<?> createPublicationInBoardApi(@PathVariable("boardName") String boardName,
                                                          @RequestBody @Valid PublicationInputDTO publicationInputDTO,
                                                          BindingResult bindingResult)

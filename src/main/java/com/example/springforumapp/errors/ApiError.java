@@ -1,12 +1,14 @@
 package com.example.springforumapp.errors;
 
-public class ResponseError {
+public class ApiError {
     private String message;
+    private String debugMessage;
     private long timestamp;
 
-    public ResponseError(String message, long timestamp)
+    public ApiError(String message, String debugMessage, long timestamp)
     {
         this.message = message;
+        this.debugMessage = debugMessage;
         this.timestamp = timestamp;
     }
 
@@ -16,6 +18,14 @@ public class ResponseError {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getDebugMessage() {
+        return debugMessage;
+    }
+
+    public void setDebugMessage(String debugMessage) {
+        this.debugMessage = debugMessage;
     }
 
     public long getTimestamp() {

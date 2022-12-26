@@ -33,7 +33,7 @@ public class UsersService implements UserDetailsService {
         return user.get();
     }
 
-    public boolean checkUserExists(String username) {
+    public boolean checkIfUserExistsForAuth(String username) {
         Optional<User> user =  usersRepository.findUserByUsername(username);
         return user.isPresent();
     }
@@ -49,8 +49,4 @@ public class UsersService implements UserDetailsService {
         }
     }
 
-  //  public void createGuestUser(User user)
-//    {
-//        usersRepository.save(user);
-//    }
 }

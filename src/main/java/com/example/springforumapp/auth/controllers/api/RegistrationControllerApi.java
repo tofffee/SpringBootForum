@@ -5,7 +5,7 @@ import com.example.springforumapp.auth.models.dto.registration.RegisterResponseD
 import com.example.springforumapp.auth.services.RegistrationService;
 import com.example.springforumapp.auth.util.RegistrationException;
 import com.example.springforumapp.auth.util.validators.RegistrationValidator;
-import com.example.springforumapp.errors.ResponseError;
+import com.example.springforumapp.errors.ApiError;
 import com.example.springforumapp.security.JWTUtil;
 import com.example.springforumapp.users.models.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,13 +67,13 @@ public class RegistrationControllerApi {
         return ResponseEntity.ok(registerResponseDTO);
     }
 
-    @ExceptionHandler
-    private ResponseEntity<ResponseError> handleException(RegistrationException registrationException)
-    {
-        ResponseError responseError = new ResponseError(
-                registrationException.getMessage(),
-                System.currentTimeMillis()
-        );
-        return new ResponseEntity<>(responseError, HttpStatus.BAD_REQUEST);
-    }
+//    @ExceptionHandler
+//    private ResponseEntity<ApiError> handleException(RegistrationException registrationException)
+//    {
+//        ApiError responseError = new ApiError(
+//                registrationException.getMessage(),
+//                System.currentTimeMillis()
+//        );
+//        return new ResponseEntity<>(responseError, HttpStatus.BAD_REQUEST);
+//    }
 }

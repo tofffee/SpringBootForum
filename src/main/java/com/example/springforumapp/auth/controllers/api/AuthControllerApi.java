@@ -4,7 +4,7 @@ import com.example.springforumapp.auth.models.dto.login.LoginRequestDTO;
 import com.example.springforumapp.auth.models.dto.login.LoginResponseDTO;
 import com.example.springforumapp.auth.util.AuthException;
 import com.example.springforumapp.auth.util.validators.LoginValidator;
-import com.example.springforumapp.errors.ResponseError;
+import com.example.springforumapp.errors.ApiError;
 import com.example.springforumapp.security.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,24 +38,12 @@ public class AuthControllerApi {
     public ResponseEntity<?> loginApi(@RequestBody @Valid LoginRequestDTO loginRequestDTO, BindingResult bindingResult) {
 
         loginValidator.validate(loginRequestDTO,bindingResult);
-        if(bindingResult.hasErrors()){
-            StringBuilder errorMessage = new StringBuilder();
-            List<FieldError> errors = bindingResult.getFieldErrors();
-            for(FieldError error : errors){
-                errorMessage
-                        .append(error.getField())
-                        .append("-")
-                        .append(error.getDefaultMessage())
-                        .append("; ");
-            }
-            throw new AuthException(errorMessage.toString());
-        }
 
         UsernamePasswordAuthenticationToken authInputToken = new UsernamePasswordAuthenticationToken(loginRequestDTO.getUsername(), loginRequestDTO.getPassword());
         try{
             authenticationManager.authenticate(authInputToken);
         } catch (BadCredentialsException badCredentialsException){
-            throw new AuthException("Incorrect credentials");
+            throw new AuthException("Incorrect credentials","user has written not correct username or password");
         }
 
         String token = jwtUtil.generateToken(loginRequestDTO.getUsername());
@@ -64,13 +52,4 @@ public class AuthControllerApi {
         return ResponseEntity.ok(loginResponseDTO);
     }
 
-    @ExceptionHandler
-    private ResponseEntity<ResponseError> handleException(AuthException authException)
-    {
-        ResponseError responseError = new ResponseError(
-                authException.getMessage(),
-                System.currentTimeMillis()
-        );
-        return new ResponseEntity<>(responseError, HttpStatus.BAD_REQUEST);
-    }
 }

@@ -37,8 +37,9 @@ public class RegistrationService {
         user.setRole("ROLE_USER");
         user.setEnabled(false);
         user.setActivationCode(UUID.randomUUID().toString());
-        usersRepository.save(user);
+        user.setAvatarUrl("http://localhost:8080/images/default_avatar.jpg");
 
+        usersRepository.save(user);
         //отправка сообщения на почту
         String message = "Hello," + user.getUsername() + "activate your account : " + "http://localhost:8080/registration/activate/"+user.getActivationCode() ;
         emailService.send(user.getEmail(),"Activate Your account",message);

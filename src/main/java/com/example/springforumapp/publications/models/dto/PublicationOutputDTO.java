@@ -1,5 +1,7 @@
 package com.example.springforumapp.publications.models.dto;
 
+import com.example.springforumapp.users.models.dto.UserDTO;
+
 import java.time.LocalDate;
 
 
@@ -7,7 +9,7 @@ public class PublicationOutputDTO {
 
     private int id;
 
-    private int userId;
+    private UserDTO userDTO;
     private String nameOfPublication;
 
 
@@ -20,9 +22,9 @@ public class PublicationOutputDTO {
     public PublicationOutputDTO() {}
 
 
-    public PublicationOutputDTO(int id, int userId, String nameOfPublication, String textOfPublication, LocalDate timeOfPublication) {
+    public PublicationOutputDTO(int id, UserDTO userDTO, String nameOfPublication, String textOfPublication, LocalDate timeOfPublication) {
         this.id = id;
-        this.userId = userId;
+        this.userDTO = userDTO;
         this.nameOfPublication = nameOfPublication;
         this.textOfPublication = textOfPublication;
         this.timeOfPublication = timeOfPublication;
@@ -36,12 +38,12 @@ public class PublicationOutputDTO {
         this.id = id;
     }
 
-    public int getUserId() {
-        return userId;
+    public UserDTO getUserDTO() {
+        return userDTO;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUserDTO(UserDTO userDTO) {
+        this.userDTO = userDTO;
     }
 
     public String getNameOfPublication() {
