@@ -1,4 +1,4 @@
-package com.example.springforumapp.auth.util;
+package com.example.springforumapp.auth.util.exceptions;
 
 public class AuthException extends RuntimeException {
     private String debugMessage;

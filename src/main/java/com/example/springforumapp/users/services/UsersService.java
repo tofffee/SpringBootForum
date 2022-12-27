@@ -3,6 +3,7 @@ package com.example.springforumapp.users.services;
 import com.example.springforumapp.users.models.domain.User;
 import com.example.springforumapp.users.repositories.UsersRepository;
 import com.example.springforumapp.security.UserDetailsImpl;
+import com.example.springforumapp.users.util.UserExistsException;
 import com.example.springforumapp.users.util.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -38,6 +39,10 @@ public class UsersService implements UserDetailsService {
         return user.isPresent();
     }
 
+   public boolean checkIfSuchMailRegistered(String email) {
+        Optional<User> user = usersRepository.
+   }
+
     public boolean activateUser(String code)
     {
         Optional<User> user = usersRepository.findUserByActivationCode(code);
@@ -47,6 +52,12 @@ public class UsersService implements UserDetailsService {
             user.get().setEnabled(true);
             return true;
         }
+    }
+
+    public void saveUser(User user){
+        if(!usersRepository.findUserByUsername(user.getUsername()).isPresent())
+            usersRepository.save(user);
+        else throw new UserExistsException();
     }
 
 }
