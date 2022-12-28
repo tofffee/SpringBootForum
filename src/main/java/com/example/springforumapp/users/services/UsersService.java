@@ -1,10 +1,11 @@
 package com.example.springforumapp.users.services;
 
+import com.example.springforumapp.users.models.dto.ActivationCodeRequestDTO;
 import com.example.springforumapp.users.models.domain.User;
 import com.example.springforumapp.users.repositories.UsersRepository;
 import com.example.springforumapp.security.UserDetailsImpl;
-import com.example.springforumapp.users.util.UserExistsException;
-import com.example.springforumapp.users.util.UserNotFoundException;
+import com.example.springforumapp.users.util.exceptions.ActivationProfileException;
+import com.example.springforumapp.users.util.exceptions.UserExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -34,24 +35,30 @@ public class UsersService implements UserDetailsService {
         return user.get();
     }
 
-    public boolean checkIfUserExistsForAuth(String username) {
+    public boolean checkIfUserExistsWithSuchUsername(String username) {
         Optional<User> user =  usersRepository.findUserByUsername(username);
         return user.isPresent();
     }
 
-   public boolean checkIfSuchMailRegistered(String email) {
-        Optional<User> user = usersRepository.
-   }
+    public boolean checkIfUserExistsWithSuchEmail(String email){
+        Optional<User> user = usersRepository.findUserByEmail(email);
+        return user.isPresent();
+    }
 
-    public boolean activateUser(String code)
+
+
+    public void activateUser(User user2, ActivationCodeRequestDTO activationCodeRequestDTO)
     {
-        Optional<User> user = usersRepository.findUserByActivationCode(code);
-        if(user.isEmpty()){
-            return false;
-        } else{
-            user.get().setEnabled(true);
-            return true;
+        User user = usersRepository.findUserByUsername(user2.getUsername()).get();
+        if (user.getEnabled() == true){
+            throw new ActivationProfileException("Profile is activated before"," user activated profile before");
         }
+
+        if (user.getActivationCode().equals(activationCodeRequestDTO.getCode())){
+            user.setEnabled(true);
+        }
+        else
+            throw new ActivationProfileException("Code is not exists","user sent not existed code");
     }
 
     public void saveUser(User user){

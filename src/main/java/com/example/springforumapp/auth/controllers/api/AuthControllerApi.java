@@ -1,7 +1,8 @@
 package com.example.springforumapp.auth.controllers.api;
 
-import com.example.springforumapp.auth.models.dto.login.LoginRequestDTO;
-import com.example.springforumapp.auth.models.dto.login.LoginResponseDTO;
+
+import com.example.springforumapp.auth.models.dto.LoginRequestDTO;
+import com.example.springforumapp.auth.models.dto.LoginResponseDTO;
 import com.example.springforumapp.auth.services.AuthService;
 import com.example.springforumapp.auth.util.validators.LoginValidator;
 import com.example.springforumapp.errors.ApiSuccess;
@@ -28,7 +29,7 @@ public class AuthControllerApi {
 
 
     @PostMapping()
-    public ResponseEntity<?> loginApi(@RequestBody @Valid LoginRequestDTO loginRequestDTO, BindingResult bindingResult) {
+    public ResponseEntity<?> loginApi(@RequestBody @Valid LoginRequestDTO loginRequestDTO, BindingResult bindingResult){
 
         loginValidator.validate(loginRequestDTO,bindingResult);
 

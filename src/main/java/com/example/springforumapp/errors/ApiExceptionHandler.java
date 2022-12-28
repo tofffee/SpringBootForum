@@ -1,7 +1,8 @@
 package com.example.springforumapp.errors;
 
 import com.example.springforumapp.auth.util.exceptions.AuthException;
-import com.example.springforumapp.auth.util.exceptions.RegistrationException;
+import com.example.springforumapp.registration.util.exceptions.RegistrationException;
+import com.example.springforumapp.users.util.exceptions.ActivationProfileException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -26,6 +27,17 @@ public class ApiExceptionHandler {
     protected ResponseEntity<ApiError> handleAuthException(RegistrationException e) {
         ApiError apiError = new ApiError(
                 HttpStatus.UNAUTHORIZED.value(),
+                e.getMessage(),
+                e.getDebugMessage(),
+                System.currentTimeMillis()
+        );
+        return new ResponseEntity<>(apiError, HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler({ActivationProfileException.class})
+    protected ResponseEntity<ApiError> handleAuthException(ActivationProfileException e) {
+        ApiError apiError = new ApiError(
+                HttpStatus.NOT_FOUND.value(),
                 e.getMessage(),
                 e.getDebugMessage(),
                 System.currentTimeMillis()

@@ -1,4 +1,4 @@
-package com.example.springforumapp.auth.models.dto.registration;
+package com.example.springforumapp.registration.models.dto;
 
 
 public class RegisterResponseDTO {

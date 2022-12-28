@@ -1,4 +1,4 @@
-package com.example.springforumapp.auth.models.dto.login;
+package com.example.springforumapp.auth.models.dto;
 
 public class LoginResponseDTO {
     private String jwtToken;

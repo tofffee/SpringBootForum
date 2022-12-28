@@ -1,6 +1,7 @@
 package com.example.springforumapp.auth.util.validators;
 
-import com.example.springforumapp.auth.models.dto.login.LoginRequestDTO;
+
+import com.example.springforumapp.auth.models.dto.LoginRequestDTO;
 import com.example.springforumapp.auth.util.exceptions.AuthException;
 import com.example.springforumapp.users.services.UsersService;
 import org.springframework.stereotype.Component;
@@ -13,10 +14,7 @@ import java.util.List;
 @Component
 public class LoginValidator implements Validator {
 
-    private final UsersService usersService;
-
-    public LoginValidator(UsersService usersService) {
-        this.usersService = usersService;
+    public LoginValidator() {
     }
 
     @Override
@@ -42,7 +40,5 @@ public class LoginValidator implements Validator {
             throw new AuthException(errorMessage.toString(),"error during @Valid binding result  ");
         }
 
-        if (!usersService.checkIfUserExistsForAuth(loginRequestDTO.getUsername()))
-            throw new AuthException("Such user is not registered","user has written username that was not registered");
     }
 }

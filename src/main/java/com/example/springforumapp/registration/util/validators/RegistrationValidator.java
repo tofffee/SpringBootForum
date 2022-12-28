@@ -1,8 +1,8 @@
-package com.example.springforumapp.auth.util.validators;
+package com.example.springforumapp.registration.util.validators;
 
-import com.example.springforumapp.auth.models.dto.registration.RegisterRequestDTO;
-import com.example.springforumapp.auth.services.RegistrationService;
-import com.example.springforumapp.auth.util.exceptions.RegistrationException;
+import com.example.springforumapp.registration.models.dto.RegisterRequestDTO;
+import com.example.springforumapp.registration.services.RegistrationService;
+import com.example.springforumapp.registration.util.exceptions.RegistrationException;
 import com.example.springforumapp.users.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,13 +14,8 @@ import java.util.List;
 
 @Component
 public class RegistrationValidator implements Validator {
-    private final RegistrationService registrationService;
-    private final UsersService usersService;
 
-    @Autowired
-    public RegistrationValidator(RegistrationService registrationService, UsersService usersService) {
-        this.registrationService = registrationService;
-        this.usersService = usersService;
+    public RegistrationValidator() {
     }
 
     @Override
@@ -45,7 +40,5 @@ public class RegistrationValidator implements Validator {
             throw new RegistrationException(errorMessage.toString(),"error during @Valid binding result");
         }
 
-        if (usersService.checkIfUserExistsForAuth(registerRequestDTO.getUsername()))
-            throw new RegistrationException("Such user is registered","user has written username that was not registered");
     }
 }

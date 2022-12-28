@@ -1,4 +1,4 @@
-package com.example.springforumapp.auth.util.exceptions;
+package com.example.springforumapp.registration.util.exceptions;
 
 public class RegistrationException extends RuntimeException {
     private String debugMessage;
