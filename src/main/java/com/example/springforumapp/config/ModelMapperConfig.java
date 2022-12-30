@@ -1,4 +1,4 @@
-package com.example.springforumapp.configurations;
+package com.example.springforumapp.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;

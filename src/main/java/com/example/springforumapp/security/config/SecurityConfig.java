@@ -1,4 +1,4 @@
-package com.example.springforumapp.security.configurations;
+package com.example.springforumapp.security.config;
 
 import com.example.springforumapp.security.JWTFilter;
 import com.example.springforumapp.users.services.UsersService;
