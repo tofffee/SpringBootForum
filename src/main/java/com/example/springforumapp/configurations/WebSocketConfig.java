@@ -1,4 +1,4 @@
-package com.example.springforumapp.config;
+package com.example.springforumapp.configurations;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;

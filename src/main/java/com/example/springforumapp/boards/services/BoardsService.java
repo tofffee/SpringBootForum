@@ -1,6 +1,8 @@
 package com.example.springforumapp.boards.services;
 
 import com.example.springforumapp.boards.models.domain.Board;
+import com.example.springforumapp.boards.models.dto.BoardDTO;
+import com.example.springforumapp.boards.models.dto.BoardDTOCreateDeletePut;
 import com.example.springforumapp.boards.repositories.BoardsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +24,31 @@ public class BoardsService {
         return boardsRepository.findAll();
     }
 
+    public Board findBoardById(int id){
+        return boardsRepository.findBoardById(id);
+    }
     public Board findBoardByName(String name){
         return boardsRepository.findBoardByName(name);
+    }
+
+    public void addBoard(BoardDTOCreateDeletePut boardDTOCreateDeletePut){
+        Board board = new Board();
+        board.setName(boardDTOCreateDeletePut.getName());
+        boardsRepository.save(board);
+    }
+
+    public void deleteBoard(int id){
+        Board board = boardsRepository.findBoardById(id);
+        boardsRepository.delete(board);
+    }
+
+    public void changeBoard(int id, BoardDTOCreateDeletePut boardDTOCreateDeletePut){
+        Board board = boardsRepository.findBoardById(id);
+        board.setName(boardDTOCreateDeletePut.getName());
+        boardsRepository.save(board);
+    }
+
+    public void deleteAllBoards(){
+        boardsRepository.deleteAll();
     }
 }

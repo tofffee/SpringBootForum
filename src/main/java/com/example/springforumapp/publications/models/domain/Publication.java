@@ -24,16 +24,15 @@ public class Publication {
     @Column(name = "name")
     @NotNull
     @Size(min = 1,message = "Publication error (name of publication is too small)")
-    private String nameOfPublication;
-
+    private String name;
 
     @Column(name = "text")
     @NotNull
     @Size(min = 1,message = "Publication error (text of publication is too small)")
-    private String textOfPublication;
+    private String text;
 
-    @Column(name = "time")
-    private LocalDate timeOfPublication;
+    @Column(name = "dateOfCreation")
+    private LocalDate dateOfCreation;
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
@@ -49,11 +48,11 @@ public class Publication {
 
     public Publication() {}
 
-    public Publication(int id, String nameOfPublication, String textOfPublication, LocalDate timeOfPublication, User user, Board board, List<Comment> comments) {
+    public Publication(int id, String name, String text, LocalDate dateOfCreation, User user, Board board, List<Comment> comments) {
         this.id = id;
-        this.nameOfPublication = nameOfPublication;
-        this.textOfPublication = textOfPublication;
-        this.timeOfPublication = timeOfPublication;
+        this.name = name;
+        this.text = text;
+        this.dateOfCreation = dateOfCreation;
         this.user = user;
         this.board = board;
         this.comments = comments;
@@ -67,28 +66,28 @@ public class Publication {
         this.id = id;
     }
 
-    public String getNameOfPublication() {
-        return nameOfPublication;
+    public String getName() {
+        return name;
     }
 
-    public void setNameOfPublication(String nameOfPublication) {
-        this.nameOfPublication = nameOfPublication;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getTextOfPublication() {
-        return textOfPublication;
+    public String getText() {
+        return text;
     }
 
-    public void setTextOfPublication(String textOfPublication) {
-        this.textOfPublication = textOfPublication;
+    public void setText(String text) {
+        this.text = text;
     }
 
-    public LocalDate getTimeOfPublication() {
-        return timeOfPublication;
+    public LocalDate getDateOfCreation() {
+        return dateOfCreation;
     }
 
-    public void setTimeOfPublication(LocalDate timeOfPublication) {
-        this.timeOfPublication = timeOfPublication;
+    public void setDateOfCreation(LocalDate dateOfCreation) {
+        this.dateOfCreation = dateOfCreation;
     }
 
     public User getUser() {

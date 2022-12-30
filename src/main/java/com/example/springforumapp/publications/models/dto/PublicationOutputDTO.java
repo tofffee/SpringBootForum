@@ -10,24 +10,23 @@ public class PublicationOutputDTO {
     private int id;
 
     private UserDTO userDTO;
-    private String nameOfPublication;
+    private String name;
 
 
-    private String textOfPublication;
+    private String text;
 
 
-    private LocalDate timeOfPublication;
+    private LocalDate dateOfCreation;
 
 
     public PublicationOutputDTO() {}
 
-
-    public PublicationOutputDTO(int id, UserDTO userDTO, String nameOfPublication, String textOfPublication, LocalDate timeOfPublication) {
+    public PublicationOutputDTO(int id, UserDTO userDTO, String name, String text, LocalDate dateOfCreation) {
         this.id = id;
         this.userDTO = userDTO;
-        this.nameOfPublication = nameOfPublication;
-        this.textOfPublication = textOfPublication;
-        this.timeOfPublication = timeOfPublication;
+        this.name = name;
+        this.text = text;
+        this.dateOfCreation = dateOfCreation;
     }
 
     public int getId() {
@@ -46,27 +45,27 @@ public class PublicationOutputDTO {
         this.userDTO = userDTO;
     }
 
-    public String getNameOfPublication() {
-        return nameOfPublication;
+    public String getName() {
+        return name;
     }
 
-    public void setNameOfPublication(String nameOfPublication) {
-        this.nameOfPublication = nameOfPublication;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getTextOfPublication() {
-        return textOfPublication;
+    public String getText() {
+        return text;
     }
 
-    public void setTextOfPublication(String textOfPublication) {
-        this.textOfPublication = textOfPublication;
+    public void setText(String text) {
+        this.text = text;
     }
 
-    public LocalDate getTimeOfPublication() {
-        return timeOfPublication;
+    public LocalDate getDateOfCreation() {
+        return dateOfCreation;
     }
 
-    public void setTimeOfPublication(LocalDate timeOfPublication) {
-        this.timeOfPublication = timeOfPublication;
+    public void setDateOfCreation(LocalDate dateOfCreation) {
+        this.dateOfCreation = dateOfCreation;
     }
 }

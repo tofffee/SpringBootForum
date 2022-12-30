@@ -1,4 +1,4 @@
-package com.example.springforumapp.security.config;
+package com.example.springforumapp.security.configurations;
 
 import com.example.springforumapp.security.JWTFilter;
 import com.example.springforumapp.users.services.UsersService;
@@ -33,8 +33,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         httpSecurity.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/profile","/api/activate").authenticated()
+
+                .antMatchers("/api/activate").authenticated()
                 .antMatchers(HttpMethod.POST,"/api/boards/{boardName}").authenticated()
+                .antMatchers(HttpMethod.DELETE,"/api/boards/{boardName}/{publicationId}").authenticated()
+
+                .antMatchers(HttpMethod.POST,"/api/boards").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE,"/api/boards","/api/boards/{id}").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT,"/api/boards/{id}").hasRole("ADMIN")
+
                 .antMatchers("/**").permitAll()
                 .and()
 //                .formLogin().loginPage("/auth/login")

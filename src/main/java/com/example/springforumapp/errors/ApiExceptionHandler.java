@@ -1,6 +1,7 @@
 package com.example.springforumapp.errors;
 
 import com.example.springforumapp.auth.util.exceptions.AuthException;
+import com.example.springforumapp.publications.util.exceptions.PublicationException;
 import com.example.springforumapp.registration.util.exceptions.RegistrationException;
 import com.example.springforumapp.users.util.exceptions.ActivationProfileException;
 import org.springframework.http.HttpStatus;
@@ -45,5 +46,16 @@ public class ApiExceptionHandler {
         return new ResponseEntity<>(apiError, HttpStatus.UNAUTHORIZED);
     }
 
+
+    @ExceptionHandler(PublicationException.class)
+    protected ResponseEntity<ApiError> handleAuthException(PublicationException e) {
+        ApiError apiError = new ApiError(
+                HttpStatus.NOT_FOUND.value(),
+                e.getMessage(),
+                e.getDebugMessage(),
+                System.currentTimeMillis()
+        );
+        return new ResponseEntity<>(apiError, HttpStatus.NOT_FOUND);
+    }
 
 }

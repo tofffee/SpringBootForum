@@ -46,12 +46,13 @@ public class JWTFilter extends OncePerRequestFilter {
                     if(SecurityContextHolder.getContext().getAuthentication() == null){
                         SecurityContextHolder.getContext().setAuthentication(authToken);
                     }
+
                 } catch (JWTVerificationException jwtVerificationException){
-                    response.sendError(HttpServletResponse.SC_BAD_REQUEST,"Invalid JWT Token in Bearer Header");
+                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED,"Invalid JWT Token in Bearer Header");
+                    return;
                 }
             }
         }
-
         filterChain.doFilter(request, response);
     }
 }

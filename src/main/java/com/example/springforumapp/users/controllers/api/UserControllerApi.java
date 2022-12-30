@@ -34,7 +34,6 @@ public class UserControllerApi {
     @PostMapping("/activate")
     public ResponseEntity<?> activateUser(@AuthenticationPrincipal UserDetailsImpl userDetailsImpl, @RequestBody @Valid ActivationCodeRequestDTO activationCodeRequestDTO){
 
-
         User user = userDetailsImpl.getUser();
 
         usersService.activateUser(user, activationCodeRequestDTO);

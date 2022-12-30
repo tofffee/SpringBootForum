@@ -18,17 +18,15 @@ public class JWTUtil {
     @Value("${jwt.secret}")
     private String secretkey;
 
-
     public String generateToken(String username){
         Date expirationDate = Date.from(ZonedDateTime.now().plusMinutes(60).toInstant());
-        String jwt = JWT.create()
+        return JWT.create()
                 .withSubject("User details")
                 .withClaim("username", username)
                 .withIssuedAt(new Date())
                 .withIssuer("forumapp")
                 .withExpiresAt(expirationDate)
                 .sign(Algorithm.HMAC256(secretkey));
-        return jwt;
     }
 
     public String validateTokenAndRetrieveClaim(String token) throws JWTVerificationException
@@ -38,7 +36,6 @@ public class JWTUtil {
                 .withIssuer("forumapp")
                 .build();
         DecodedJWT jwt = jwtVerifier.verify(token);
-        String claim =  jwt.getClaim("username").asString();
-        return claim;
+        return jwt.getClaim("username").asString();
     }
 }
