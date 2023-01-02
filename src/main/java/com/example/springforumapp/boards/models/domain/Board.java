@@ -2,10 +2,7 @@ package com.example.springforumapp.boards.models.domain;
 
 import com.example.springforumapp.publications.models.domain.Publication;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -13,7 +10,7 @@ import java.util.List;
 @Entity
 @Table(name = "Boards")
 @AllArgsConstructor
-@NoArgsConstructor
+@RequiredArgsConstructor
 @Getter
 @Setter
 public class Board {

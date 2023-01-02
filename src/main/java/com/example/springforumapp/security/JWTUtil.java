@@ -16,7 +16,7 @@ import java.util.Date;
 @Component
 public class JWTUtil {
     @Value("${jwt.secret}")
-    private String secretkey;
+    private String secret;
 
     public String generateToken(String username){
         Date expirationDate = Date.from(ZonedDateTime.now().plusMinutes(60).toInstant());
@@ -26,12 +26,12 @@ public class JWTUtil {
                 .withIssuedAt(new Date())
                 .withIssuer("forumapp")
                 .withExpiresAt(expirationDate)
-                .sign(Algorithm.HMAC256(secretkey));
+                .sign(Algorithm.HMAC256(secret));
     }
 
     public String validateTokenAndRetrieveClaim(String token) throws JWTVerificationException
     {
-        JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(secretkey))
+        JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(secret))
                 .withSubject("User details")
                 .withIssuer("forumapp")
                 .build();

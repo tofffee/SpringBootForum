@@ -38,8 +38,11 @@ spring:
     port: 465
     protocol: smtps
 
-mail:
-  debug: true
-
 jwt:
   secret: wqeqwzcdasdasdcazcdas
+
+logging:
+  log4j2:
+    config:
+      override:
+        sta

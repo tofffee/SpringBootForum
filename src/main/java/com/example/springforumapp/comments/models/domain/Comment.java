@@ -1,6 +1,7 @@
 package com.example.springforumapp.comments.models.domain;
 
 import com.example.springforumapp.publications.models.domain.Publication;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -10,9 +11,11 @@ import java.util.List;
 
 @Entity
 @Table(name = "Comments")
-
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class Comment {
-
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,63 +38,4 @@ public class Comment {
 
     @OneToMany(mappedBy = "parentComment")
     private List<Comment> childComments;
-
-    public Comment() {}
-
-    public Comment(int id, String textOfComment, LocalDate timeOfComment, Publication publication, Comment parentComment, List<Comment> childComments) {
-        this.id = id;
-        this.textOfComment = textOfComment;
-        this.timeOfComment = timeOfComment;
-        this.publication = publication;
-        this.parentComment = parentComment;
-        this.childComments = childComments;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getTextOfComment() {
-        return textOfComment;
-    }
-
-    public void setTextOfComment(String textOfComment) {
-        this.textOfComment = textOfComment;
-    }
-
-    public LocalDate getTimeOfComment() {
-        return timeOfComment;
-    }
-
-    public void setTimeOfComment(LocalDate timeOfComment) {
-        this.timeOfComment = timeOfComment;
-    }
-
-    public Publication getPublication() {
-        return publication;
-    }
-
-    public void setPublication(Publication publication) {
-        this.publication = publication;
-    }
-
-    public Comment getParentComment() {
-        return parentComment;
-    }
-
-    public void setParentComment(Comment parentComment) {
-        this.parentComment = parentComment;
-    }
-
-    public List<Comment> getChildComments() {
-        return childComments;
-    }
-
-    public void setChildComments(List<Comment> childComments) {
-        this.childComments = childComments;
-    }
 }

@@ -1,21 +1,12 @@
 package com.example.springforumapp.chat.models.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class MessageDTO {
-
     private String textOfMessage;
-
-    public MessageDTO () { }
-
-    public MessageDTO(String textOfMessage)
-    {
-        this.textOfMessage = textOfMessage;
-    }
-
-    public String getTextOfMessage() {
-        return textOfMessage;
-    }
-
-    public void setTextOfMessage(String textOfMessage) {
-        this.textOfMessage = textOfMessage;
-    }
 }

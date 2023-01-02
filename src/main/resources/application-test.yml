@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 80
 
 spring:
   # (Data Source)
@@ -29,9 +29,6 @@ spring:
     password: c9n2kqlzn1h8q
     port: 465
     protocol: smtps
-
-mail:
-  debug: true
 
 jwt:
   secret: wqeqwzcdasdasdcazcdas
