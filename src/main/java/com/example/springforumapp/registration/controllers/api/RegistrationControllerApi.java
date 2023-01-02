@@ -1,5 +1,6 @@
 package com.example.springforumapp.registration.controllers.api;
 
+import com.example.springforumapp.errors.ApiStatus;
 import com.example.springforumapp.registration.models.dto.RegisterRequestDTO;
 import com.example.springforumapp.registration.models.dto.RegisterResponseDTO;
 import com.example.springforumapp.registration.services.RegistrationService;
@@ -45,7 +46,7 @@ public class RegistrationControllerApi {
         RegisterResponseDTO registerResponseDTO = new RegisterResponseDTO();
         registerResponseDTO.setJwt(token);
 
-        return ResponseEntity.ok(new ApiSuccess(HttpStatus.OK.value(),registerResponseDTO));
+        return ResponseEntity.ok(new ApiSuccess(ApiStatus.SUCCESS, HttpStatus.OK.value(),registerResponseDTO));
     }
 
 

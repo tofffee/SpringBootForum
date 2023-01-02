@@ -1,18 +1,15 @@
 package com.example.springforumapp.auth.util.exceptions;
 
+import lombok.*;
+
+
+@Getter
+@Setter
 public class AuthException extends RuntimeException {
-    private String debugMessage;
-    public AuthException(String message, String debugMessage)
+    private String dbgMessage;
+    public AuthException(String message, String dbgMessage)
     {
         super(message);
-        this.debugMessage = debugMessage;
-    }
-
-    public String getDebugMessage() {
-        return debugMessage;
-    }
-
-    public void setDebugMessage(String debugMessage) {
-        this.debugMessage = debugMessage;
+        this.dbgMessage = dbgMessage;
     }
 }

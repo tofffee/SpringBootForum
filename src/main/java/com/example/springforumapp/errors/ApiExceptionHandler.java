@@ -16,9 +16,10 @@ public class ApiExceptionHandler {
     @ExceptionHandler({AuthException.class})
     protected ResponseEntity<ApiError> handleAuthException(AuthException e) {
         ApiError apiError = new ApiError(
+                ApiStatus.FAIL,
                 HttpStatus.UNAUTHORIZED.value(),
                 e.getMessage(),
-                e.getDebugMessage(),
+                e.getDbgMessage(),
                 System.currentTimeMillis()
         );
         return new ResponseEntity<>(apiError, HttpStatus.UNAUTHORIZED);
@@ -27,9 +28,10 @@ public class ApiExceptionHandler {
     @ExceptionHandler({RegistrationException.class})
     protected ResponseEntity<ApiError> handleAuthException(RegistrationException e) {
         ApiError apiError = new ApiError(
+                ApiStatus.FAIL,
                 HttpStatus.UNAUTHORIZED.value(),
                 e.getMessage(),
-                e.getDebugMessage(),
+                e.getDbgMessage(),
                 System.currentTimeMillis()
         );
         return new ResponseEntity<>(apiError, HttpStatus.UNAUTHORIZED);
@@ -38,9 +40,10 @@ public class ApiExceptionHandler {
     @ExceptionHandler({ActivationProfileException.class})
     protected ResponseEntity<ApiError> handleAuthException(ActivationProfileException e) {
         ApiError apiError = new ApiError(
+                ApiStatus.FAIL,
                 HttpStatus.NOT_FOUND.value(),
                 e.getMessage(),
-                e.getDebugMessage(),
+                e.getDbgMessage(),
                 System.currentTimeMillis()
         );
         return new ResponseEntity<>(apiError, HttpStatus.UNAUTHORIZED);
@@ -50,9 +53,10 @@ public class ApiExceptionHandler {
     @ExceptionHandler(PublicationException.class)
     protected ResponseEntity<ApiError> handleAuthException(PublicationException e) {
         ApiError apiError = new ApiError(
+                ApiStatus.FAIL,
                 HttpStatus.NOT_FOUND.value(),
                 e.getMessage(),
-                e.getDebugMessage(),
+                e.getDbgMessage(),
                 System.currentTimeMillis()
         );
         return new ResponseEntity<>(apiError, HttpStatus.NOT_FOUND);

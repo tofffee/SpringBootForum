@@ -1,19 +1,16 @@
 package com.example.springforumapp.users.util.exceptions;
 
-public class ActivationProfileException extends RuntimeException{
-    private String debugMessage;
+import lombok.Getter;
+import lombok.Setter;
 
-    public ActivationProfileException(String message, String debugMessage)
+@Getter
+@Setter
+public class ActivationProfileException extends RuntimeException{
+    private String dbgMessage;
+
+    public ActivationProfileException(String message, String dbgMessagee)
     {
         super(message);
-        this.debugMessage = debugMessage;
-    }
-
-    public String getDebugMessage() {
-        return debugMessage;
-    }
-
-    public void setDebugMessage(String debugMessage) {
-        this.debugMessage = debugMessage;
+        this.dbgMessage = dbgMessage;
     }
 }

@@ -5,6 +5,7 @@ import com.example.springforumapp.auth.models.dto.LoginRequestDTO;
 import com.example.springforumapp.auth.models.dto.LoginResponseDTO;
 import com.example.springforumapp.auth.services.AuthService;
 import com.example.springforumapp.auth.util.validators.LoginValidator;
+import com.example.springforumapp.errors.ApiStatus;
 import com.example.springforumapp.errors.ApiSuccess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,7 +38,7 @@ public class AuthControllerApi {
 
         LoginResponseDTO loginResponseDTO = new LoginResponseDTO();
         loginResponseDTO.setJwtToken(jwtToken);
-        return ResponseEntity.ok(new ApiSuccess(HttpStatus.OK.value(),loginResponseDTO));
+        return ResponseEntity.ok(new ApiSuccess(ApiStatus.SUCCESS,HttpStatus.OK.value(),loginResponseDTO));
     }
 
 //    @GetMapping("qwe")

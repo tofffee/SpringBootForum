@@ -1,6 +1,6 @@
 package com.example.springforumapp.errors;
 
-public enum ApiStatuses {
+public enum ApiStatus {
     SUCCESS,
     FAIL
 }

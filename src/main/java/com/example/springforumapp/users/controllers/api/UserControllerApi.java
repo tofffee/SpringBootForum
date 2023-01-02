@@ -1,5 +1,6 @@
 package com.example.springforumapp.users.controllers.api;
 
+import com.example.springforumapp.errors.ApiStatus;
 import com.example.springforumapp.errors.ApiSuccess;
 import com.example.springforumapp.security.UserDetailsImpl;
 import com.example.springforumapp.users.models.domain.User;
@@ -40,6 +41,6 @@ public class UserControllerApi {
 
         ActivationCodeResponseDTO activationCodeResponseDTO = new ActivationCodeResponseDTO();
         activationCodeResponseDTO.setMessage("Your profile was activated");
-        return ResponseEntity.ok(new ApiSuccess(HttpStatus.OK.value(), activationCodeResponseDTO));
+        return ResponseEntity.ok(new ApiSuccess(ApiStatus.SUCCESS, HttpStatus.OK.value(), activationCodeResponseDTO));
     }
 }

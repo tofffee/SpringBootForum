@@ -1,18 +1,16 @@
 package com.example.springforumapp.publications.util.exceptions;
 
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class PublicationException extends RuntimeException {
-    private String debugMessage;
-    public PublicationException(String message, String debugMessage)
+    private String dbgMessage;
+    public PublicationException(String message, String dbgMessagee)
     {
         super(message);
-        this.debugMessage = debugMessage;
-    }
-
-    public String getDebugMessage() {
-        return debugMessage;
-    }
-
-    public void setDebugMessage(String debugMessage) {
-        this.debugMessage = debugMessage;
+        this.dbgMessage = dbgMessage;
     }
 }
