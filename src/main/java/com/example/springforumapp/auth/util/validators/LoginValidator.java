@@ -22,7 +22,7 @@ public class LoginValidator implements Validator {
     }
 
     @Override
-    public void validate(Object target, Errors errors) {
+    public void validate(Object target, Errors errors) throws AuthException {
         if (errors.hasErrors()){
             StringBuilder errorMessage = new StringBuilder();
             List<FieldError> fieldErrorsList= errors.getFieldErrors();

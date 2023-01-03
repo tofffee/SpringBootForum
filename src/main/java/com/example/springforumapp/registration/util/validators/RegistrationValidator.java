@@ -24,7 +24,7 @@ public class RegistrationValidator implements Validator {
     }
 
     @Override
-    public void validate(Object target, Errors errors) {
+    public void validate(Object target, Errors errors) throws RegistrationException {
         RegisterRequestDTO registerRequestDTO = (RegisterRequestDTO)target;
 
         if (errors.hasErrors()){

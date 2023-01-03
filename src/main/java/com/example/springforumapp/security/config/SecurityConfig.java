@@ -1,6 +1,8 @@
 package com.example.springforumapp.security.config;
 
 import com.example.springforumapp.security.JWTFilter;
+import com.example.springforumapp.security.oAuth2.CustomOAuth2UserService;
+import com.example.springforumapp.security.oAuth2.OAuth2LoginSuccessHandler;
 import com.example.springforumapp.users.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -18,11 +20,15 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UsersService usersService;
+    private final CustomOAuth2UserService customOAuth2UserService;
+    private final OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
     private final JWTFilter jwtFilter;
 
     @Autowired
-    public SecurityConfig(UsersService usersService, JWTFilter jwtFilter) {
+    public SecurityConfig(UsersService usersService, CustomOAuth2UserService customOAuth2UserService, OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler, JWTFilter jwtFilter) {
         this.usersService = usersService;
+        this.customOAuth2UserService = customOAuth2UserService;
+        this.oAuth2LoginSuccessHandler = oAuth2LoginSuccessHandler;
         this.jwtFilter = jwtFilter;
     }
 
@@ -38,16 +44,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST,"/api/boards").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE,"/api/boards","/api/boards/{id}").hasRole("ADMIN")
                 .antMatchers(HttpMethod.PUT,"/api/boards/{id}").hasRole("ADMIN")
-
+                //.antMatchers("/forauthorized").authenticated()
                 .antMatchers("/**").permitAll()
-                .and()
+//                .and()
 //                .formLogin().loginPage("/auth/login")
 //                .loginProcessingUrl("/login_auth")
 //                .defaultSuccessUrl("/",true)
 //                .failureUrl("/auth/login?error")
 //                .and()
 //                .logout().logoutUrl("/auth/logout").logoutSuccessUrl("/")
-//                .and()
+              //  .and()
+//                .oauth2Login()
+//                    .userInfoEndpoint()
+//                    .userService(customOAuth2UserService)
+//                    .and()
+//                    .successHandler(oAuth2LoginSuccessHandler);
+                .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

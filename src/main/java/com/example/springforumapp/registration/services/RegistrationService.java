@@ -25,7 +25,7 @@ public class RegistrationService {
         this.emailService = emailService;
         this.passwordEncoder = passwordEncoder;
     }
-    public void registerUser(User user){
+    public void registerUser(User user) throws RegistrationException{
 
         if (usersService.checkIfUserExistsWithSuchUsername(user.getUsername()))
             throw new RegistrationException("Such user is registered","user has written username that was not registered");
@@ -35,14 +35,12 @@ public class RegistrationService {
 
         Random random = new Random();
         int activationCode =  random.nextInt(10000);
-
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole("ROLE_USER");
         user.setEnabled(false);
         user.setActivationCode(String.valueOf(activationCode));
         user.setAvatarUrl("http://localhost:8080/images/default_avatar.jpg");
         usersService.saveUser(user);
-
 
         String message = "Hello, " + user.getUsername() + ", your activation code is : " + activationCode;
         emailService.send(user.getEmail(),"Activate Your account",message);

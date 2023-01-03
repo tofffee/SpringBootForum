@@ -37,12 +37,18 @@ spring:
     password: c9n2kqlzn1h8q
     port: 465
     protocol: smtps
+  #auth by google
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 345713087834-ooehioika8efcon2esfj3896pspu2j7h.apps.googleusercontent.com
+            client-secret: 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
+            scope:
+              - email
+              - profile
+
 
 jwt:
   secret: wqeqwzcdasdasdcazcdas
-
-logging:
-  log4j2:
-    config:
-      override:
-        sta

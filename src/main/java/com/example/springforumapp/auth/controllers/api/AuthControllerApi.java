@@ -18,7 +18,6 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthControllerApi {
-
     private final AuthService authService;
     private final LoginValidator loginValidator;
 
@@ -28,26 +27,12 @@ public class AuthControllerApi {
         this.loginValidator = loginValidator;
     }
 
-
     @PostMapping()
-    public ResponseEntity<?> loginApi(@RequestBody @Valid LoginRequestDTO loginRequestDTO, BindingResult bindingResult){
-
+    public ResponseEntity<?> loginApi(@RequestBody @Valid LoginRequestDTO loginRequestDTO, BindingResult bindingResult) {
         loginValidator.validate(loginRequestDTO,bindingResult);
-
         String jwtToken = authService.authenticate(loginRequestDTO);
-
-        LoginResponseDTO loginResponseDTO = new LoginResponseDTO();
-        loginResponseDTO.setJwtToken(jwtToken);
+        LoginResponseDTO loginResponseDTO = new LoginResponseDTO(jwtToken);
         return ResponseEntity.ok(new ApiSuccess(ApiStatus.SUCCESS,HttpStatus.OK.value(),loginResponseDTO));
     }
-
-//    @GetMapping("qwe")
-//    public ResponseEntity<?> getAuthUSerInfo(){
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-//        User user = userDetails.getUser();
-//        UserDTO userDTO = modelMapper.map(user, UserDTO.class);
-//        return ResponseEntity.ok(userDTO);
-//    }
 
 }

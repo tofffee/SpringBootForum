@@ -6,6 +6,7 @@ import com.example.springforumapp.users.repositories.UsersRepository;
 import com.example.springforumapp.security.UserDetailsImpl;
 import com.example.springforumapp.users.util.exceptions.ActivationProfileException;
 import com.example.springforumapp.users.util.exceptions.UserExistsException;
+import com.example.springforumapp.users.util.exceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -30,11 +31,6 @@ public class UsersService implements UserDetailsService {
         else return new UserDetailsImpl(user.get());
     }
 
-    public User getUserById(int id){
-        Optional<User> user = usersRepository.findById(id);
-        return user.get();
-    }
-
     public boolean checkIfUserExistsWithSuchUsername(String username) {
         Optional<User> user =  usersRepository.findUserByUsername(username);
         return user.isPresent();
@@ -45,7 +41,24 @@ public class UsersService implements UserDetailsService {
         return user.isPresent();
     }
 
+    public User getUserByEmail(String email){
+        Optional<User> user = usersRepository.findUserByEmail(email);
+        if (user.isPresent())
+            return user.get();
+        else throw new UserNotFoundException("User was not getted by Email","user writes email that not exist");
+    }
 
+    public User getUserByUsernameOrEmail(String usernameOrEmail) {
+        Optional<User> user = usersRepository.findUserByUsername(usernameOrEmail);
+        if (user.isPresent())
+            return user.get();
+        else {
+            user = usersRepository.findUserByEmail(usernameOrEmail);
+            if (user.isPresent())
+                return user.get();
+            else return null;
+        }
+    }
 
     public void activateUser(User user2, ActivationCodeRequestDTO activationCodeRequestDTO)
     {

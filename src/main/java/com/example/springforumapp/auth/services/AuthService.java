@@ -5,6 +5,7 @@ package com.example.springforumapp.auth.services;
 import com.example.springforumapp.auth.models.dto.LoginRequestDTO;
 import com.example.springforumapp.auth.util.exceptions.AuthException;
 import com.example.springforumapp.security.JWTUtil;
+import com.example.springforumapp.users.models.domain.User;
 import com.example.springforumapp.users.services.UsersService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -27,17 +28,19 @@ public class AuthService {
         this.jwtUtil = jwtUtil;
     }
 
-    public String authenticate(LoginRequestDTO loginRequestDTO) {
+    public String authenticate(LoginRequestDTO loginRequestDTO) throws AuthException {
 
-        if (!usersService.checkIfUserExistsWithSuchUsername(loginRequestDTO.getUsername()))
-            throw new AuthException("Such user is not registered","user has written username that was not registered");
+        User user = usersService.getUserByUsernameOrEmail(loginRequestDTO.getUsernameOrEmail());
+        if (user==null){
+            throw new AuthException("Such username or email not exists","user has written username or email not exists");
+        }
 
-        UsernamePasswordAuthenticationToken authInputToken = new UsernamePasswordAuthenticationToken(loginRequestDTO.getUsername(), loginRequestDTO.getPassword());
+        UsernamePasswordAuthenticationToken authInputToken = new UsernamePasswordAuthenticationToken(user.getUsername(), loginRequestDTO.getPassword());
         try{
             authenticationManager.authenticate(authInputToken);
         } catch (BadCredentialsException badCredentialsException){
             throw new AuthException("Incorrect credentials","user has written not correct username or password");
         }
-        return jwtUtil.generateToken(loginRequestDTO.getUsername());
+        return jwtUtil.generateToken(user.getUsername());
     }
 }

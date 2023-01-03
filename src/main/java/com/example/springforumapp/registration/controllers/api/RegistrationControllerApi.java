@@ -48,6 +48,4 @@ public class RegistrationControllerApi {
 
         return ResponseEntity.ok(new ApiSuccess(ApiStatus.SUCCESS, HttpStatus.OK.value(),registerResponseDTO));
     }
-
-
 }
