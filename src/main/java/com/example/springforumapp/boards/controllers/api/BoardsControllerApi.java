@@ -63,7 +63,7 @@ public class BoardsControllerApi {
 
     @DeleteMapping()
     public ResponseEntity<?> deleteAllBoards(){
-            boardsService.deleteAllBoards();
+        boardsService.deleteAllBoards();
         return ResponseEntity.ok(new ApiSuccess(ApiStatus.SUCCESS, HttpStatus.OK.value(), "All boards deleted successfully"));
     }
 

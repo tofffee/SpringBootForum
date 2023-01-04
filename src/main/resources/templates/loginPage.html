@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <title>Home Page</title>
+
+</head>
+
+<body>
+
+
+<form name="f" method="post" action="/login_auth">
+    <!--    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">-->
+    <label for="username">Введите имя пользователя:</label>
+    <input type="text" name="username" id="username" />
+    <br/>
+    <label for="password">Введите пароль:</label>
+    <input type="password" name="password" id="password" />
+    <br/>
+    <input type="submit" value="Log in"/>
+
+    <div th:if="${param.error}" style="color: red">
+        Неправильные имя или пароль
+    </div>
+
+    <a th:href="@{/oauth2/authorization/google}">sign by google</a>
+
+</form>
+
+</body>
+
+</html>
