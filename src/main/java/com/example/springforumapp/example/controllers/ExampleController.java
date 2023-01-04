@@ -29,6 +29,11 @@ public class ExampleController {
         return "Hello " + name;
     }
 
+    @GetMapping("/qweqeqwet")
+    @ResponseBody
+    public String sayQwe(){
+        return "hello world";
+    }
 }
 
 
