@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-boards-table
+      author: DeveloperName2
+      changes:
+        - createTable:
+            tableName: boards
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(250)
+                  constraints:
+                    nullable: false
