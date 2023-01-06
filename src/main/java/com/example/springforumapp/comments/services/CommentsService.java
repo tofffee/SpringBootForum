@@ -32,7 +32,7 @@ public class CommentsService {
         }
     }
     public void saveComment(Comment comment){
-        comment.setTimeOfComment(LocalDate.now());
+        comment.setDateOfCreation(LocalDate.now());
         commentsRepository.save(comment);
     }
 

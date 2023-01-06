@@ -1,0 +1,40 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-boards
+      author: tofffee
+      changes:
+        - createTable:
+            tableName: publications
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(250)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: text
+                  type: varchar(250)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: dateOfCreation
+                  type: varchar(250)
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_publication_author
+                    references: users(id)
+              - column:
+                  name: board_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_board_id
+                    references: boards(id)

@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: create-user-table
-      author: DeveloperName1
+      id: create-comments
+      author: tofffee
       changes:
         - createTable:
-            tableName: user
+            tableName: comments
             columns:
               - column:
                   name: id
@@ -14,34 +14,27 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: username
+                  name: name
                   type: varchar(250)
                   constraints:
                     nullable: false
               - column:
-                  name: avatar_url
+                  name: text
                   type: varchar(250)
                   constraints:
                     nullable: false
               - column:
-                  name: email
+                  name: dateOfCreation
                   type: varchar(250)
-                  constraints:
-                    nullable: false
               - column:
-                  name: password
-                  type: varchar(250)
+                  name: publication_id
+                  type: bigint
                   constraints:
-                    nullable: false
+                    foreignKeyName: fk_publication_id
+                    references: publications(id)
               - column:
-                  name: activation_code
-                  type: varchar(250)
+                  name: parent_comment_id
+                  type: bigint
                   constraints:
-                    nullable: false
-              - column:
-                  name: enabled
-                  type: boolean
-                  constraints:
-                    nullable: false
-
-
+                    foreignKeyName: fk_parent_comment_id
+                    references: comments(id)

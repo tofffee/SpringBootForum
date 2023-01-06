@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
-      id: create-boards-table
-      author: DeveloperName2
+      id: create-boards
+      author: tofffee
       changes:
         - createTable:
             tableName: boards

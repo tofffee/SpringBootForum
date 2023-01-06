@@ -1,0 +1,47 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-user
+      author: tofffee
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: username
+                  type: varchar(250)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: avatar_url
+                  type: varchar(250)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: varchar(250)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: password
+                  type: varchar(250)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: activation_code
+                  type: varchar(250)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: enabled
+                  type: boolean
+                  constraints:
+                    nullable: false
+
+

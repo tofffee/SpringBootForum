@@ -24,10 +24,10 @@ public class Comment {
     @Column(name = "text")
     @NotNull
     @Size(min = 1,message = "Comment error (text of publication is too small)")
-    private String textOfComment;
+    private String text;
 
-    @Column(name = "time")
-    private LocalDate timeOfComment;
+    @Column(name = "dateOfCreation")
+    private LocalDate dateOfCreation;
 
     @ManyToOne
     @JoinColumn(name = "publication_id", referencedColumnName = "id")
