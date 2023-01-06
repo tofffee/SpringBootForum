@@ -4,8 +4,8 @@ import com.example.springforumapp.boards.models.domain.Board;
 import com.example.springforumapp.boards.models.dto.BoardDTO;
 import com.example.springforumapp.boards.models.dto.BoardDTOCreateDeletePut;
 import com.example.springforumapp.boards.services.BoardsService;
-import com.example.springforumapp.errors.ApiStatus;
-import com.example.springforumapp.errors.ApiSuccess;
+import com.example.springforumapp.common.api.ResponseStatusApi;
+import com.example.springforumapp.common.api.ResponseSuccessApi;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,31 +40,31 @@ public class BoardsControllerApi {
             boardDTO.setName(board.getName());
             boardDTOList.add(boardDTO);
         } );
-        return ResponseEntity.ok(new ApiSuccess(ApiStatus.SUCCESS, HttpStatus.OK.value(),boardDTOList));
+        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(),boardDTOList));
     }
 
     @PostMapping()
     public ResponseEntity<?> addBoard(@RequestBody BoardDTOCreateDeletePut boardDTOCreateDeletePut){
         boardsService.addBoard(boardDTOCreateDeletePut);
-        return ResponseEntity.ok(new ApiSuccess(ApiStatus.SUCCESS, HttpStatus.OK.value(), "Board created successfully"));
+        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), "Board created successfully"));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteBoard(@PathVariable int id){
         boardsService.deleteBoard(id);
-        return ResponseEntity.ok(new ApiSuccess(ApiStatus.SUCCESS, HttpStatus.OK.value(), "Board deleted successfully"));
+        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), "Board deleted successfully"));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> changeBoard(@PathVariable int id, @RequestBody BoardDTOCreateDeletePut boardDTOCreateDeletePut){
         boardsService.changeBoard(id, boardDTOCreateDeletePut);
-        return ResponseEntity.ok(new ApiSuccess(ApiStatus.SUCCESS, HttpStatus.OK.value(), "Board updated successfully"));
+        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), "Board updated successfully"));
     }
 
     @DeleteMapping()
     public ResponseEntity<?> deleteAllBoards(){
         boardsService.deleteAllBoards();
-        return ResponseEntity.ok(new ApiSuccess(ApiStatus.SUCCESS, HttpStatus.OK.value(), "All boards deleted successfully"));
+        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), "All boards deleted successfully"));
     }
 
 }

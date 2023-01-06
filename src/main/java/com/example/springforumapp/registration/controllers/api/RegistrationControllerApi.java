@@ -1,11 +1,12 @@
 package com.example.springforumapp.registration.controllers.api;
 
-import com.example.springforumapp.errors.ApiStatus;
+import com.example.springforumapp.common.api.ResponseApi;
+import com.example.springforumapp.common.api.ResponseStatusApi;
 import com.example.springforumapp.registration.models.dto.RegisterRequestDTO;
 import com.example.springforumapp.registration.models.dto.RegisterResponseDTO;
 import com.example.springforumapp.registration.services.RegistrationService;
 import com.example.springforumapp.registration.util.validators.RegistrationValidator;
-import com.example.springforumapp.errors.ApiSuccess;
+import com.example.springforumapp.common.api.ResponseSuccessApi;
 import com.example.springforumapp.security.JWTUtil;
 import com.example.springforumapp.users.models.domain.User;
 import org.modelmapper.ModelMapper;
@@ -20,12 +21,10 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/api/register")
 public class RegistrationControllerApi {
-
     private final RegistrationService registrationService;
     private final JWTUtil jwtUtil;
     private final RegistrationValidator registrationValidator;
     private final ModelMapper modelMapper;
-
     @Autowired
     public RegistrationControllerApi(RegistrationService registrationService, JWTUtil jwtUtil, RegistrationValidator registrationValidator, ModelMapper modelMapper) {
         this.registrationService = registrationService;
@@ -35,17 +34,15 @@ public class RegistrationControllerApi {
     }
 
     @PostMapping()
-    public ResponseEntity<?> registerUser(@RequestBody @Valid RegisterRequestDTO registerRequestDTO, BindingResult bindingResult){
-
+    public ResponseEntity<ResponseApi> registerApi(@RequestBody @Valid RegisterRequestDTO registerRequestDTO, BindingResult bindingResult){
         registrationValidator.validate(registerRequestDTO, bindingResult);
 
         User user = modelMapper.map(registerRequestDTO, User.class);
-        registrationService.registerUser(user);
+        registrationService.register(user);
 
         String token = jwtUtil.generateToken(user.getUsername());
-        RegisterResponseDTO registerResponseDTO = new RegisterResponseDTO();
-        registerResponseDTO.setJwt(token);
-
-        return ResponseEntity.ok(new ApiSuccess(ApiStatus.SUCCESS, HttpStatus.OK.value(),registerResponseDTO));
+        RegisterResponseDTO registerResponseDTO = new RegisterResponseDTO(token);
+        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(),registerResponseDTO));
     }
+
 }

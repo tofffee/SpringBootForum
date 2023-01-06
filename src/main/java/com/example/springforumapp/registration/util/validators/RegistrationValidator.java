@@ -14,19 +14,13 @@ import java.util.List;
 
 @Component
 public class RegistrationValidator implements Validator {
-
-    public RegistrationValidator() {
-    }
-
+    public RegistrationValidator() {}
     @Override
     public boolean supports(Class<?> clazz) {
         return RegisterRequestDTO.class.equals(clazz);
     }
-
     @Override
     public void validate(Object target, Errors errors) throws RegistrationException {
-        RegisterRequestDTO registerRequestDTO = (RegisterRequestDTO)target;
-
         if (errors.hasErrors()){
             StringBuilder errorMessage = new StringBuilder();
             List<FieldError> fieldErrorsList= errors.getFieldErrors();
@@ -37,8 +31,7 @@ public class RegistrationValidator implements Validator {
                         .append(error.getDefaultMessage())
                         .append("; ");
             }
-            throw new RegistrationException(errorMessage.toString(),"error during @Valid binding result");
+            throw new RegistrationException(errorMessage.toString(),"RegistrationValidator.java: RegistrationException");
         }
-
     }
 }

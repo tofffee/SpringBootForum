@@ -5,8 +5,6 @@ import com.example.springforumapp.users.models.domain.User;
 import com.example.springforumapp.users.repositories.UsersRepository;
 import com.example.springforumapp.security.UserDetailsImpl;
 import com.example.springforumapp.users.util.exceptions.ActivationProfileException;
-import com.example.springforumapp.users.util.exceptions.UserExistsException;
-import com.example.springforumapp.users.util.exceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,10 +16,13 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class UsersService implements UserDetailsService {
+public class UsersService implements UserDetailsService, IUsersService {
+    private final UsersRepository usersRepository;
 
     @Autowired
-    private UsersRepository usersRepository;
+    public UsersService(UsersRepository usersRepository) {
+        this.usersRepository = usersRepository;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -31,53 +32,38 @@ public class UsersService implements UserDetailsService {
         else return new UserDetailsImpl(user.get());
     }
 
-    public boolean checkIfUserExistsWithSuchUsername(String username) {
+    public User findByUsername(String username) {
         Optional<User> user =  usersRepository.findUserByUsername(username);
-        return user.isPresent();
+        return user.orElse(null);
     }
 
-    public boolean checkIfUserExistsWithSuchEmail(String email){
-        Optional<User> user = usersRepository.findUserByEmail(email);
-        return user.isPresent();
+    public User findByEmail(String email){
+        Optional<User> user =  usersRepository.findUserByEmail(email);
+        return user.orElse(null);
     }
 
-    public User getUserByEmail(String email){
-        Optional<User> user = usersRepository.findUserByEmail(email);
-        if (user.isPresent())
-            return user.get();
-        else throw new UserNotFoundException("User was not getted by Email","user writes email that not exist");
-    }
-
-    public User getUserByUsernameOrEmail(String usernameOrEmail) {
+    public User findByUsernameOrEmail(String usernameOrEmail) {
         Optional<User> user = usersRepository.findUserByUsername(usernameOrEmail);
         if (user.isPresent())
             return user.get();
-        else {
-            user = usersRepository.findUserByEmail(usernameOrEmail);
-            if (user.isPresent())
-                return user.get();
-            else return null;
-        }
+        else
+            return usersRepository.findUserByEmail(usernameOrEmail).orElse(null);
     }
 
-    public void activateUser(User user2, ActivationCodeRequestDTO activationCodeRequestDTO)
+    public void activateUser(UserDetailsImpl userDetailsImpl, ActivationCodeRequestDTO activationCodeRequestDTO)
     {
-        User user = usersRepository.findUserByUsername(user2.getUsername()).get();
-        if (user.getEnabled() == true){
-            throw new ActivationProfileException("Profile is activated before"," user activated profile before");
+        User user = usersRepository.findUserByUsername(userDetailsImpl.getUsername()).get();
+        if (user.getEnabled()){
+            throw new ActivationProfileException("Your account is already activated","UsersService.java: ActivationProfileException");
         }
 
         if (user.getActivationCode().equals(activationCodeRequestDTO.getCode())){
             user.setEnabled(true);
-        }
-        else
-            throw new ActivationProfileException("Code is not exists","user sent not existed code");
+            user.setActivationCode(null);
+        } else throw new ActivationProfileException("Your activation code is not correct","UsersService.java: ActivationProfileException");
     }
 
     public void saveUser(User user){
-        if(!usersRepository.findUserByUsername(user.getUsername()).isPresent())
-            usersRepository.save(user);
-        else throw new UserExistsException();
+        usersRepository.save(user);
     }
-
 }

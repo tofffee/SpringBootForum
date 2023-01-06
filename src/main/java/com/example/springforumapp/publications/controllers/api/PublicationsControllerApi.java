@@ -2,8 +2,8 @@ package com.example.springforumapp.publications.controllers.api;
 
 
 import com.example.springforumapp.boards.services.BoardsService;
-import com.example.springforumapp.errors.ApiStatus;
-import com.example.springforumapp.errors.ApiSuccess;
+import com.example.springforumapp.common.api.ResponseStatusApi;
+import com.example.springforumapp.common.api.ResponseSuccessApi;
 import com.example.springforumapp.publications.models.domain.Publication;
 import com.example.springforumapp.publications.models.dto.PublicationInputDTO;
 import com.example.springforumapp.publications.models.dto.PublicationOutputDTO;
@@ -51,7 +51,7 @@ public class PublicationsControllerApi {
                     return publicationDTO;
                 })
                 .collect(Collectors.toList());
-        return ResponseEntity.ok(new ApiSuccess(ApiStatus.SUCCESS, HttpStatus.OK.value(),publicationDTOs));
+        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(),publicationDTOs));
     }
 
     @GetMapping("/api/boards/{boardName}")
@@ -65,7 +65,7 @@ public class PublicationsControllerApi {
                     return publicationOutputDTO;
                 })
                 .collect(Collectors.toList());
-        return ResponseEntity.ok(new ApiSuccess(ApiStatus.SUCCESS, HttpStatus.OK.value(), publicationsDTOs));
+        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), publicationsDTOs));
     }
 
     @PostMapping("/api/boards/{boardName}")
@@ -82,7 +82,7 @@ public class PublicationsControllerApi {
         publication.setUser(userDetailsImpl.getUser());
         publicationsService.savePublication(publication);
 
-        return ResponseEntity.ok(new ApiSuccess(ApiStatus.SUCCESS, HttpStatus.OK.value(), "publication created successfully"));
+        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), "publication created successfully"));
     }
 
     @DeleteMapping("/api/boards/{boardName}/{publicationId}")
@@ -91,6 +91,6 @@ public class PublicationsControllerApi {
                                                          @PathVariable("publicationId") int publicationId) {
 
         publicationsService.deletePublication(userDetailsImpl.getUser(), publicationId);
-        return ResponseEntity.ok(new ApiSuccess(ApiStatus.SUCCESS, HttpStatus.OK.value(), "publication deleted successfully"));
+        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), "publication deleted successfully"));
     }
 }

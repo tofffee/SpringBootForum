@@ -1,5 +1,6 @@
 package com.example.springforumapp.registration.services;
 
+import com.example.springforumapp.common.util.RandomUtil;
 import com.example.springforumapp.registration.util.exceptions.RegistrationException;
 import com.example.springforumapp.users.models.domain.User;
 import com.example.springforumapp.email.EmailService;
@@ -9,41 +10,38 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Random;
-import java.util.UUID;
 
 @Service
 @Transactional
-public class RegistrationService {
+public class RegistrationService implements IRegistrationService {
     private final UsersService usersService;
     private final EmailService emailService;
     private final PasswordEncoder passwordEncoder;
+    private final RandomUtil randomUtil;
 
     @Autowired
-    public RegistrationService(UsersService usersService, EmailService emailService, PasswordEncoder passwordEncoder) {
+    public RegistrationService(UsersService usersService, EmailService emailService, PasswordEncoder passwordEncoder, RandomUtil randomUtil) {
         this.usersService = usersService;
         this.emailService = emailService;
         this.passwordEncoder = passwordEncoder;
+        this.randomUtil = randomUtil;
     }
-    public void registerUser(User user) throws RegistrationException{
+    public void register(User user) throws RegistrationException{
+        if (usersService.findByUsername(user.getUsername()) != null)
+            throw new RegistrationException("Such username is already taken","RegistrationService.java: RegistrationException");
 
-        if (usersService.checkIfUserExistsWithSuchUsername(user.getUsername()))
-            throw new RegistrationException("Such user is registered","user has written username that was not registered");
+        if (usersService.findByEmail(user.getEmail()) != null)
+            throw new RegistrationException("Such email is already used","RegistrationService.java: RegistrationException");
 
-        if (usersService.checkIfUserExistsWithSuchEmail(user.getEmail()))
-            throw new RegistrationException("Such email is already registered","user has written email that is registered");
-
-        Random random = new Random();
-        int activationCode =  random.nextInt(10000);
+        String activationCode = randomUtil.generateCode();
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole("ROLE_USER");
         user.setEnabled(false);
-        user.setActivationCode(String.valueOf(activationCode));
+        user.setActivationCode(activationCode);
         user.setAvatarUrl("http://localhost:8080/images/default_avatar.jpg");
         usersService.saveUser(user);
 
-        String message = "Hello, " + user.getUsername() + ", your activation code is : " + activationCode;
-        emailService.send(user.getEmail(),"Activate Your account",message);
+        emailService.sendActivationCode(user, activationCode);
     }
 
 

@@ -31,12 +31,6 @@ spring:
   liquibase:
     enabled: true
 
-  #HTTP  PUT, PATCH, DELETE
-  mvc:
-    hiddenmethod:
-      filter:
-        enabled: true
-
   #mail
   mail:
     host: smtp.yandex.ru
