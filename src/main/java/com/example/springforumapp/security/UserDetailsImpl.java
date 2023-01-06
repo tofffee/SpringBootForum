@@ -1,13 +1,16 @@
 package com.example.springforumapp.security;
 
 
+import com.example.springforumapp.users.models.domain.Role;
 import com.example.springforumapp.users.models.domain.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 public class UserDetailsImpl implements UserDetails {
     private final User user;
@@ -17,7 +20,10 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority(user.getRole()));
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        for (Role role : user.getRoles())
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        return authorities;
     }
 
     @Override

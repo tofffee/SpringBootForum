@@ -42,9 +42,13 @@ public class User {
     @NotNull
     private String password;
 
-    @Column(name = "role")
-    @NotNull
-    private String role;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "User_Role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private List<Role> roles;
 
     @Column(name = "activation_code")
     private String activationCode;
@@ -56,11 +60,4 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Publication> publications;
 
-    @ManyToMany
-    @JoinTable(
-            name = "User_Role",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    private List<Role> roles;
 }

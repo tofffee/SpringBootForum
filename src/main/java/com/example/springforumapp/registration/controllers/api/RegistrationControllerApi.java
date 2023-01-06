@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/api/register")
+@RequestMapping("/api")
 public class RegistrationControllerApi {
     private final RegistrationService registrationService;
     private final JWTUtil jwtUtil;
@@ -33,12 +33,23 @@ public class RegistrationControllerApi {
         this.modelMapper = modelMapper;
     }
 
-    @PostMapping()
-    public ResponseEntity<ResponseApi> registerApi(@RequestBody @Valid RegisterRequestDTO registerRequestDTO, BindingResult bindingResult){
+    @PostMapping("/register")
+    public ResponseEntity<ResponseApi> registerUserApi(@RequestBody @Valid RegisterRequestDTO registerRequestDTO, BindingResult bindingResult){
         registrationValidator.validate(registerRequestDTO, bindingResult);
 
         User user = modelMapper.map(registerRequestDTO, User.class);
-        registrationService.register(user);
+        registrationService.registerUser(user);
+
+        String token = jwtUtil.generateToken(user.getUsername());
+        RegisterResponseDTO registerResponseDTO = new RegisterResponseDTO(token);
+        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(),registerResponseDTO));
+    }
+
+    @PostMapping("/admin/register")
+    public ResponseEntity<ResponseApi> registerAdminApi(@RequestBody @Valid RegisterRequestDTO registerRequestDTO, BindingResult bindingResult){
+
+        User user = modelMapper.map(registerRequestDTO, User.class);
+        registrationService.registerAdmin(user);
 
         String token = jwtUtil.generateToken(user.getUsername());
         RegisterResponseDTO registerResponseDTO = new RegisterResponseDTO(token);

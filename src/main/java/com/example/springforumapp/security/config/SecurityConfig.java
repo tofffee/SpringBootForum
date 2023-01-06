@@ -42,9 +42,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.DELETE,"/api/boards/{boardName}/{publicationId}").authenticated()
 
                 .antMatchers(HttpMethod.POST,"/api/boards").hasRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE,"/api/boards","/api/boards/{id}").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE,"/api/boards","/api/boards/{id}","/api/admin/delete/users/{id}").hasRole("ADMIN")
                 .antMatchers(HttpMethod.PUT,"/api/boards/{id}").hasRole("ADMIN")
-                //.antMatchers("/forauthorized").authenticated()
+                .antMatchers(HttpMethod.PATCH,"/api/admin/grant/users/{id}","/api/admin/ungrant/users/{id}").hasRole("ADMIN")
                 .antMatchers("/**").permitAll()
 //                .and()
 //                .formLogin().loginPage("/auth/login")

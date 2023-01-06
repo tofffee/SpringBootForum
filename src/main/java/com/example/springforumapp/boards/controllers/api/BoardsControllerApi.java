@@ -30,9 +30,7 @@ public class BoardsControllerApi {
 
     @GetMapping()
     public ResponseEntity<?> getAllBoardsApi(){
-
         List<Board> boardList = boardsService.getAllBoards();
-
         List<BoardDTO> boardDTOList = new ArrayList<>();
         boardList.stream().forEach(board -> {
             BoardDTO boardDTO = new BoardDTO();

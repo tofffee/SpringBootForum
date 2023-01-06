@@ -1,9 +1,6 @@
 package com.example.springforumapp.users.models.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -23,7 +20,7 @@ public class Role {
     @NotNull
     private int id;
 
-    @Column(name = "role_name")
+    @Column(name = "name")
     @NotNull
     private String name;
 
