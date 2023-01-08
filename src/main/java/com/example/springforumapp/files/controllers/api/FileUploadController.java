@@ -4,6 +4,8 @@ package com.example.springforumapp.files.controllers.api;
 import com.example.springforumapp.common.api.ResponseApi;
 import com.example.springforumapp.common.api.ResponseStatusApi;
 import com.example.springforumapp.common.api.ResponseSuccessApi;
+import com.example.springforumapp.files.models.domain.Image;
+import com.example.springforumapp.files.models.dto.ImageUploadResponseDTO;
 import com.example.springforumapp.files.services.ImagesService;
 import com.example.springforumapp.files.services.StorageService;
 import com.example.springforumapp.files.util.FileUtil;
@@ -35,12 +37,21 @@ public class FileUploadController {
 
 
     @PostMapping("/image")
-    public ResponseEntity<ResponseApi> uploadImage(@RequestParam("file") MultipartFile image)
-    {
+    public ResponseEntity<ResponseApi> uploadImage(@RequestParam("file") MultipartFile image) {
         String newImageName = fileUtil.generateRandomImageName(image);
         storageService.store(image, newImageName);
-        imagesService.saveImage(null, newImageName);
-        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), "Image was successfully uploaded"));
+        int imageId = imagesService.saveImage(null, newImageName);
+        ImageUploadResponseDTO imageUploadResponseDTO = new ImageUploadResponseDTO(imageId);
+        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), imageUploadResponseDTO));
     }
+
+    @DeleteMapping ("/image/{id}")
+    public ResponseEntity<ResponseApi> deleteImage(@PathVariable("id") int id) {
+        Image image = imagesService.findImageById(id);
+        storageService.delete(image.getName());
+        imagesService.deleteImage(id);
+        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), "Image was successfully deleted"));
+    }
+
 
 }

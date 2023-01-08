@@ -22,6 +22,9 @@ public class Image {
     @Column(name = "url")
     private String url;
 
+    @Column(name = "name")
+    private String name;
+
     @ManyToOne
     @JoinColumn(name = "publication_id", referencedColumnName = "id")
     private Publication publication;

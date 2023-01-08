@@ -3,6 +3,7 @@ package com.example.springforumapp.files.services;
 
 import com.example.springforumapp.files.models.domain.Image;
 import com.example.springforumapp.files.repositories.ImagesRepository;
+import com.example.springforumapp.files.util.exceptions.FileException;
 import com.example.springforumapp.publications.models.domain.Publication;
 import com.example.springforumapp.users.models.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -26,12 +28,27 @@ public class ImagesService {
         this.imagesRepository = imagesRepository;
     }
 
-    public void saveImage(Publication publication, String newImageName)
+    public Image findImageById(int id){
+        Optional<Image> image = imagesRepository.findById(id);
+        if(image.isPresent())
+            return image.get();
+        else throw new FileException("Such image does not exist","ImagesService.java: FileException");
+    }
+    public int saveImage(Publication publication, String newImageName)
     {
         Image image = new Image();
         image.setUrl(hostName + "/upload/images/" + newImageName);
+        image.setName(newImageName);
         image.setPublication(publication);
         imagesRepository.save(image);
+        return image.getId();
     }
 
+    public void deleteImage(int id)
+    {
+        Optional<Image> image = imagesRepository.findById(id);
+        if (image.isPresent())
+            imagesRepository.delete(image.get());
+        else throw new FileException("Such image does not exist","ImagesService.java: FileException");
+    }
 }

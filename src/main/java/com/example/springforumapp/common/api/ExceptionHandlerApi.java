@@ -2,6 +2,7 @@ package com.example.springforumapp.common.api;
 
 import com.example.springforumapp.auth.util.exceptions.AuthException;
 import com.example.springforumapp.boards.util.exceptions.BoardException;
+import com.example.springforumapp.files.util.exceptions.FileException;
 import com.example.springforumapp.publications.util.exceptions.PublicationException;
 import com.example.springforumapp.registration.util.exceptions.RegistrationException;
 import com.example.springforumapp.users.util.exceptions.ActivationProfileException;
@@ -77,6 +78,18 @@ public class ExceptionHandlerApi {
 
     @ExceptionHandler(BoardException.class)
     protected ResponseEntity<ResponseApi> handleBoardException(BoardException e) {
+        ResponseErrorApi responseErrorApi = new ResponseErrorApi(
+                ResponseStatusApi.FAIL,
+                HttpStatus.NOT_FOUND.value(),
+                e.getMessage(),
+                e.getDbgMessage(),
+                System.currentTimeMillis()
+        );
+        return new ResponseEntity<>(responseErrorApi, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(FileException.class)
+    protected ResponseEntity<ResponseApi> handleFileException(FileException e) {
         ResponseErrorApi responseErrorApi = new ResponseErrorApi(
                 ResponseStatusApi.FAIL,
                 HttpStatus.NOT_FOUND.value(),

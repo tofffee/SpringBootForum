@@ -74,7 +74,7 @@ public class PublicationsControllerApi {
     public ResponseEntity<ResponseApi> createPublicationInBoardApi(@AuthenticationPrincipal UserDetailsImpl userDetailsImpl,
                                                                    @PathVariable("boardName") String boardName,
                                                                    @RequestPart("dto") @Valid PublicationInputDTO publicationInputDTO,
-                                                                   @RequestPart("file")  MultipartFile image,
+                                                                   @RequestPart("file")  MultipartFile[] images,
                                                                    BindingResult bindingResult)
     {
         publicationValidator.validate(publicationInputDTO, bindingResult);
@@ -83,10 +83,10 @@ public class PublicationsControllerApi {
         publication.setBoard(boardsService.findBoardByName(boardName));
         publication.setUser(userDetailsImpl.getUser());
 
-        String newImageName = fileUtil.generateRandomImageName(image);
-        storageService.store(image, newImageName);
-        publicationsService.savePublication(publication);
-        imagesService.saveImage(publication, newImageName);
+//        String newImageName = fileUtil.generateRandomImageName(image);
+//        storageService.store(image, newImageName);
+//        publicationsService.savePublication(publication);
+//        imagesService.saveImage(publication, newImageName);
 
 
         return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), "publication successfully created"));
