@@ -40,7 +40,7 @@ public class RegistrationService implements IRegistrationService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setEnabled(false);
         user.setActivationCode(activationCode);
-        user.setAvatarUrl("http://localhost:8080/images/default_avatar.jpg");
+        user.setAvatarUrl("http://localhost:80/images/default_avatar.jpg");
         usersService.addUser(user);
 
         emailService.sendActivationCode(user, activationCode);

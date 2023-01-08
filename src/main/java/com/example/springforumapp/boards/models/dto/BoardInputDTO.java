@@ -1,13 +1,12 @@
 package com.example.springforumapp.boards.models.dto;
 
-
-import lombok.*;
-
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BoardDTO {
-    private int id;
+public class BoardInputDTO {
     private String name;
 }

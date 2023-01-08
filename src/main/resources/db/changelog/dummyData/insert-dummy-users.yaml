@@ -1,0 +1,84 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-dummy-users-fields
+      author: tofffee
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  value: "1"
+              - column:
+                  name: username
+                  value: "vasyaacc"
+              - column:
+                  name: avatar_url
+                  value: "http://localhost:80/images/default_avatar.jpg"
+              - column:
+                  name: email
+                  value: "vasya@mail.ru"
+              - column:
+                  name: password
+                  value: "$2a$10$bNadMR8XFqoytIBEdNIXXO7rbOCUw9Kb6hqsx0R2j8ziCFjRZAvKm"
+              - column:
+                  name: activation_code
+                  value: "4423"
+              - column:
+                  name: enabled
+                  value: true
+
+        - insert:
+            tableName: user_role
+            columns:
+              - column:
+                  name: user_id
+                  value: 1
+              - column:
+                  name: role_id
+                  value: 1
+        - insert:
+            tableName: user_role
+            columns:
+              - column:
+                  name: user_id
+                  value: 1
+              - column:
+                  name: role_id
+                  value: 2
+
+
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  value: "2"
+              - column:
+                  name: username
+                  value: "tomacc"
+              - column:
+                  name: avatar_url
+                  value: "http://localhost:80/images/default_avatar.jpg"
+              - column:
+                  name: email
+                  value: "tom@mail.ru"
+              - column:
+                  name: password
+                  value: "$2a$10$elYB375zVv25HGye9PtcruQ6uv9vIabG3zXKkmrh5P.enz34HCjoG"
+              - column:
+                  name: activation_code
+                  value: "1235"
+              - column:
+                  name: enabled
+                  value: false
+
+        - insert:
+            tableName: user_role
+            columns:
+              - column:
+                  name: user_id
+                  value: 2
+              - column:
+                  name: role_id
+                  value: 1

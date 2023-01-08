@@ -1,7 +1,7 @@
 package com.example.springforumapp.files.services;
 
 
-import com.example.springforumapp.files.util.FileNotSavedException;
+import com.example.springforumapp.files.util.exceptions.FileNotSavedException;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 
 @Service
 @Transactional
-public class StorageService implements StorageServiceInterface{
+public class StorageService implements IStorageService {
     @Override
     public void init() {
 
@@ -26,11 +26,9 @@ public class StorageService implements StorageServiceInterface{
                 Path uploadImagesLocationPath = Paths.get("upload/images");
                 Files.copy(file.getInputStream(), uploadImagesLocationPath.resolve(newFileName));
             } catch (Exception e) {
-            throw new FileNotSavedException("Could not store the file. Error: " + e.getMessage());
+            throw new FileNotSavedException("file can not be uploaded","StrorageService.java :FileNotSavedException");
         }
     }
-
-
 
     @Override
     public Stream<Path> loadAll() {

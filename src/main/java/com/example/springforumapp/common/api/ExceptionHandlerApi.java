@@ -1,6 +1,7 @@
 package com.example.springforumapp.common.api;
 
 import com.example.springforumapp.auth.util.exceptions.AuthException;
+import com.example.springforumapp.boards.util.exceptions.BoardException;
 import com.example.springforumapp.publications.util.exceptions.PublicationException;
 import com.example.springforumapp.registration.util.exceptions.RegistrationException;
 import com.example.springforumapp.users.util.exceptions.ActivationProfileException;
@@ -74,4 +75,15 @@ public class ExceptionHandlerApi {
         return new ResponseEntity<>(responseErrorApi, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(BoardException.class)
+    protected ResponseEntity<ResponseApi> handleBoardException(BoardException e) {
+        ResponseErrorApi responseErrorApi = new ResponseErrorApi(
+                ResponseStatusApi.FAIL,
+                HttpStatus.NOT_FOUND.value(),
+                e.getMessage(),
+                e.getDbgMessage(),
+                System.currentTimeMillis()
+        );
+        return new ResponseEntity<>(responseErrorApi, HttpStatus.BAD_REQUEST);
+    }
 }

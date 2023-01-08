@@ -1,5 +1,7 @@
 package com.example.springforumapp.publications.services;
 
+import com.example.springforumapp.boards.models.domain.Board;
+import com.example.springforumapp.boards.services.BoardsService;
 import com.example.springforumapp.publications.models.domain.Publication;
 import com.example.springforumapp.publications.repositories.PublicationsRepository;
 import com.example.springforumapp.publications.util.exceptions.PublicationException;
@@ -16,10 +18,12 @@ import java.util.Optional;
 @Transactional
 public class PublicationsService {
     private final PublicationsRepository publicationsRepository;
+    private final BoardsService boardsService;
 
     @Autowired
-    public PublicationsService(PublicationsRepository publicationsRepository) {
+    public PublicationsService(PublicationsRepository publicationsRepository, BoardsService boardsService) {
         this.publicationsRepository = publicationsRepository;
+        this.boardsService = boardsService;
     }
 
     public List<Publication> getAllPublications(){
@@ -27,7 +31,8 @@ public class PublicationsService {
     }
 
     public List<Publication> getAllPublicationsByBoardName(String boardName){
-        return publicationsRepository.findAllByBoardName(boardName);
+        Board board = boardsService.findBoardByName(boardName);
+        return publicationsRepository.findAllByBoardName(board.getName());
     }
 
     public void savePublication(Publication publication){

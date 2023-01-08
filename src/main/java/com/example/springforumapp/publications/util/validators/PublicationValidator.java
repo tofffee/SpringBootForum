@@ -13,16 +13,14 @@ import java.util.List;
 
 @Component
 public class PublicationValidator implements Validator {
-
     public PublicationValidator() { }
-
     @Override
     public boolean supports(Class<?> clazz) {
         return PublicationInputDTO.class.equals(clazz);
     }
 
     @Override
-    public void validate(Object target, Errors errors) {
+    public void validate(Object target, Errors errors) throws PublicationException {
         if (errors.hasErrors()){
             StringBuilder errorMessage = new StringBuilder();
             List<FieldError> fieldErrorsList = errors.getFieldErrors();
@@ -33,7 +31,7 @@ public class PublicationValidator implements Validator {
                         .append(error.getDefaultMessage())
                         .append("; ");
             }
-            throw new PublicationException(errorMessage.toString(),"error during @Valid binding result ");
+            throw new PublicationException(errorMessage.toString(),"PublicationValidator.java: PublicationException");
         }
     }
 }

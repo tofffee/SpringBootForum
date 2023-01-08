@@ -2,6 +2,7 @@ package com.example.springforumapp.publications.models.domain;
 
 import com.example.springforumapp.boards.models.domain.Board;
 import com.example.springforumapp.comments.models.domain.Comment;
+import com.example.springforumapp.files.models.domain.Image;
 import com.example.springforumapp.users.models.domain.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
@@ -14,7 +15,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name = "Publications")
+@Table(name = "publications")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -23,6 +24,7 @@ public class Publication {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     private int id;
 
     @Column(name = "name")
@@ -35,7 +37,7 @@ public class Publication {
     @Size(min = 1,message = "Publication error (text of publication is too small)")
     private String text;
 
-    @Column(name = "dateOfCreation")
+    @Column(name = "date_of_creation")
     private LocalDate dateOfCreation;
 
     @ManyToOne
@@ -48,4 +50,7 @@ public class Publication {
 
     @OneToMany(mappedBy = "publication")
     private List<Comment> comments;
+
+    @OneToMany(mappedBy = "publication")
+    private List<Image> images;
 }

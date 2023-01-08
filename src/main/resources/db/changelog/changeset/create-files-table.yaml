@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: create-publications
+      id: create-files
       author: tofffee
       changes:
         - createTable:
-            tableName: publications
+            tableName: files
             columns:
               - column:
                   name: id
@@ -14,27 +14,13 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: name
+                  name: url
                   type: varchar(250)
                   constraints:
                     nullable: false
-              - column:
-                  name: text
-                  type: varchar(250)
-                  constraints:
-                    nullable: false
-              - column:
-                  name: date_of_creation
-                  type: date
               - column:
                   name: user_id
                   type: bigint
                   constraints:
-                    foreignKeyName: fk_publication_author
+                    foreignKeyName: fk_user_id
                     references: users(id)
-              - column:
-                  name: board_id
-                  type: bigint
-                  constraints:
-                    foreignKeyName: fk_board_id
-                    references: boards(id)

@@ -1,5 +1,6 @@
 package com.example.springforumapp.users.models.domain;
 
+import com.example.springforumapp.files.models.domain.Image;
 import com.example.springforumapp.publications.models.domain.Publication;
 import lombok.*;
 

@@ -1,9 +1,10 @@
 package com.example.springforumapp.boards.controllers.api;
 
 import com.example.springforumapp.boards.models.domain.Board;
-import com.example.springforumapp.boards.models.dto.BoardDTO;
-import com.example.springforumapp.boards.models.dto.BoardDTOCreateDeletePut;
+import com.example.springforumapp.boards.models.dto.BoardOutputDTO;
+import com.example.springforumapp.boards.models.dto.BoardInputDTO;
 import com.example.springforumapp.boards.services.BoardsService;
+import com.example.springforumapp.common.api.ResponseApi;
 import com.example.springforumapp.common.api.ResponseStatusApi;
 import com.example.springforumapp.common.api.ResponseSuccessApi;
 import org.modelmapper.ModelMapper;
@@ -29,21 +30,15 @@ public class BoardsControllerApi {
     }
 
     @GetMapping()
-    public ResponseEntity<?> getAllBoardsApi(){
-        List<Board> boardList = boardsService.getAllBoards();
-        List<BoardDTO> boardDTOList = new ArrayList<>();
-        boardList.stream().forEach(board -> {
-            BoardDTO boardDTO = new BoardDTO();
-            boardDTO.setId(board.getId());
-            boardDTO.setName(board.getName());
-            boardDTOList.add(boardDTO);
-        } );
-        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(),boardDTOList));
+    public ResponseEntity<ResponseApi> getAllBoardsApi(){
+        List<Board> boards = boardsService.getAllBoards();
+        List<BoardOutputDTO> boardOutputDTOS = boardsToDTO(boards);
+        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), boardOutputDTOS));
     }
 
     @PostMapping()
-    public ResponseEntity<?> addBoard(@RequestBody BoardDTOCreateDeletePut boardDTOCreateDeletePut){
-        boardsService.addBoard(boardDTOCreateDeletePut);
+    public ResponseEntity<?> addBoard(@RequestBody BoardInputDTO boardInputDTO){
+        boardsService.addBoard(boardInputDTO);
         return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), "Board created successfully"));
     }
 
@@ -54,8 +49,8 @@ public class BoardsControllerApi {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> changeBoard(@PathVariable int id, @RequestBody BoardDTOCreateDeletePut boardDTOCreateDeletePut){
-        boardsService.changeBoard(id, boardDTOCreateDeletePut);
+    public ResponseEntity<?> changeBoard(@PathVariable int id, @RequestBody BoardInputDTO boardInputDTO){
+        boardsService.changeBoard(id, boardInputDTO);
         return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), "Board updated successfully"));
     }
 
@@ -63,6 +58,17 @@ public class BoardsControllerApi {
     public ResponseEntity<?> deleteAllBoards(){
         boardsService.deleteAllBoards();
         return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), "All boards deleted successfully"));
+    }
+
+    private List<BoardOutputDTO> boardsToDTO(List<Board> boards){
+        List<BoardOutputDTO> boardOutputDTOList = new ArrayList<>();
+        boards.forEach(board -> {
+            BoardOutputDTO boardOutputDTO = new BoardOutputDTO();
+            boardOutputDTO.setId(board.getId());
+            boardOutputDTO.setName(board.getName());
+            boardOutputDTOList.add(boardOutputDTO);
+        } );
+        return boardOutputDTOList;
     }
 
 }

@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 public class PublicationException extends RuntimeException {
     private String dbgMessage;
-    public PublicationException(String message, String dbgMessagee)
+    public PublicationException(String message, String dbgMessage)
     {
         super(message);
         this.dbgMessage = dbgMessage;

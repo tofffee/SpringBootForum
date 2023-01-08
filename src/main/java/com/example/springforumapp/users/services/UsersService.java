@@ -40,6 +40,13 @@ public class UsersService implements UserDetailsService, IUsersService {
         else return new UserDetailsImpl(user.get());
     }
 
+    public User findBId(int id) {
+        Optional<User> user =  usersRepository.findById(id);
+        if (user.isPresent())
+            return user.get();
+        else throw new UserNotFoundException("User was not found", "UsersService.java: UserNotFoundException");
+    }
+
     public User findByUsername(String username) {
         Optional<User> user =  usersRepository.findUserByUsername(username);
         return user.orElse(null);
