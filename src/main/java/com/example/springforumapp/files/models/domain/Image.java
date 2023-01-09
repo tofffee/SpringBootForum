@@ -25,7 +25,7 @@ public class Image {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     @JoinColumn(name = "publication_id", referencedColumnName = "id")
     private Publication publication;
 }

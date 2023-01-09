@@ -1,8 +1,6 @@
 package com.example.springforumapp.publications.util.validators;
 
-import com.example.springforumapp.auth.models.dto.LoginRequestDTO;
-import com.example.springforumapp.auth.util.exceptions.AuthException;
-import com.example.springforumapp.publications.models.dto.PublicationInputDTO;
+import com.example.springforumapp.publications.models.dto.PublicationInDTO;
 import com.example.springforumapp.publications.util.exceptions.PublicationException;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -16,7 +14,7 @@ public class PublicationValidator implements Validator {
     public PublicationValidator() { }
     @Override
     public boolean supports(Class<?> clazz) {
-        return PublicationInputDTO.class.equals(clazz);
+        return PublicationInDTO.class.equals(clazz);
     }
 
     @Override

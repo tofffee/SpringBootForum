@@ -12,6 +12,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -52,5 +53,15 @@ public class Publication {
     private List<Comment> comments;
 
     @OneToMany(mappedBy = "publication")
-    private List<Image> images;
+    private List<Image> images = new ArrayList<>();
+
+    public void addImage(Image image){
+        this.images.add(image);
+        image.setPublication(this);
+    }
+
+    public void removeImage(Image image){
+        this.images.remove(image);
+        image.setPublication(null);
+    }
 }

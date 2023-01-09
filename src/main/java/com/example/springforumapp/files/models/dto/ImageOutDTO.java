@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ImageUploadResponseDTO {
+public class ImageOutDTO {
     private int id;
+    private String url;
+    private String name;
 }
