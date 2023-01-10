@@ -78,6 +78,7 @@ public class UsersService implements UserDetailsService, IUsersService {
         } else throw new ActivationProfileException("Your activation code is not correct","UsersService.java: ActivationProfileException");
     }
 
+
     public void addUser(User user){
         List<Role> roles = new ArrayList<>();
         roles.add(rolesRepository.findByName("ROLE_USER"));
