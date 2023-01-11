@@ -38,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
 
                 .antMatchers("/api/activate").authenticated()
-                .antMatchers(HttpMethod.POST,"/api/boards/{boardName}").authenticated()
+                .antMatchers(HttpMethod.POST,"/api/boards/{boardName}","/api/upload/image").authenticated()
                 .antMatchers(HttpMethod.DELETE,"/api/boards/{boardName}/{publicationId}").authenticated()
 
                 .antMatchers(HttpMethod.POST,"/api/boards").hasRole("ADMIN")

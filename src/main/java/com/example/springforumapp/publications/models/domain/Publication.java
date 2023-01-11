@@ -52,16 +52,24 @@ public class Publication {
     @OneToMany(mappedBy = "publication")
     private List<Comment> comments;
 
-    @OneToMany(mappedBy = "publication")
-    private List<Image> images = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "Publication_Image",
+            joinColumns = @JoinColumn(name = "publication_id"),
+            inverseJoinColumns = @JoinColumn(name = "image_id")
+    )
+    private List<Image> images;
 
-    public void addImage(Image image){
-        this.images.add(image);
-        image.setPublication(this);
-    }
-
-    public void removeImage(Image image){
-        this.images.remove(image);
-        image.setPublication(null);
-    }
+//    public void addImage(Image image){
+//        if(this.images == null){
+//            this.images = new ArrayList<>();
+//        }
+//        this.images.add(image);
+//        image.setPublication(this);
+//    }
+//
+//    public void removeImage(Image image){
+//        this.images.remove(image);
+//        image.setPublication(null);
+//    }
 }

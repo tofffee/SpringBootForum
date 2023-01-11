@@ -34,9 +34,10 @@ public class ImagesService {
             return image.get();
         else throw new FileException("Such image does not exist","ImagesService.java: FileException");
     }
-    public Image saveImage(String newImageName)
+    public Image saveImage(User user, String newImageName)
     {
         Image image = new Image();
+        image.setUser(user);
         image.setUrl(hostName + "/upload/images/" + newImageName);
         image.setName(newImageName);
         imagesRepository.save(image);

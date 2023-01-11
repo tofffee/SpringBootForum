@@ -24,8 +24,8 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: publication_id
+                  name: user_id
                   type: bigint
                   constraints:
-                    foreignKeyName: fk_publication_id
-                    references: publications(id)
+                    foreignKeyName: fk_user_id
+                    references: users(id)

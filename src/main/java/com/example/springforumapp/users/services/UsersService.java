@@ -40,7 +40,7 @@ public class UsersService implements UserDetailsService, IUsersService {
         else return new UserDetailsImpl(user.get());
     }
 
-    public User findBId(int id) {
+    public User findById(int id) {
         Optional<User> user =  usersRepository.findById(id);
         if (user.isPresent())
             return user.get();

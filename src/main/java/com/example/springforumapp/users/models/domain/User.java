@@ -61,4 +61,7 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Publication> publications;
 
+    @OneToMany(mappedBy = "user")
+    private List<Image> images;
+
 }

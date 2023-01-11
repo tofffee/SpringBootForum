@@ -5,6 +5,7 @@ import com.example.springforumapp.users.models.domain.User;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
@@ -25,8 +26,11 @@ public class Image {
     @Column(name = "name")
     private String name;
 
+    @ManyToMany(mappedBy = "images")
+    private List<Publication> publications;
+
     @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    @JoinColumn(name = "publication_id", referencedColumnName = "id")
-    private Publication publication;
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
 }
 

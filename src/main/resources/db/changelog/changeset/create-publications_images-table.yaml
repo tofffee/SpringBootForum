@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-publications_images
+      author: tofffee
+      changes:
+        - createTable:
+            tableName: publication_image
+            columns:
+              - column:
+                  name: publication_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_publication_id
+                    references: publications(id)
+              - column:
+                  name: image_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_image_id
+                    references: images(id)
