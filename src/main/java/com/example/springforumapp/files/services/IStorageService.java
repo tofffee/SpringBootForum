@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 public interface IStorageService {
     void init();
 
-    void store(MultipartFile file, String newFileName);
+    String store(MultipartFile file);
 
     Stream<Path> loadAll();
 

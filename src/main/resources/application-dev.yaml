@@ -11,7 +11,7 @@ server:
 
 spring:
 
-  # (Data Source)
+   # (Data Source)
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/SpringForumApp_DB
@@ -30,6 +30,12 @@ spring:
   #liquibase
   liquibase:
     enabled: true
+
+  #max uploading file size
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
 
   #mail
   mail:
@@ -50,6 +56,8 @@ spring:
             scope:
               - email
               - profile
+
+
 
 jwt:
   secret: wqeqwzcdasdasdcazcdas

@@ -71,7 +71,7 @@ public class PublicationsControllerApi {
     }
 
     @PostMapping(path = "/boards/{boardName}")
-    public ResponseEntity<ResponseApi> createPublicationInBoardApi(@AuthenticationPrincipal UserDetailsImpl userDetailsImpl,
+    public ResponseEntity<ResponseApi> createPublicationInBoardApi(@AuthenticationPrincipal UserDetailsImpl userDetails,
                                                                    @PathVariable("boardName") String boardName,
                                                                    @RequestBody @Valid PublicationInDTO publicationInDTO,
                                                                    BindingResult bindingResult)
@@ -84,7 +84,7 @@ public class PublicationsControllerApi {
             publication.addImage(image);
         }
         publication.setBoard(boardsService.findBoardByName(boardName));
-        publication.setUser(usersService.findBId(userDetailsImpl.getUser().getId()));
+        publication.setUser(usersService.findBId(userDetails.getUser().getId()));
         publicationsService.savePublication(publication);
 
         return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), "publication successfully created"));

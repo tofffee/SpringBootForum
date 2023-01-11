@@ -1,15 +1,14 @@
 package com.example.springforumapp.files.services;
 
 
+import com.example.springforumapp.files.util.FileUtil;
 import com.example.springforumapp.files.util.exceptions.FileException;
-import com.example.springforumapp.files.util.exceptions.FileNotSavedException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
-import java.io.File;
-import java.io.FileInputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -18,16 +17,26 @@ import java.util.stream.Stream;
 @Service
 @Transactional
 public class StorageService implements IStorageService {
+
+    private final FileUtil fileUtil;
+
+    @Autowired
+    public StorageService(FileUtil fileUtil) {
+        this.fileUtil = fileUtil;
+    }
+
     @Override
     public void init() {
 
     }
 
     @Override
-    public void store(MultipartFile file,String newFileName) {
+    public String store(MultipartFile file) {
         try {
                 Path uploadImagesLocationPath = Paths.get("upload/images");
-                Files.copy(file.getInputStream(), uploadImagesLocationPath.resolve(newFileName));
+                String newImageName = fileUtil.generateRandomImageName(file);
+                Files.copy(file.getInputStream(), uploadImagesLocationPath.resolve(newImageName));
+                return newImageName;
             } catch (Exception e) {
             throw new FileException("file can not be uploaded","StrorageService.java :FileException");
         }

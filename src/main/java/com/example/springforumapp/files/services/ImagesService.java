@@ -34,12 +34,11 @@ public class ImagesService {
             return image.get();
         else throw new FileException("Such image does not exist","ImagesService.java: FileException");
     }
-    public Image saveImage(Publication publication, String newImageName)
+    public Image saveImage(String newImageName)
     {
         Image image = new Image();
         image.setUrl(hostName + "/upload/images/" + newImageName);
         image.setName(newImageName);
-        image.setPublication(publication);
         imagesRepository.save(image);
         return image;
     }
