@@ -38,23 +38,28 @@ public class StorageService implements IStorageService {
 
     @Override
     public UpFile store(MultipartFile file) {
-
                 Path uploadLocationPath = null;
-                String extension = FilenameUtils.getExtension(file.getOriginalFilename()).toLowerCase();
+
                 UpFile upFile = new UpFile();
+
+                String extension = FilenameUtils.getExtension(file.getOriginalFilename()).toLowerCase();
                 if(extension.equals("jpg") || extension.equals("jpeg") || extension.equals("png")){
                     upFile.setType("IMAGE");
-                    uploadLocationPath = Paths.get(imagesFolderPath);
-
                 } else if (extension.equals("mp4") || extension.equals("webm")){
                     upFile.setType("VIDEO");
-                    uploadLocationPath = Paths.get(videoFolderPath);
                 } else throw new FileException("Please choose picture or video file","StrorageService.java :FileException");
+
                 String newFileName = fileUtil.generateRandomFileName(file);
                 upFile.setName(newFileName);
                 switch (upFile.getType()) {
-                    case "IMAGE" -> upFile.setUrl(hostName + "/" + imagesFolderPath + newFileName);
-                    case "VIDEO" -> upFile.setUrl(hostName + "/" + videoFolderPath + newFileName);
+                    case "IMAGE" -> {
+                        upFile.setUrl(hostName + "/" + imagesFolderPath + newFileName);
+                        uploadLocationPath = Paths.get(imagesFolderPath);
+                    }
+                    case "VIDEO" -> {
+                        upFile.setUrl(hostName + "/" + videoFolderPath + newFileName);
+                        uploadLocationPath = Paths.get(videoFolderPath);
+                    }
                 }
             try {
                 Files.copy(file.getInputStream(), uploadLocationPath.resolve(newFileName));

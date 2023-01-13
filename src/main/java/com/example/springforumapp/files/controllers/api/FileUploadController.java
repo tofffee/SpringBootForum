@@ -41,8 +41,7 @@ public class FileUploadController {
                                                        @RequestParam("file") MultipartFile file) {
 
             UpFile upFile = storageService.store(file);
-            upFile.setUser(usersService.findById(userDetails.getUser().getId()));
-            upFileService.saveFile(upFile);
+            upFileService.saveFile(usersService.findById(userDetails.getUser().getId()),upFile);
             UpFileOutDTO dto = modelMapper.map(upFile, UpFileOutDTO.class);
             return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), dto));
         }
