@@ -4,11 +4,10 @@ package com.example.springforumapp.files.controllers.api;
 import com.example.springforumapp.common.api.ResponseApi;
 import com.example.springforumapp.common.api.ResponseStatusApi;
 import com.example.springforumapp.common.api.ResponseSuccessApi;
-import com.example.springforumapp.files.models.domain.Image;
-import com.example.springforumapp.files.models.dto.ImageOutDTO;
-import com.example.springforumapp.files.services.ImagesService;
+import com.example.springforumapp.files.models.domain.UpFile;
+import com.example.springforumapp.files.models.dto.UpFileOutDTO;
+import com.example.springforumapp.files.services.UpFileService;
 import com.example.springforumapp.files.services.StorageService;
-import com.example.springforumapp.files.util.FileUtil;
 import com.example.springforumapp.security.UserDetailsImpl;
 import com.example.springforumapp.users.services.UsersService;
 import org.modelmapper.ModelMapper;
@@ -24,51 +23,37 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileUploadController {
 
         private final StorageService storageService;
-        private final ImagesService imagesService;
+        private final UpFileService upFileService;
         private final UsersService usersService;
-        private final FileUtil fileUtil;
         private final ModelMapper modelMapper;
 
-
-        private final long MAX_IMAGE_SIZE = 20*1024*1024;
         @Autowired
-        public FileUploadController(StorageService storageService, ImagesService imagesService, UsersService usersService, FileUtil fileUtil, ModelMapper modelMapper) {
+        public FileUploadController(StorageService storageService, UpFileService upFileService, UsersService usersService, ModelMapper modelMapper) {
             this.storageService = storageService;
-            this.imagesService = imagesService;
+            this.upFileService = upFileService;
             this.usersService = usersService;
-            this.fileUtil = fileUtil;
             this.modelMapper = modelMapper;
         }
 
 
-        @PostMapping("/image")
+        @PostMapping()
         public ResponseEntity<ResponseApi> uploadImage(@AuthenticationPrincipal UserDetailsImpl userDetails,
-                                                       @RequestParam("file") MultipartFile image) {
-//            if(image.getSize()>MAX_IMAGE_SIZE) //check for size
-//                throw new FileException("Image is very big","FileUploadController.java: FileException");
-//
-//            if(!image.getContentType().equals(MimeTypeUtils.IMAGE_JPEG.toString()) && !image.getContentType().equals(MimeTypeUtils.IMAGE_PNG.toString())){
-//                throw new FileException("This is not image","FileUploadController.java: FileException");
-//            }
-//
-//            String fileExtension = fileUtil.getFileExtension(image.getOriginalFilename());
-//            if(!fileExtension.equals("jpeg") && !fileExtension.equals("jpg") && !fileExtension.equals("png")){
-//                throw new FileException("This is not image","FileUploadController.java: FileException");
-//            }
+                                                       @RequestParam("file") MultipartFile file) {
 
-            String storedImageName = storageService.store(image);
-            Image savedImage = imagesService.saveImage(usersService.findById(userDetails.getUser().getId()), storedImageName);
-            ImageOutDTO imageOutDTO = modelMapper.map(savedImage, ImageOutDTO.class);
-            return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), imageOutDTO));
+            UpFile upFile = storageService.store(file);
+            upFile.setUser(usersService.findById(userDetails.getUser().getId()));
+            upFileService.saveFile(upFile);
+            UpFileOutDTO dto = modelMapper.map(upFile, UpFileOutDTO.class);
+            return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), dto));
         }
 
-        @DeleteMapping ("/image/{id}")
-        public ResponseEntity<ResponseApi> deleteImage(@PathVariable("id") int id) {
-            Image image = imagesService.findImageById(id);
-            storageService.delete(image.getName());
-            imagesService.deleteImage(id);
-            return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), "Image was successfully deleted"));
-        }
+//        @DeleteMapping ("/image/{id}")
+//        public ResponseEntity<ResponseApi> deleteImage(@PathVariable("id") int id) {
+//            Image image = fileService.findImageById(id);
+//            storageService.delete(image.getName());
+//            fileService.deleteImage(id);
+//            return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), "Image was successfully deleted"));
+//        }
 
 
 }

@@ -9,8 +9,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class MvcConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/static/**", "/upload/images/**")
-                .addResourceLocations("classpath:/static/", "file:" + System.getProperty("user.dir") + "/upload/images/");
+//        registry.addResourceHandler("/static/**", "/upload/files/videos/**")
+//                .addResourceLocations("classpath:/static/", "file:" + System.getProperty("user.dir") + "/upload/files/videos/");
+        registry.addResourceHandler("/static/**", "/upload/files/**")
+                .addResourceLocations("classpath:/static/", "file:" + System.getProperty("user.dir") + "/upload/files/");
     }
 }
 

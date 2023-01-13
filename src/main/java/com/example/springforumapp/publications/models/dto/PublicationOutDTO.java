@@ -1,8 +1,9 @@
 package com.example.springforumapp.publications.models.dto;
 
-import com.example.springforumapp.files.models.dto.ImageDTO;
-import com.example.springforumapp.files.models.dto.ImageOutDTO;
+
+import com.example.springforumapp.files.models.dto.UpFileOutDTO;
 import com.example.springforumapp.users.models.dto.UserDTO;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,5 +20,5 @@ public class PublicationOutDTO {
     private String name;
     private String text;
     private LocalDate dateOfCreation;
-    private List<ImageOutDTO> images;
+    private List<UpFileOutDTO> upfiles;
 }

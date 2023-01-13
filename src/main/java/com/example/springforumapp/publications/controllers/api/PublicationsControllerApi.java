@@ -5,12 +5,9 @@ import com.example.springforumapp.boards.services.BoardsService;
 import com.example.springforumapp.common.api.ResponseApi;
 import com.example.springforumapp.common.api.ResponseStatusApi;
 import com.example.springforumapp.common.api.ResponseSuccessApi;
-import com.example.springforumapp.files.models.domain.Image;
-import com.example.springforumapp.files.models.dto.ImageDTO;
-import com.example.springforumapp.files.models.dto.ImageOutDTO;
-import com.example.springforumapp.files.services.ImagesService;
-import com.example.springforumapp.files.services.StorageService;
-import com.example.springforumapp.files.util.FileUtil;
+import com.example.springforumapp.files.models.domain.UpFile;
+import com.example.springforumapp.files.models.dto.UpFileOutDTO;
+import com.example.springforumapp.files.services.UpFileService;
 import com.example.springforumapp.publications.models.domain.Publication;
 import com.example.springforumapp.publications.models.dto.PublicationInDTO;
 import com.example.springforumapp.publications.models.dto.PublicationOutDTO;
@@ -25,11 +22,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.parameters.P;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,16 +37,16 @@ public class PublicationsControllerApi {
     private final PublicationsService publicationsService;
     private final BoardsService boardsService;
     private final UsersService usersService;
-    private final ImagesService imagesService;
+    private final UpFileService upFileService;
     private final PublicationValidator publicationValidator;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public PublicationsControllerApi(PublicationsService publicationsService, BoardsService boardsService, UsersService usersService, ImagesService imagesService, PublicationValidator publicationValidator, ModelMapper modelMapper) {
+    public PublicationsControllerApi(PublicationsService publicationsService, BoardsService boardsService, UsersService usersService, UpFileService upFileService, PublicationValidator publicationValidator, ModelMapper modelMapper) {
         this.publicationsService = publicationsService;
         this.boardsService = boardsService;
         this.usersService = usersService;
-        this.imagesService = imagesService;
+        this.upFileService = upFileService;
         this.publicationValidator = publicationValidator;
         this.modelMapper = modelMapper;
     }
@@ -104,10 +99,10 @@ public class PublicationsControllerApi {
         dto.setName(publication.getName());
         dto.setText(publication.getText());
         dto.setDateOfCreation(publication.getDateOfCreation());
-        if(publication.getImages() != null && !publication.getImages().isEmpty())
-            dto.setImages(modelMapper.map(publication.getImages(),new TypeToken<List<ImageOutDTO>>(){}.getType()));
+        if(publication.getUpfiles() != null && !publication.getUpfiles().isEmpty())
+            dto.setUpfiles(modelMapper.map(publication.getUpfiles(),new TypeToken<List<UpFileOutDTO>>(){}.getType()));
          else
-            dto.setImages(new ArrayList<>());
+            dto.setUpfiles(new ArrayList<>());
         return dto;
     }
 
@@ -122,10 +117,10 @@ public class PublicationsControllerApi {
         Publication publication = new Publication();
         publication.setName(dto.getName());
         publication.setText(dto.getText());
-        if(dto.getImagesId()!=null && !dto.getImagesId().isEmpty()){
-            List<Image> images = new ArrayList<>();
-            dto.getImagesId().forEach(id -> images.add(imagesService.findImageById(id)));
-            publication.setImages(images);
+        if(dto.getUpFilesId()!=null && !dto.getUpFilesId().isEmpty()){
+            List<UpFile> upfiles = new ArrayList<>();
+            dto.getUpFilesId().forEach(id ->upfiles.add(upFileService.findFileById(id)));
+            publication.setUpfiles(upfiles);
         }
         return publication;
     }

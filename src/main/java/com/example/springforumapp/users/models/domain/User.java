@@ -1,13 +1,12 @@
 package com.example.springforumapp.users.models.domain;
 
-import com.example.springforumapp.files.models.domain.Image;
+import com.example.springforumapp.files.models.domain.UpFile;
 import com.example.springforumapp.publications.models.domain.Publication;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.List;
 
@@ -62,6 +61,6 @@ public class User {
     private List<Publication> publications;
 
     @OneToMany(mappedBy = "user")
-    private List<Image> images;
+    private List<UpFile> upFiles;
 
 }

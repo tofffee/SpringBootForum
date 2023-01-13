@@ -1,9 +1,12 @@
 package com.example.springforumapp.files.services;
 
 
+import com.example.springforumapp.files.models.domain.UpFile;
 import com.example.springforumapp.files.util.FileUtil;
 import com.example.springforumapp.files.util.exceptions.FileException;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,7 +22,10 @@ import java.util.stream.Stream;
 public class StorageService implements IStorageService {
 
     private final FileUtil fileUtil;
-
+    private final String imagesFolderPath = "upload/files/images/";
+    private final String videoFolderPath = "upload/files/videos/";
+    @Value("${server.hostname}")
+    String hostName;
     @Autowired
     public StorageService(FileUtil fileUtil) {
         this.fileUtil = fileUtil;
@@ -31,14 +37,30 @@ public class StorageService implements IStorageService {
     }
 
     @Override
-    public String store(MultipartFile file) {
-        try {
-                Path uploadImagesLocationPath = Paths.get("upload/images");
-                String newImageName = fileUtil.generateRandomImageName(file);
-                Files.copy(file.getInputStream(), uploadImagesLocationPath.resolve(newImageName));
-                return newImageName;
+    public UpFile store(MultipartFile file) {
+
+                Path uploadLocationPath = null;
+                String extension = FilenameUtils.getExtension(file.getOriginalFilename()).toLowerCase();
+                UpFile upFile = new UpFile();
+                if(extension.equals("jpg") || extension.equals("jpeg") || extension.equals("png")){
+                    upFile.setType("IMAGE");
+                    uploadLocationPath = Paths.get(imagesFolderPath);
+
+                } else if (extension.equals("mp4") || extension.equals("webm")){
+                    upFile.setType("VIDEO");
+                    uploadLocationPath = Paths.get(videoFolderPath);
+                } else throw new FileException("Please choose picture or video file","StrorageService.java :FileException");
+                String newFileName = fileUtil.generateRandomFileName(file);
+                upFile.setName(newFileName);
+                switch (upFile.getType()) {
+                    case "IMAGE" -> upFile.setUrl(hostName + "/" + imagesFolderPath + newFileName);
+                    case "VIDEO" -> upFile.setUrl(hostName + "/" + videoFolderPath + newFileName);
+                }
+            try {
+                Files.copy(file.getInputStream(), uploadLocationPath.resolve(newFileName));
+                return upFile;
             } catch (Exception e) {
-            throw new FileException("file can not be uploaded","StrorageService.java :FileException");
+            throw new FileException("File can not be uploaded","StrorageService.java :FileException");
         }
     }
 

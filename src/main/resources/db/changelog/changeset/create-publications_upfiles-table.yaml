@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: create-publications_images
+      id: create-publications_upfiles
       author: tofffee
       changes:
         - createTable:
-            tableName: publication_image
+            tableName: publications_upfiles
             columns:
               - column:
                   name: publication_id
@@ -13,8 +13,8 @@ databaseChangeLog:
                     foreignKeyName: fk_publication_id
                     references: publications(id)
               - column:
-                  name: image_id
+                  name: upfile_id
                   type: bigint
                   constraints:
-                    foreignKeyName: fk_image_id
-                    references: images(id)
+                    foreignKeyName: fk_upfile_id
+                    references: upfiles(id)

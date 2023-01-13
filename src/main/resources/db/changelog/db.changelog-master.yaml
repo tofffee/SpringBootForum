@@ -12,9 +12,9 @@ databaseChangeLog:
   - include:
       file: db/changelog/changeset/create-users_roles-table.yaml
   - include:
-      file: db/changelog/changeset/create-images-table.yaml
+      file: db/changelog/changeset/create-upfiles-table.yaml
   - include:
-      file: db/changelog/changeset/create-publications_images-table.yaml
+      file: db/changelog/changeset/create-publications_upfiles-table.yaml
   - include:
       file: db/changelog/changeset/insert-roles.yaml
   - include:

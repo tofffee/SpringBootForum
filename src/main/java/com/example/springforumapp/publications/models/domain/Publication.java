@@ -2,17 +2,14 @@ package com.example.springforumapp.publications.models.domain;
 
 import com.example.springforumapp.boards.models.domain.Board;
 import com.example.springforumapp.comments.models.domain.Comment;
-import com.example.springforumapp.files.models.domain.Image;
+import com.example.springforumapp.files.models.domain.UpFile;
 import com.example.springforumapp.users.models.domain.User;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
-import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -52,24 +49,12 @@ public class Publication {
     @OneToMany(mappedBy = "publication")
     private List<Comment> comments;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(
-            name = "Publication_Image",
+            name = "publications_upfiles",
             joinColumns = @JoinColumn(name = "publication_id"),
-            inverseJoinColumns = @JoinColumn(name = "image_id")
+            inverseJoinColumns = @JoinColumn(name = "upfile_id")
     )
-    private List<Image> images;
+    private List<UpFile> upfiles;
 
-//    public void addImage(Image image){
-//        if(this.images == null){
-//            this.images = new ArrayList<>();
-//        }
-//        this.images.add(image);
-//        image.setPublication(this);
-//    }
-//
-//    public void removeImage(Image image){
-//        this.images.remove(image);
-//        image.setPublication(null);
-//    }
 }

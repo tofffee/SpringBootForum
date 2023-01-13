@@ -21,5 +21,5 @@ public class PublicationInDTO {
     @Size(min = 3,message = "Publication error (text of publication is too small)")
     private String text;
 
-    private List<Integer> imagesId;
+    private List<Integer> upFilesId;
 }

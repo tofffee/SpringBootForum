@@ -2,6 +2,7 @@ package com.example.springforumapp.files.services;
 
 
 
+import com.example.springforumapp.files.models.domain.UpFile;
 import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -11,7 +12,7 @@ import java.util.stream.Stream;
 public interface IStorageService {
     void init();
 
-    String store(MultipartFile file);
+    UpFile store(MultipartFile file);
 
     Stream<Path> loadAll();
 
