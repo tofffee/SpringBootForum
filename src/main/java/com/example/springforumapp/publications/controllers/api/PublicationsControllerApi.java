@@ -57,7 +57,7 @@ public class PublicationsControllerApi {
     public ResponseEntity<ResponseApi> getAllPublicationsByPageApi(
             @RequestParam(name = "page") int pageNum,
             @RequestParam(name = "size") int pageSize,
-            @RequestParam(name = "sortType",required = false,  defaultValue = "desc") String sortType,
+            @RequestParam(name = "sortType",required = false,  defaultValue = "asc") String sortType,
             @RequestParam(name = "sortBy",required = false, defaultValue = "id") String sortBy){
         List<Publication> publications = publicationsService.getAllPublicationsByPage(pageNum,pageSize, sortType, sortBy);
         List<PublicationOutDTO> dtos = publicationsToOutDTOs(publications);
