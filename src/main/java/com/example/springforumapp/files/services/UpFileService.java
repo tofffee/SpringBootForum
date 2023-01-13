@@ -7,12 +7,13 @@ import com.example.springforumapp.files.util.exceptions.FileException;
 import com.example.springforumapp.users.models.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class UpFileService {
     private final UpFilesRepository upFilesRepository;
 
@@ -28,26 +29,14 @@ public class UpFileService {
         else throw new FileException("Such file does not exist", "ImagesService.java: FileException");
     }
 
+    @Transactional
     public void saveFile(User user, UpFile upFile) {
         upFile.setUser(user);
+        upFile.setDateOfCreation(LocalDate.now());
         upFilesRepository.save(upFile);
     }
-//    public Image findImageById(int id){
-//        Optional<Image> image = imagesRepository.findById(id);
-//        if(image.isPresent())
-//            return image.get();
-//        else throw new FileException("Such image does not exist","ImagesService.java: FileException");
-//    }
-//    public Image saveImage(User user, String newImageName)
-//    {
-//        Image image = new Image();
-//        image.setUser(user);
-//        image.setUrl(hostName + "/upload/images/" + newImageName);
-//        image.setName(newImageName);
-//        imagesRepository.save(image);
-//        return image;
-//    }
-//
+
+
 //    public void deleteImage(int id)
 //    {
 //        Optional<Image> image = imagesRepository.findById(id);

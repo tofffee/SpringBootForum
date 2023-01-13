@@ -35,11 +35,9 @@ public class FileUploadController {
             this.modelMapper = modelMapper;
         }
 
-
         @PostMapping()
         public ResponseEntity<ResponseApi> uploadImage(@AuthenticationPrincipal UserDetailsImpl userDetails,
                                                        @RequestParam("file") MultipartFile file) {
-
             UpFile upFile = storageService.store(file);
             upFileService.saveFile(usersService.findById(userDetails.getUser().getId()),upFile);
             UpFileOutDTO dto = modelMapper.map(upFile, UpFileOutDTO.class);

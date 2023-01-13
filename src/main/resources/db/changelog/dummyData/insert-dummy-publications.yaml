@@ -1,0 +1,114 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-dummy-publications-fields
+      author: tofffee
+      changes:
+        - insert:
+            tableName: publications
+            columns:
+              - column:
+                  name: id
+                  value: "1"
+              - column:
+                  name: name
+                  value: "football"
+              - column:
+                  name: text
+                  value: "In Brasilia everyone play this game"
+              - column:
+                  name: date_of_creation
+                  value: now()
+              - column:
+                  name: user_id
+                  value: 1
+              - column:
+                  name: board_id
+                  value: 1
+
+        - insert:
+            tableName: publications
+            columns:
+              - column:
+                  name: id
+                  value: "2"
+              - column:
+                  name: name
+                  value: "basketball"
+              - column:
+                  name: text
+                  value: "Basketball stars were playing in team"
+              - column:
+                  name: date_of_creation
+                  value: now()
+              - column:
+                  name: user_id
+                  value: 2
+              - column:
+                  name: board_id
+                  value: 1
+
+        - insert:
+            tableName: publications
+            columns:
+              - column:
+                  name: id
+                  value: "3"
+              - column:
+                  name: name
+                  value: "tennis"
+              - column:
+                  name: text
+                  value: "tennis is a popular game"
+              - column:
+                  name: date_of_creation
+                  value: now()
+              - column:
+                  name: user_id
+                  value: 1
+              - column:
+                  name: board_id
+                  value: 1
+
+        - insert:
+            tableName: publications
+            columns:
+              - column:
+                  name: id
+                  value: "4"
+              - column:
+                  name: name
+                  value: "hockey"
+              - column:
+                  name: text
+                  value: "Canada likes to play hockey"
+              - column:
+                  name: date_of_creation
+                  value: now()
+              - column:
+                  name: user_id
+                  value: 1
+              - column:
+                  name: board_id
+                  value: 1
+
+        - insert:
+            tableName: publications
+            columns:
+              - column:
+                  name: id
+                  value: "5"
+              - column:
+                  name: name
+                  value: "skateboarding"
+              - column:
+                  name: text
+                  value: "wood skates in top"
+              - column:
+                  name: date_of_creation
+                  value: now()
+              - column:
+                  name: user_id
+                  value: 1
+              - column:
+                  name: board_id
+                  value: 1

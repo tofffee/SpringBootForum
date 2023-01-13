@@ -1,6 +1,7 @@
 package com.example.springforumapp.publications.models.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,5 +22,6 @@ public class PublicationInDTO {
     @Size(min = 3,message = "Publication error (text of publication is too small)")
     private String text;
 
+    @JsonProperty("filesId")
     private List<Integer> upFilesId;
 }

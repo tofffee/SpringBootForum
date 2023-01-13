@@ -1,5 +1,6 @@
 package com.example.springforumapp.files.models.dto;
 
+import com.example.springforumapp.files.models.UpFileType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,5 +12,5 @@ public class UpFileOutDTO {
     private int id;
     private String url;
     private String name;
-    private String type;
+    private UpFileType type;
 }

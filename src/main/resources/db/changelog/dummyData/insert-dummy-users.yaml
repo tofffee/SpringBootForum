@@ -82,3 +82,38 @@ databaseChangeLog:
               - column:
                   name: role_id
                   value: 1
+
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  value: "3"
+              - column:
+                  name: username
+                  value: "johnacc"
+              - column:
+                  name: avatar_url
+                  value: "http://localhost:80/images/default_avatar.jpg"
+              - column:
+                  name: email
+                  value: "john@mail.ru"
+              - column:
+                  name: password
+                  value: " $2a$12$gID6irKenhpfucBf4WaFcOqJmAxe2v3HTbnLXAdmzD91aMkT5gGBe" #1234567
+              - column:
+                  name: activation_code
+                  value: "5648"
+              - column:
+                  name: enabled
+                  value: false
+
+        - insert:
+            tableName: user_role
+            columns:
+              - column:
+                  name: user_id
+                  value: 3
+              - column:
+                  name: role_id
+                  value: 1

@@ -24,6 +24,9 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
+                  name: date_of_creation
+                  type: date
+              - column:
                   name: type
                   type: varchar(250)
                   constraints:

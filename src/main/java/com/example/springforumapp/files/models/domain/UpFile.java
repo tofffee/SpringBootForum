@@ -1,6 +1,7 @@
 package com.example.springforumapp.files.models.domain;
 
 
+import com.example.springforumapp.files.models.UpFileType;
 import com.example.springforumapp.publications.models.domain.Publication;
 import com.example.springforumapp.users.models.domain.User;
 import lombok.AllArgsConstructor;
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -30,8 +32,12 @@ public class UpFile {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "date_of_creation")
+    private LocalDate dateOfCreation;
+
     @Column(name = "type")
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private UpFileType type;
 
     @ManyToMany(mappedBy = "upfiles")
     private List<Publication> publications;

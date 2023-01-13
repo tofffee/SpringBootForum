@@ -24,3 +24,5 @@ databaseChangeLog:
 
   - include:
       file: db/changelog/dummyData/insert-dummy-users.yaml
+  - include:
+      file: db/changelog/dummyData/insert-dummy-publications.yaml

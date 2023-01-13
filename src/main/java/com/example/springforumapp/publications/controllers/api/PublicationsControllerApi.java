@@ -12,6 +12,7 @@ import com.example.springforumapp.publications.models.domain.Publication;
 import com.example.springforumapp.publications.models.dto.PublicationInDTO;
 import com.example.springforumapp.publications.models.dto.PublicationOutDTO;
 import com.example.springforumapp.publications.services.PublicationsService;
+import com.example.springforumapp.publications.util.exceptions.PublicationException;
 import com.example.springforumapp.publications.util.validators.PublicationValidator;
 import com.example.springforumapp.security.UserDetailsImpl;
 import com.example.springforumapp.users.models.dto.UserDTO;
@@ -19,6 +20,7 @@ import com.example.springforumapp.users.services.UsersService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -52,8 +54,12 @@ public class PublicationsControllerApi {
     }
 
     @GetMapping("/publications")
-    public ResponseEntity<ResponseApi> getAllPublicationsApi(){
-        List<Publication> publications = publicationsService.getAllPublications();
+    public ResponseEntity<ResponseApi> getAllPublicationsByPageApi(
+            @RequestParam(name = "page") int pageNum,
+            @RequestParam(name = "size") int pageSize,
+            @RequestParam(name = "sortType",required = false,  defaultValue = "asc") String sortType,
+            @RequestParam(name = "sortBy",required = false, defaultValue = "id") String sortBy){
+        List<Publication> publications = publicationsService.getAllPublicationsByPage(pageNum,pageSize, sortType, sortBy);
         List<PublicationOutDTO> dtos = publicationsToOutDTOs(publications);
         return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(),dtos));
     }
@@ -100,9 +106,9 @@ public class PublicationsControllerApi {
         dto.setText(publication.getText());
         dto.setDateOfCreation(publication.getDateOfCreation());
         if(publication.getUpfiles() != null && !publication.getUpfiles().isEmpty())
-            dto.setUpfiles(modelMapper.map(publication.getUpfiles(),new TypeToken<List<UpFileOutDTO>>(){}.getType()));
+            dto.setUpFilesOutDtos(modelMapper.map(publication.getUpfiles(),new TypeToken<List<UpFileOutDTO>>(){}.getType()));
          else
-            dto.setUpfiles(new ArrayList<>());
+            dto.setUpFilesOutDtos(new ArrayList<>());
         return dto;
     }
 
