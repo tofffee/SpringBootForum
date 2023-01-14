@@ -1,6 +1,6 @@
 package com.example.springforumapp.registration.services;
 
-import com.example.springforumapp.email.EmailService;
+import com.example.springforumapp.email.services.EmailService;
 import com.example.springforumapp.users.models.domain.User;
 import com.example.springforumapp.users.repositories.UsersRepository;
 import com.example.springforumapp.users.services.UsersService;
@@ -11,12 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.mail.MailSender;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest

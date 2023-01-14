@@ -6,7 +6,7 @@ import com.example.springforumapp.auth.models.dto.ForgetPasswordRequestDTO;
 import com.example.springforumapp.auth.models.dto.LoginRequestDTO;
 import com.example.springforumapp.auth.util.exceptions.AuthException;
 import com.example.springforumapp.common.util.RandomUtil;
-import com.example.springforumapp.email.EmailService;
+import com.example.springforumapp.email.services.EmailService;
 import com.example.springforumapp.security.JWTUtil;
 import com.example.springforumapp.users.models.domain.User;
 import com.example.springforumapp.users.services.UsersService;

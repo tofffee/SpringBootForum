@@ -26,8 +26,13 @@ public class StorageService implements IStorageService {
     private final FileUtil fileUtil;
     private final String imagesFolderPath = "uploads/images/";
     private final String videoFolderPath = "uploads/videos/";
-    @Value("${server.hostname}")
+
+    @Value("${forum.scheme}")
+    String scheme;
+    @Value("${forum.hostname}")
     String hostName;
+    @Value("${server.port}")
+    String port;
     @Autowired
     public StorageService(FileUtil fileUtil) {
         this.fileUtil = fileUtil;
@@ -50,10 +55,7 @@ public class StorageService implements IStorageService {
 
                 UpFile upFile = new UpFile();
 
-                /*
-                 if file has no extension or invalid extension, getExtension will return ""
-                 */
-                String extension = FilenameUtils.getExtension(file.getOriginalFilename()).toLowerCase();
+                String extension = FilenameUtils.getExtension(file.getOriginalFilename()).toLowerCase(); //  if file has no extension or invalid extension, getExtension will return ""
                 if(extension.equals("jpg") || extension.equals("jpeg") || extension.equals("png")){
                     upFile.setType(UpFileType.IMAGE);
                 } else if (extension.equals("mp4") || extension.equals("webm")){
@@ -64,11 +66,11 @@ public class StorageService implements IStorageService {
                 upFile.setName(newFileName);
                 switch (upFile.getType()) {
                     case IMAGE -> {
-                        upFile.setUrl(hostName + "/" + imagesFolderPath + newFileName);
+                        upFile.setUrl(scheme + hostName + port + "/" + imagesFolderPath + newFileName);
                         uploadLocationPath = Paths.get(imagesFolderPath);
                     }
                     case VIDEO -> {
-                        upFile.setUrl(hostName + "/" + videoFolderPath + newFileName);
+                        upFile.setUrl(scheme + hostName + port +  "/" + videoFolderPath + newFileName);
                         uploadLocationPath = Paths.get(videoFolderPath);
                     }
                 }

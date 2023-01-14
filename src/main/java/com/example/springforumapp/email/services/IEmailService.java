@@ -1,4 +1,4 @@
-package com.example.springforumapp.email;
+package com.example.springforumapp.email.services;
 
 import com.example.springforumapp.users.models.domain.User;
 

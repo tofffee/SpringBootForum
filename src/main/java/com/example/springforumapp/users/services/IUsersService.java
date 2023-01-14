@@ -8,14 +8,13 @@ import com.example.springforumapp.users.util.exceptions.ActivationProfileExcepti
 import java.util.Optional;
 
 public interface IUsersService {
-    public User findByUsername(String username);
-    public User findByEmail(String email);
-    public User findByUsernameOrEmail(String usernameOrEmail);
-    public void activateUser(UserDetailsImpl userDetailsImpl, ActivationCodeRequestDTO activationCodeRequestDTO);
-    public void addUser(User user);
-    public void deleteUser(int id);
-    public void addAdmin(User user);
-    public void grantAdminRole(int id);
-    public void ungrantAdminRole(int id);
+    User findByUsername(String username);
+    User findByEmail(String email);
+    User findByUsernameOrEmail(String usernameOrEmail);
+    void activateUser(UserDetailsImpl userDetailsImpl, ActivationCodeRequestDTO activationCodeRequestDTO);
+    void addUser(User user);
+    void deleteUser(int id);
+    void grantAdminRole(int id);
+    void ungrantAdminRole(int id);
 
 }

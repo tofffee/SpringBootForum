@@ -1,4 +1,4 @@
-package com.example.springforumapp.admin.controllers.api;
+package com.example.springforumapp.users.controllers.api;
 
 import com.example.springforumapp.common.api.ResponseApi;
 import com.example.springforumapp.common.api.ResponseStatusApi;

@@ -15,7 +15,6 @@ public class RegisterRequestDTO {
     @Size(min = 4 ,max = 15, message = "User error (username must be > 4 and < 15)")
     private String username;
 
-    @Column(name = "email")
     @Email
     private String email;
 

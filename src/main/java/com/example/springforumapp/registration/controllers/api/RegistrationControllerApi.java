@@ -45,15 +45,4 @@ public class RegistrationControllerApi {
         return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(),registerResponseDTO));
     }
 
-    @PostMapping("/admin/register")
-    public ResponseEntity<ResponseApi> registerAdminApi(@RequestBody @Valid RegisterRequestDTO registerRequestDTO, BindingResult bindingResult){
-
-        User user = modelMapper.map(registerRequestDTO, User.class);
-        registrationService.registerAdmin(user);
-
-        String token = jwtUtil.generateToken(user.getUsername());
-        RegisterResponseDTO registerResponseDTO = new RegisterResponseDTO(token);
-        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(),registerResponseDTO));
-    }
-
 }

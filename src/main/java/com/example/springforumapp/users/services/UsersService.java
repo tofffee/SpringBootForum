@@ -13,15 +13,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class UsersService implements UserDetailsService, IUsersService {
     private final UsersRepository usersRepository;
     private final RolesRepository rolesRepository;
@@ -65,6 +65,7 @@ public class UsersService implements UserDetailsService, IUsersService {
             return usersRepository.findUserByEmail(usernameOrEmail).orElse(null);
     }
 
+    @Transactional
     public void activateUser(UserDetailsImpl userDetailsImpl, ActivationCodeRequestDTO activationCodeRequestDTO)
     {
         User user = usersRepository.findUserByUsername(userDetailsImpl.getUsername()).get();
@@ -79,6 +80,7 @@ public class UsersService implements UserDetailsService, IUsersService {
     }
 
 
+    @Transactional
     public void addUser(User user){
         List<Role> roles = new ArrayList<>();
         roles.add(rolesRepository.findByName("ROLE_USER"));
@@ -86,7 +88,7 @@ public class UsersService implements UserDetailsService, IUsersService {
         usersRepository.save(user);
     }
 
-    @Override
+    @Transactional
     public void deleteUser(int id) {
         Optional<User> user = usersRepository.findById(id);
         if(user.isPresent()){
@@ -94,14 +96,7 @@ public class UsersService implements UserDetailsService, IUsersService {
         } else throw new UserNotFoundException("Such user is not found","UsersService.java : UserNotFoundException");
     }
 
-    public void addAdmin(User user){
-        List<Role> roles = new ArrayList<>();
-        roles.add(rolesRepository.findByName("ROLE_USER"));
-        roles.add(rolesRepository.findByName("ROLE_ADMIN"));
-        user.setRoles(roles);
-        usersRepository.save(user);
-    }
-
+    @Transactional
     public void grantAdminRole(int id){
         Optional<User> user = usersRepository.findById(id);
         if(user.isPresent()){
@@ -113,6 +108,7 @@ public class UsersService implements UserDetailsService, IUsersService {
         } else throw new UserNotFoundException("Such user is not found","UsersService.java : UserNotFoundException");
     }
 
+    @Transactional
     public void ungrantAdminRole(int id){
         Optional<User> user = usersRepository.findById(id);
         if(user.isPresent()){

@@ -60,6 +60,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Publication> publications;
 
+    @OneToMany(mappedBy = "sentTo")
+    private List<com.example.springforumapp.email.models.domain.Email> emailMessages;
+
     @OneToMany(mappedBy = "user")
     private List<UpFile> upFiles;
 
