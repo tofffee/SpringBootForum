@@ -8,8 +8,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface PublicationsRepository extends JpaRepository<Publication,Integer> {
-    List<Publication> findAllByBoardName(String boardName);
+    Page<Publication> findAllByBoardName(String boardName, Pageable pageable);
+    Optional<Publication> findByIdAndBoardName(int id, String boardName);
 }

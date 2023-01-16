@@ -33,7 +33,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("api/")
+@RequestMapping("/api")
 public class PublicationsControllerApi {
 
     private final PublicationsService publicationsService;
@@ -43,6 +43,7 @@ public class PublicationsControllerApi {
     private final PublicationValidator publicationValidator;
     private final ModelMapper modelMapper;
 
+    private final String defaultPageSize = "3";
     @Autowired
     public PublicationsControllerApi(PublicationsService publicationsService, BoardsService boardsService, UsersService usersService, UpFileService upFileService, PublicationValidator publicationValidator, ModelMapper modelMapper) {
         this.publicationsService = publicationsService;
@@ -55,8 +56,8 @@ public class PublicationsControllerApi {
 
     @GetMapping("/publications")
     public ResponseEntity<ResponseApi> getAllPublicationsByPageApi(
-            @RequestParam(name = "page") int pageNum,
-            @RequestParam(name = "size") int pageSize,
+            @RequestParam(name = "page" ,required = false, defaultValue = "0") int pageNum,
+            @RequestParam(name = "size", required = false, defaultValue = defaultPageSize) int pageSize,
             @RequestParam(name = "sortType",required = false,  defaultValue = "asc") String sortType,
             @RequestParam(name = "sortBy",required = false, defaultValue = "id") String sortBy){
         List<Publication> publications = publicationsService.getAllPublicationsByPage(pageNum,pageSize, sortType, sortBy);
@@ -65,12 +66,25 @@ public class PublicationsControllerApi {
     }
 
     @GetMapping("/boards/{boardName}")
-    public ResponseEntity<ResponseApi> getAllPublicationsInBoardApi(@PathVariable("boardName") String boardName){
-        List<Publication> publications = publicationsService.getAllPublicationsByBoardName(boardName);
+    public ResponseEntity<ResponseApi> getAllPublicationsInBoardByPageApi(
+            @PathVariable("boardName") String boardName,
+            @RequestParam(name = "page" ,required = false, defaultValue = "0") int pageNum,
+            @RequestParam(name = "size", required = false, defaultValue = defaultPageSize) int pageSize,
+            @RequestParam(name = "sortType",required = false,  defaultValue = "asc") String sortType,
+            @RequestParam(name = "sortBy",required = false, defaultValue = "id") String sortBy) {
+        List<Publication> publications = publicationsService.getAllBoardPublicationsByPage(boardName,pageNum,pageSize, sortType, sortBy);
         List<PublicationOutDTO> dtos = publicationsToOutDTOs(publications);
         return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), dtos));
     }
 
+    @GetMapping("/boards/{boardName}/{id}")
+    public ResponseEntity<ResponseApi> getPublication(
+            @PathVariable("boardName") String boardName,
+            @PathVariable("id") int id) {
+        Publication publication = publicationsService.getPublication(id, boardName);
+        PublicationOutDTO dto = publicationToOutDTO(publication);
+        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), dto));
+    }
     @PostMapping(path = "/boards/{boardName}")
     public ResponseEntity<ResponseApi> createPublicationInBoardApi(@AuthenticationPrincipal UserDetailsImpl userDetails,
                                                                    @PathVariable("boardName") String boardName,
@@ -89,7 +103,7 @@ public class PublicationsControllerApi {
     }
 
     @DeleteMapping("/boards/{boardName}/{publicationId}")
-    public ResponseEntity<?> deletePublicationInBoardApi(@AuthenticationPrincipal UserDetailsImpl userDetailsImpl,
+    public ResponseEntity<ResponseApi> deletePublicationInBoardApi(@AuthenticationPrincipal UserDetailsImpl userDetailsImpl,
                                                          @PathVariable("boardName") String boardName,
                                                          @PathVariable("publicationId") int publicationId) {
         publicationsService.deletePublication(userDetailsImpl.getUser(), publicationId);

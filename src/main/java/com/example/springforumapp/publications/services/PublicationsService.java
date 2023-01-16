@@ -30,20 +30,33 @@ public class PublicationsService {
         this.boardsService = boardsService;
     }
 
+
     public List<Publication> getAllPublications(){
         return publicationsRepository.findAll();
     }
-    public List<Publication> getAllPublicationsByPage(int pageNum, int pageSize,String sortType, String sortBy){
+    public List<Publication> getAllPublicationsByPage(int pageNum, int pageSize,String sortType, String sortBy) throws PublicationException{
         try{
             return publicationsRepository.findAll(PageRequest.of(pageNum, pageSize, Sort.by(Sort.Direction.fromString(sortType),sortBy))).getContent();
         } catch (Exception exception){
-            throw new PublicationException("Please, specify right url parameters", "PublicationController.java: PublicationException");
+            throw new PublicationException("Please, specify right url parameters", "PublicationService.java: PublicationException");
         }
     }
 
-    public List<Publication> getAllPublicationsByBoardName(String boardName){
+    public List<Publication> getAllBoardPublicationsByPage(String boardName, int pageNum, int pageSize,String sortType, String sortBy) throws PublicationException{
         Board board = boardsService.findBoardByName(boardName);
-        return publicationsRepository.findAllByBoardName(board.getName());
+        try{
+            return publicationsRepository.findAllByBoardName(boardName, PageRequest.of(pageNum, pageSize, Sort.by(Sort.Direction.fromString(sortType),sortBy))).getContent();
+        } catch (Exception exception){
+            throw new PublicationException("Please, specify right url parameters", "PublicationService.java: PublicationException");
+        }
+    }
+
+    public Publication getPublication(int id, String boardName) throws PublicationException{
+        Optional<Publication> publication = publicationsRepository.findByIdAndBoardName(id, boardName);
+        if(publication.isEmpty())
+            throw new PublicationException("Such publication does not is", "PublicationService.java: PublicationException");
+
+        return publication.get();
     }
 
     @Transactional
@@ -51,11 +64,12 @@ public class PublicationsService {
         publication.setDateOfCreation(LocalDate.now());
         publicationsRepository.save(publication);
     }
+
     @Transactional
-    public void deletePublication(User user, int publicationId){
+    public void deletePublication(User user, int publicationId) throws PublicationException{
         Optional<Publication> publication = publicationsRepository.findById(publicationId);
         if (publication.isEmpty()){
-           throw new PublicationException("Such publication doe not exist","user write id of not exist publication");
+           throw new PublicationException("Such publication does not exist","user write id of not exist publication");
         }
         if (user.getId() == publication.get().getUser().getId()) {
             publicationsRepository.delete(publication.get());

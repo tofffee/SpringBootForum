@@ -4,13 +4,13 @@ import com.example.springforumapp.comments.models.domain.Comment;
 import com.example.springforumapp.comments.repositories.CommentsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.*;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class CommentsService {
     private final CommentsRepository commentsRepository;
 
@@ -19,19 +19,8 @@ public class CommentsService {
         this.commentsRepository = commentsRepository;
     }
 
-    public Comment findCommentById(int id)
-    {
-        Optional<Comment> comment = commentsRepository.findById(id);
-        if (comment.isPresent())
-        {
-            return comment.get();
-        }
-        else
-        {
-            return null;
-        }
-    }
-    public void saveComment(Comment comment){
+    @Transactional
+    public void addComment(Comment comment){
         comment.setDateOfCreation(LocalDate.now());
         commentsRepository.save(comment);
     }

@@ -1,9 +1,9 @@
-package com.example.springforumapp.auth.util.validators;
-
+package com.example.springforumapp.boards.util.validators;
 
 import com.example.springforumapp.auth.models.dto.LoginRequestDTO;
 import com.example.springforumapp.auth.util.exceptions.AuthException;
-import com.example.springforumapp.users.services.UsersService;
+import com.example.springforumapp.boards.models.dto.BoardInputDTO;
+import com.example.springforumapp.boards.util.exceptions.BoardException;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -15,13 +15,14 @@ import java.util.List;
 
 @Component
 @AllArgsConstructor
-public class LoginValidator implements Validator {
+public class BoardValidator implements Validator {
+
     @Override
     public boolean supports(Class<?> clazz) {
-        return LoginRequestDTO.class.equals(clazz);
+        return BoardInputDTO.class.equals(clazz);
     }
     @Override
-    public void validate(Object target, Errors errors) throws AuthException {
+    public void validate(Object target, Errors errors) throws BoardException {
         if (errors.hasErrors()){
             StringBuilder errorMessage = new StringBuilder();
             List<FieldError> fieldErrorsList= errors.getFieldErrors();
@@ -32,7 +33,7 @@ public class LoginValidator implements Validator {
                         .append(error.getDefaultMessage())
                         .append("; ");
             }
-            throw new AuthException(errorMessage.toString(),"LoginValidator.java: AuthException");
+            throw new BoardException(errorMessage.toString(),"BoardValidator.java: BoardException");
         }
     }
 }

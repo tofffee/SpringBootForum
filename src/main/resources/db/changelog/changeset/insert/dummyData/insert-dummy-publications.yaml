@@ -112,3 +112,113 @@ databaseChangeLog:
               - column:
                   name: board_id
                   value: 1
+
+        - insert:
+            tableName: publications
+            columns:
+              - column:
+                  name: id
+                  value: "6"
+              - column:
+                  name: name
+                  value: "rap"
+              - column:
+                  name: text
+                  value: "rap music is cool"
+              - column:
+                  name: date_of_creation
+                  value: now()
+              - column:
+                  name: user_id
+                  value: 1
+              - column:
+                  name: board_id
+                  value: 3
+
+        - insert:
+            tableName: publications
+            columns:
+              - column:
+                  name: id
+                  value: "7"
+              - column:
+                  name: name
+                  value: "classic music"
+              - column:
+                  name: text
+                  value: "classic music is played in theatres"
+              - column:
+                  name: date_of_creation
+                  value: now()
+              - column:
+                  name: user_id
+                  value: 1
+              - column:
+                  name: board_id
+                  value: 3
+
+        - insert:
+            tableName: publications
+            columns:
+              - column:
+                  name: id
+                  value: "8"
+              - column:
+                  name: name
+                  value: "electronic"
+              - column:
+                  name: text
+                  value: "electronic music is awesome"
+              - column:
+                  name: date_of_creation
+                  value: now()
+              - column:
+                  name: user_id
+                  value: 2
+              - column:
+                  name: board_id
+                  value: 3
+
+        - insert:
+            tableName: publications
+            columns:
+              - column:
+                  name: id
+                  value: "9"
+              - column:
+                  name: name
+                  value: "rock"
+              - column:
+                  name: text
+                  value: "rock of 70s"
+              - column:
+                  name: date_of_creation
+                  value: now()
+              - column:
+                  name: user_id
+                  value: 1
+              - column:
+                  name: board_id
+                  value: 3
+
+        - insert:
+            tableName: publications
+            columns:
+              - column:
+                  name: id
+                  value: "10"
+              - column:
+                  name: name
+                  value: "disco"
+              - column:
+                  name: text
+                  value: "disco was popular"
+              - column:
+                  name: date_of_creation
+                  value: now()
+              - column:
+                  name: user_id
+                  value: 2
+              - column:
+                  name: board_id
+                  value: 3
