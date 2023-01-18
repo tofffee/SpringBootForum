@@ -16,7 +16,6 @@ import java.io.IOException;
 public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     private final UsersService usersService;
 
-    @Autowired
     public OAuth2LoginSuccessHandler(UsersService usersService) {
         this.usersService = usersService;
     }

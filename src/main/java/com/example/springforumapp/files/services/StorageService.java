@@ -5,6 +5,7 @@ import com.example.springforumapp.files.models.UpFileType;
 import com.example.springforumapp.files.models.domain.UpFile;
 import com.example.springforumapp.files.util.FileUtil;
 import com.example.springforumapp.files.util.exceptions.FileException;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,22 +22,17 @@ import java.util.stream.Stream;
 
 @Service
 @Transactional(readOnly = true)
+@RequiredArgsConstructor
 public class StorageService implements IStorageService {
-
     private final FileUtil fileUtil;
     private final String imagesFolderPath = "uploads/images/";
     private final String videoFolderPath = "uploads/videos/";
-
     @Value("${forum.scheme}")
     String scheme;
     @Value("${forum.hostname}")
     String hostName;
     @Value("${server.port}")
     String port;
-    @Autowired
-    public StorageService(FileUtil fileUtil) {
-        this.fileUtil = fileUtil;
-    }
 
     @Override
     public void init() {

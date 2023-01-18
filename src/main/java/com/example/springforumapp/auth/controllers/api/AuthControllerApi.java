@@ -12,6 +12,7 @@ import com.example.springforumapp.common.api.ResponseApi;
 import com.example.springforumapp.common.api.ResponseStatusApi;
 import com.example.springforumapp.common.api.ResponseSuccessApi;
 import com.example.springforumapp.security.UserDetailsImpl;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,19 +25,12 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api")
+@RequiredArgsConstructor
 public class AuthControllerApi {
     private final AuthService authService;
     private final LoginValidator loginValidator;
     private final ForgetPasswordValidator forgetPasswordValidator;
     private final ModelMapper modelMapper;
-
-    @Autowired
-    public AuthControllerApi(AuthService authService, LoginValidator loginValidator, ForgetPasswordValidator forgetPasswordValidator, ModelMapper modelMapper) {
-        this.authService = authService;
-        this.loginValidator = loginValidator;
-        this.forgetPasswordValidator = forgetPasswordValidator;
-        this.modelMapper = modelMapper;
-    }
 
     @PostMapping("/login")
     public ResponseEntity<ResponseApi> loginApi(@RequestBody @Valid LoginRequestDTO loginRequestDTO, BindingResult bindingResult) {

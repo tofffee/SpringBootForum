@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 public class CommentInputDTO {
     @NotNull
     @Size(min = 1,message = "Comment error (text of publication is too small)")
-    private String textOfComment;
+    private String text;
 
     private int responed_to_comment_id;
 }

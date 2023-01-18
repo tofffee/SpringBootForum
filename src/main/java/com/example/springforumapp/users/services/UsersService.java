@@ -8,6 +8,7 @@ import com.example.springforumapp.users.repositories.UsersRepository;
 import com.example.springforumapp.security.UserDetailsImpl;
 import com.example.springforumapp.users.util.exceptions.ActivationProfileException;
 import com.example.springforumapp.users.util.exceptions.UserNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,15 +23,10 @@ import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
+@RequiredArgsConstructor
 public class UsersService implements UserDetailsService, IUsersService {
     private final UsersRepository usersRepository;
     private final RolesRepository rolesRepository;
-
-    @Autowired
-    public UsersService(UsersRepository usersRepository, RolesRepository rolesRepository) {
-        this.usersRepository = usersRepository;
-        this.rolesRepository = rolesRepository;
-    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

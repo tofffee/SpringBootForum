@@ -10,28 +10,22 @@ import com.example.springforumapp.email.services.EmailService;
 import com.example.springforumapp.security.JWTUtil;
 import com.example.springforumapp.users.models.domain.User;
 import com.example.springforumapp.users.services.UsersService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
+@RequiredArgsConstructor
 public class AuthService implements IAuthSevice {
     private final UsersService usersService;
     private final EmailService emailService;
     private final AuthenticationManager authenticationManager;
     private final JWTUtil jwtUtil;
     private final RandomUtil randomUtil;
-    public AuthService(UsersService usersService, EmailService emailService, AuthenticationManager authenticationManager, JWTUtil jwtUtil, RandomUtil randomUtil) {
-        this.usersService = usersService;
-        this.emailService = emailService;
-        this.authenticationManager = authenticationManager;
-        this.jwtUtil = jwtUtil;
-        this.randomUtil = randomUtil;
-    }
 
     public String authenticate(LoginRequestDTO loginRequestDTO) throws AuthException {
         User user = usersService.findByUsernameOrEmail(loginRequestDTO.getUsernameOrEmail());

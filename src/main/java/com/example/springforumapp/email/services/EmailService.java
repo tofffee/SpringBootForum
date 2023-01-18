@@ -4,6 +4,7 @@ import com.example.springforumapp.email.models.domain.Email;
 import com.example.springforumapp.email.repositories.EmailRepository;
 import com.example.springforumapp.email.util.exceptions.EmailException;
 import com.example.springforumapp.users.models.domain.User;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
@@ -13,19 +14,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional(readOnly = true)
+@RequiredArgsConstructor
 public class EmailService implements IEmailService {
     private final EmailRepository emailRepository;
     private final JavaMailSender javaMailSender;
-
     @Value("${forum.email_address}")
     private String from;
-
-
-    @Autowired
-    public EmailService(EmailRepository emailRepository, JavaMailSender javaMailSender) {
-        this.emailRepository = emailRepository;
-        this.javaMailSender = javaMailSender;
-    }
 
     @Transactional
     public void sendActivationCode(User user, String activationCode) throws EmailException {

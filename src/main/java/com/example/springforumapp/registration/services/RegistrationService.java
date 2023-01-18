@@ -5,6 +5,7 @@ import com.example.springforumapp.registration.util.exceptions.RegistrationExcep
 import com.example.springforumapp.users.models.domain.User;
 import com.example.springforumapp.email.services.EmailService;
 import com.example.springforumapp.users.services.UsersService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -12,19 +13,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional(readOnly = true)
+@RequiredArgsConstructor
 public class RegistrationService implements IRegistrationService {
     private final UsersService usersService;
     private final EmailService emailService;
     private final PasswordEncoder passwordEncoder;
     private final RandomUtil randomUtil;
-
-    @Autowired
-    public RegistrationService(UsersService usersService, EmailService emailService, PasswordEncoder passwordEncoder, RandomUtil randomUtil) {
-        this.usersService = usersService;
-        this.emailService = emailService;
-        this.passwordEncoder = passwordEncoder;
-        this.randomUtil = randomUtil;
-    }
 
     @Transactional
     public void registerUser(User user) throws RegistrationException{

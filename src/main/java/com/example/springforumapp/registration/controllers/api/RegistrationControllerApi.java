@@ -9,6 +9,7 @@ import com.example.springforumapp.registration.util.validators.RegistrationValid
 import com.example.springforumapp.common.api.ResponseSuccessApi;
 import com.example.springforumapp.security.JWTUtil;
 import com.example.springforumapp.users.models.domain.User;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,18 +21,12 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api")
+@RequiredArgsConstructor
 public class RegistrationControllerApi {
     private final RegistrationService registrationService;
     private final JWTUtil jwtUtil;
     private final RegistrationValidator registrationValidator;
     private final ModelMapper modelMapper;
-    @Autowired
-    public RegistrationControllerApi(RegistrationService registrationService, JWTUtil jwtUtil, RegistrationValidator registrationValidator, ModelMapper modelMapper) {
-        this.registrationService = registrationService;
-        this.jwtUtil = jwtUtil;
-        this.registrationValidator = registrationValidator;
-        this.modelMapper = modelMapper;
-    }
 
     @PostMapping("/register")
     public ResponseEntity<ResponseApi> registerUserApi(@RequestBody @Valid RegisterRequestDTO registerRequestDTO, BindingResult bindingResult){

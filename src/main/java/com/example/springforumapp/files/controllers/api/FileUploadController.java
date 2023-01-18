@@ -10,6 +10,7 @@ import com.example.springforumapp.files.services.UpFileService;
 import com.example.springforumapp.files.services.StorageService;
 import com.example.springforumapp.security.UserDetailsImpl;
 import com.example.springforumapp.users.services.UsersService;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,20 +21,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/upload")
+@RequiredArgsConstructor
 public class FileUploadController {
-
         private final StorageService storageService;
         private final UpFileService upFileService;
         private final UsersService usersService;
         private final ModelMapper modelMapper;
-
-        @Autowired
-        public FileUploadController(StorageService storageService, UpFileService upFileService, UsersService usersService, ModelMapper modelMapper) {
-            this.storageService = storageService;
-            this.upFileService = upFileService;
-            this.usersService = usersService;
-            this.modelMapper = modelMapper;
-        }
 
         @PostMapping()
         public ResponseEntity<ResponseApi> uploadImage(@AuthenticationPrincipal UserDetailsImpl userDetails,
@@ -43,14 +36,4 @@ public class FileUploadController {
             UpFileOutDTO dto = modelMapper.map(upFile, UpFileOutDTO.class);
             return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), dto));
         }
-
-//        @DeleteMapping ("/image/{id}")
-//        public ResponseEntity<ResponseApi> deleteImage(@PathVariable("id") int id) {
-//            Image image = fileService.findImageById(id);
-//            storageService.delete(image.getName());
-//            fileService.deleteImage(id);
-//            return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), "Image was successfully deleted"));
-//        }
-
-
 }

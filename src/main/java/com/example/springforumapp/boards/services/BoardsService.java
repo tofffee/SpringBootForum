@@ -4,6 +4,7 @@ import com.example.springforumapp.boards.models.domain.Board;
 import com.example.springforumapp.boards.models.dto.BoardInputDTO;
 import com.example.springforumapp.boards.repositories.BoardsRepository;
 import com.example.springforumapp.boards.util.exceptions.BoardException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,19 +14,15 @@ import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
+@RequiredArgsConstructor
 public class BoardsService {
     private final BoardsRepository boardsRepository;
-
-    @Autowired
-    public BoardsService(BoardsRepository boardsRepository) {
-        this.boardsRepository = boardsRepository;
-    }
 
     public List<Board> getAllBoards(){
         return boardsRepository.findAll();
     }
 
-    public Board findBoardByName(String name) throws BoardException{
+    public Board findByName(String name) throws BoardException{
         Optional<Board> board = boardsRepository.findByName(name);
         if(board.isEmpty())
             throw new BoardException("Such board is not found","BoardService.java: BoardException");

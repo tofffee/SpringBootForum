@@ -8,6 +8,7 @@ import com.example.springforumapp.boards.util.validators.BoardValidator;
 import com.example.springforumapp.common.api.ResponseApi;
 import com.example.springforumapp.common.api.ResponseStatusApi;
 import com.example.springforumapp.common.api.ResponseSuccessApi;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,19 +22,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/boards")
+@RequiredArgsConstructor
 public class BoardsControllerApi {
-
     private final BoardsService boardsService;
     private final BoardValidator boardValidator;
     private final ModelMapper modelMapper;
-
-    @Autowired
-    public BoardsControllerApi(BoardsService boardsService, BoardValidator boardValidator, ModelMapper modelMapper) {
-        this.boardsService = boardsService;
-        this.boardValidator = boardValidator;
-        this.modelMapper = modelMapper;
-    }
-
     @GetMapping()
     public ResponseEntity<ResponseApi> getAllBoardsApi(){
         List<Board> boards = boardsService.getAllBoards();

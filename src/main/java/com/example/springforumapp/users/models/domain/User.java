@@ -1,5 +1,6 @@
 package com.example.springforumapp.users.models.domain;
 
+import com.example.springforumapp.comments.models.domain.Comment;
 import com.example.springforumapp.files.models.domain.UpFile;
 import com.example.springforumapp.publications.models.domain.Publication;
 import lombok.*;
@@ -59,6 +60,9 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Publication> publications;
+
+    @OneToMany(mappedBy = "user")
+    private List<Comment> comments;
 
     @OneToMany(mappedBy = "sentTo")
     private List<com.example.springforumapp.email.models.domain.Email> emailMessages;

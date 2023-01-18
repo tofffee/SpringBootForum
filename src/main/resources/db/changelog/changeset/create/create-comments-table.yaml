@@ -14,24 +14,25 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: name
-                  type: varchar(250)
-                  constraints:
-                    nullable: false
-              - column:
                   name: text
                   type: varchar(250)
                   constraints:
                     nullable: false
               - column:
-                  name: dateOfCreation
-                  type: varchar(250)
+                  name: date_of_creation
+                  type: date
               - column:
                   name: publication_id
                   type: bigint
                   constraints:
                     foreignKeyName: fk_publication_id
                     references: publications(id)
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_user_id
+                    references: users(id)
               - column:
                   name: parent_comment_id
                   type: bigint

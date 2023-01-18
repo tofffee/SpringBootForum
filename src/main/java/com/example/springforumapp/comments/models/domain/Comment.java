@@ -1,6 +1,7 @@
 package com.example.springforumapp.comments.models.domain;
 
 import com.example.springforumapp.publications.models.domain.Publication;
+import com.example.springforumapp.users.models.domain.User;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,12 +27,16 @@ public class Comment {
     @Size(min = 1,message = "Comment error (text of publication is too small)")
     private String text;
 
-    @Column(name = "dateOfCreation")
+    @Column(name = "date_of_creation")
     private LocalDate dateOfCreation;
 
     @ManyToOne
     @JoinColumn(name = "publication_id", referencedColumnName = "id")
     private Publication publication;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
 
     @ManyToOne
     private Comment parentComment;

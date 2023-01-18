@@ -4,20 +4,17 @@ import com.example.springforumapp.common.api.ResponseApi;
 import com.example.springforumapp.common.api.ResponseStatusApi;
 import com.example.springforumapp.common.api.ResponseSuccessApi;
 import com.example.springforumapp.users.services.UsersService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/admin")
+@RequestMapping("/api/admin")
+@RequiredArgsConstructor
 public class AdminControllerApi {
     private final UsersService usersService;
-
-    @Autowired
-    public AdminControllerApi(UsersService usersService) {
-        this.usersService = usersService;
-    }
 
     @PatchMapping("/grant/users/{id}")
     public ResponseEntity<ResponseApi> grantAdminRole(@PathVariable("id") int id){

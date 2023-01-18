@@ -1,6 +1,7 @@
 package com.example.springforumapp.publications.controllers.api;
 
 
+import com.example.springforumapp.boards.models.domain.Board;
 import com.example.springforumapp.boards.services.BoardsService;
 import com.example.springforumapp.common.api.ResponseApi;
 import com.example.springforumapp.common.api.ResponseStatusApi;
@@ -17,6 +18,7 @@ import com.example.springforumapp.publications.util.validators.PublicationValida
 import com.example.springforumapp.security.UserDetailsImpl;
 import com.example.springforumapp.users.models.dto.UserDTO;
 import com.example.springforumapp.users.services.UsersService;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,25 +36,15 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
+@RequiredArgsConstructor
 public class PublicationsControllerApi {
-
     private final PublicationsService publicationsService;
     private final BoardsService boardsService;
     private final UsersService usersService;
     private final UpFileService upFileService;
     private final PublicationValidator publicationValidator;
     private final ModelMapper modelMapper;
-
     private final String defaultPageSize = "3";
-    @Autowired
-    public PublicationsControllerApi(PublicationsService publicationsService, BoardsService boardsService, UsersService usersService, UpFileService upFileService, PublicationValidator publicationValidator, ModelMapper modelMapper) {
-        this.publicationsService = publicationsService;
-        this.boardsService = boardsService;
-        this.usersService = usersService;
-        this.upFileService = upFileService;
-        this.publicationValidator = publicationValidator;
-        this.modelMapper = modelMapper;
-    }
 
     @GetMapping("/publications")
     public ResponseEntity<ResponseApi> getAllPublicationsByPageApi(
@@ -77,11 +69,13 @@ public class PublicationsControllerApi {
         return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), dtos));
     }
 
-    @GetMapping("/boards/{boardName}/{id}")
+    @GetMapping("/boards/{boardName}/{publicationId}")
     public ResponseEntity<ResponseApi> getPublication(
             @PathVariable("boardName") String boardName,
-            @PathVariable("id") int id) {
-        Publication publication = publicationsService.getPublication(id, boardName);
+            @PathVariable("publicationId") int publicationId) {
+        Board board = boardsService.findByName(boardName);
+        Publication publication = publicationsService.getPublication(publicationId, board);
+
         PublicationOutDTO dto = publicationToOutDTO(publication);
         return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), dto));
     }
@@ -94,7 +88,7 @@ public class PublicationsControllerApi {
         publicationValidator.validate(publicationInDTO, bindingResult);
 
         Publication publication = convertInDtoToPublication(publicationInDTO);
-        publication.setBoard(boardsService.findBoardByName(boardName));
+        publication.setBoard(boardsService.findByName(boardName));
         publication.setUser(usersService.findById(userDetails.getUser().getId()));
         publicationsService.savePublication(publication);
 
