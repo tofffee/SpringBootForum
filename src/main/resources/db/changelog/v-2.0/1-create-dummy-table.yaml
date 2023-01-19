@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: create-roles
+      id: 3
       author: tofffee
       changes:
         - createTable:
-            tableName: roles
+            tableName: dummy
             columns:
               - column:
                   name: id
@@ -14,7 +14,10 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: name
+                  name: email
                   type: varchar(250)
                   constraints:
                     nullable: false
+      rollback:
+        - dropTable:
+            tableName: dummy

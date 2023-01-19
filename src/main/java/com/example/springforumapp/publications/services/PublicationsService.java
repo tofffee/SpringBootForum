@@ -23,13 +23,9 @@ import java.util.Optional;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class PublicationsService {
+public class PublicationsService implements IPublicationService{
     private final PublicationsRepository publicationsRepository;
     private final BoardsService boardsService;
-
-    public List<Publication> getAllPublications(){
-        return publicationsRepository.findAll();
-    }
     public List<Publication> getAllPublicationsByPage(int pageNum, int pageSize,String sortType, String sortBy) throws PublicationException{
         try{
             return publicationsRepository.findAll(PageRequest.of(pageNum, pageSize, Sort.by(Sort.Direction.fromString(sortType),sortBy))).getContent();
@@ -47,7 +43,7 @@ public class PublicationsService {
         }
     }
 
-    public Publication getPublication(int publicationId, Board board) throws PublicationException{
+    public Publication getPublication(long publicationId, Board board) throws PublicationException{
         Optional<Publication> publication = publicationsRepository.findByIdAndBoardName(publicationId, board.getName());
         if(publication.isEmpty())
             throw new PublicationException("Such publication does not is", "PublicationService.java: PublicationException");
@@ -57,12 +53,12 @@ public class PublicationsService {
 
     @Transactional
     public void savePublication(Publication publication){
-        publication.setDateOfCreation(LocalDate.now());
+        publication.setCreatedAt(LocalDate.now());
         publicationsRepository.save(publication);
     }
 
     @Transactional
-    public void deletePublication(User user, int publicationId) throws PublicationException{
+    public void deletePublication(User user, long publicationId) throws PublicationException{
         Optional<Publication> publication = publicationsRepository.findById(publicationId);
         if (publication.isEmpty()){
            throw new PublicationException("Such publication does not exist","user write id of not exist publication");

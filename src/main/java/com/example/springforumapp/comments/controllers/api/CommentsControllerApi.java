@@ -39,7 +39,7 @@ public class CommentsControllerApi {
     public ResponseEntity<ResponseApi> addCommentToPublicationApi(
             @AuthenticationPrincipal UserDetailsImpl userDetails,
             @PathVariable("boardName") String boardName,
-            @PathVariable("publicationId") int publicationId,
+            @PathVariable("publicationId") long publicationId,
             @RequestBody @Valid CommentInputDTO commentInputDTO,
             BindingResult bindingResult){
         commentValidator.validate(commentInputDTO, bindingResult);

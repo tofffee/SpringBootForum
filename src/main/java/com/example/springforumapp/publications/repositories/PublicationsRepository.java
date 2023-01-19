@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface PublicationsRepository extends JpaRepository<Publication,Integer> {
+public interface PublicationsRepository extends JpaRepository<Publication,Long> {
     Page<Publication> findAllByBoardName(String boardName, Pageable pageable);
-    Optional<Publication> findByIdAndBoardName(int id, String boardName);
+    Optional<Publication> findByIdAndBoardName(long id, String boardName);
 }

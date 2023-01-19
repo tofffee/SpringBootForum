@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class EmailService implements IEmailService {
     private final EmailRepository emailRepository;
     private final JavaMailSender javaMailSender;
-    @Value("${forum.email_address}")
+    @Value("${public.email_address}")
     private String from;
 
     @Transactional

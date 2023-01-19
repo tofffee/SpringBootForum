@@ -1,0 +1,4 @@
+databaseChangeLog:
+  - include:
+      file: "8-create-upfiles-table.yaml"
+      relativeToChangelogFile: true

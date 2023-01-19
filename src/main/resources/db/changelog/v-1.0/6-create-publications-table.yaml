@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: create-comments
+      id: 6
       author: tofffee
       changes:
         - createTable:
-            tableName: comments
+            tableName: publications
             columns:
               - column:
                   name: id
@@ -14,28 +14,27 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
                   name: text
-                  type: varchar(250)
+                  type: varchar(255)
                   constraints:
                     nullable: false
               - column:
                   name: date_of_creation
                   type: date
               - column:
-                  name: publication_id
-                  type: bigint
-                  constraints:
-                    foreignKeyName: fk_publication_id
-                    references: publications(id)
-              - column:
                   name: user_id
                   type: bigint
                   constraints:
-                    foreignKeyName: fk_user_id
+                    foreignKeyName: fk_publication_author
                     references: users(id)
               - column:
-                  name: parent_comment_id
+                  name: board_id
                   type: bigint
                   constraints:
-                    foreignKeyName: fk_parent_comment_id
-                    references: comments(id)
+                    foreignKeyName: fk_board_id
+                    references: boards(id)

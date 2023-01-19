@@ -15,7 +15,7 @@ import java.util.Optional;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class BoardsService {
+public class BoardsService implements IBoardService {
     private final BoardsRepository boardsRepository;
 
     public List<Board> getAllBoards(){
@@ -39,7 +39,7 @@ public class BoardsService {
     }
 
     @Transactional
-    public void deleteBoard(int id) throws BoardException{
+    public void deleteBoard(long id) throws BoardException{
         Optional<Board> board = boardsRepository.findById(id);
         if (board.isEmpty())
             throw new BoardException("Such board does not is","BoardService.java: BoardException");
@@ -48,7 +48,7 @@ public class BoardsService {
     }
 
     @Transactional
-    public void changeBoard(int id, BoardInputDTO boardInputDTO) throws BoardException{
+    public void changeBoard(long id, BoardInputDTO boardInputDTO) throws BoardException{
         Optional<Board> board = boardsRepository.findById(id);
         if (board.isEmpty())
             throw new BoardException("Such board does not is","BoardService.java: BoardException");

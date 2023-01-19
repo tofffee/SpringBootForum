@@ -1,0 +1,4 @@
+databaseChangeLog:
+  - include:
+      file: "2-create-roles-table.yaml"
+      relativeToChangelogFile: true

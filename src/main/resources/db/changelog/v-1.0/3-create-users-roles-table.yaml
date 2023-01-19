@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: create-users_roles
+      id: 3
       author: tofffee
       changes:
         - createTable:
-            tableName: user_role
+            tableName: users_roles
             columns:
               - column:
                   name: user_id
@@ -21,6 +21,6 @@ databaseChangeLog:
         - addPrimaryKey:
             columnNames: user_id, role_id
             constraintName: pk_user_role
-            tableName: user_role
+            tableName: users_roles
 
 

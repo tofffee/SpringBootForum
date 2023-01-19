@@ -10,16 +10,16 @@ import java.nio.file.Path;
 import java.util.stream.Stream;
 
 public interface IStorageService {
-    void init();
+    public void init();
 
-    UpFile store(MultipartFile file);
+    public UpFile store(MultipartFile file);
 
-    Stream<Path> loadAll();
+    public Stream<Path> loadAll();
 
-    Path load(String filename);
+    public Path load(String filename);
 
-    Resource loadAsResource(String filename);
-    void deleteAll();
-    void delete(String fileName);
+    public Resource loadAsResource(String filename);
+    public void deleteAll();
+    public void delete(String fileName);
 
 }

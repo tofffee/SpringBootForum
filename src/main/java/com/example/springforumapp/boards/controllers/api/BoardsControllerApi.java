@@ -45,13 +45,13 @@ public class BoardsControllerApi {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ResponseApi> deleteBoardApi(@PathVariable int id){
+    public ResponseEntity<ResponseApi> deleteBoardApi(@PathVariable long id){
         boardsService.deleteBoard(id);
         return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), "Board deleted successfully"));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ResponseApi> changeBoardApi(@PathVariable int id, @RequestBody BoardInputDTO boardInputDTO){
+    public ResponseEntity<ResponseApi> changeBoardApi(@PathVariable long id, @RequestBody BoardInputDTO boardInputDTO){
         boardsService.changeBoard(id, boardInputDTO);
         return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), "Board updated successfully"));
     }

@@ -1,0 +1,4 @@
+databaseChangeLog:
+  - include:
+      file: "6-create-publications-table.yaml"
+      relativeToChangelogFile: true

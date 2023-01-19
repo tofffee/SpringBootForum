@@ -8,6 +8,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BoardOutputDTO {
-    private int id;
+    private long id;
     private String name;
 }

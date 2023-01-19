@@ -1,0 +1,4 @@
+databaseChangeLog:
+  - include:
+      file: "4-create-emails-table.yaml"
+      relativeToChangelogFile: true

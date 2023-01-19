@@ -15,10 +15,10 @@ public class ChatMessage {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     @Column(name = "text")
-    private String textOfChatMessage;
+    private String text;
 
     @Column(name = "time")
     private LocalDate timeOfChatMessage;

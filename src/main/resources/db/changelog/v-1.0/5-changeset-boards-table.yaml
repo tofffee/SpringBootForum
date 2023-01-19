@@ -1,0 +1,4 @@
+databaseChangeLog:
+  - include:
+      file: "5-create-boards-table.yaml"
+      relativeToChangelogFile: true

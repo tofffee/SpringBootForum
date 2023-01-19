@@ -23,7 +23,7 @@ public class Publication {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
-    private int id;
+    private long id;
 
     @Column(name = "name")
     @NotNull
@@ -35,8 +35,8 @@ public class Publication {
     @Size(min = 1,message = "Publication error (text of publication is too small)")
     private String text;
 
-    @Column(name = "date_of_creation")
-    private LocalDate dateOfCreation;
+    @Column(name = "created_at")
+    private LocalDate createdAt;
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")

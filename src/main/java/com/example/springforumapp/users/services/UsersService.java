@@ -36,7 +36,7 @@ public class UsersService implements UserDetailsService, IUsersService {
         else return new UserDetailsImpl(user.get());
     }
 
-    public User findById(int id) {
+    public User findById(long id) {
         Optional<User> user =  usersRepository.findById(id);
         if (user.isPresent())
             return user.get();
@@ -85,7 +85,7 @@ public class UsersService implements UserDetailsService, IUsersService {
     }
 
     @Transactional
-    public void deleteUser(int id) {
+    public void deleteUser(long id) {
         Optional<User> user = usersRepository.findById(id);
         if(user.isPresent()){
            usersRepository.deleteById(id);
@@ -93,7 +93,7 @@ public class UsersService implements UserDetailsService, IUsersService {
     }
 
     @Transactional
-    public void grantAdminRole(int id){
+    public void grantAdminRole(long id){
         Optional<User> user = usersRepository.findById(id);
         if(user.isPresent()){
             List<Role> roles = new ArrayList<>();
@@ -105,7 +105,7 @@ public class UsersService implements UserDetailsService, IUsersService {
     }
 
     @Transactional
-    public void ungrantAdminRole(int id){
+    public void ungrantAdminRole(long id){
         Optional<User> user = usersRepository.findById(id);
         if(user.isPresent()){
             List<Role> roles = new ArrayList<>();

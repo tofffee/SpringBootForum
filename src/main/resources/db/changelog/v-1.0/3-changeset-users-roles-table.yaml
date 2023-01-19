@@ -1,0 +1,4 @@
+databaseChangeLog:
+  - include:
+      file: "3-create-users-roles-table.yaml"
+      relativeToChangelogFile: true

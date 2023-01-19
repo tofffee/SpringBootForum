@@ -72,7 +72,7 @@ public class PublicationsControllerApi {
     @GetMapping("/boards/{boardName}/{publicationId}")
     public ResponseEntity<ResponseApi> getPublication(
             @PathVariable("boardName") String boardName,
-            @PathVariable("publicationId") int publicationId) {
+            @PathVariable("publicationId") long publicationId) {
         Board board = boardsService.findByName(boardName);
         Publication publication = publicationsService.getPublication(publicationId, board);
 
@@ -99,7 +99,7 @@ public class PublicationsControllerApi {
     @DeleteMapping("/boards/{boardName}/{publicationId}")
     public ResponseEntity<ResponseApi> deletePublicationInBoardApi(@AuthenticationPrincipal UserDetailsImpl userDetailsImpl,
                                                          @PathVariable("boardName") String boardName,
-                                                         @PathVariable("publicationId") int publicationId) {
+                                                         @PathVariable("publicationId") long publicationId) {
         publicationsService.deletePublication(userDetailsImpl.getUser(), publicationId);
         return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), "publication deleted successfully"));
     }
@@ -112,7 +112,7 @@ public class PublicationsControllerApi {
         dto.setUserDTO(modelMapper.map(publication.getUser(),UserDTO.class));
         dto.setName(publication.getName());
         dto.setText(publication.getText());
-        dto.setDateOfCreation(publication.getDateOfCreation());
+        dto.setCreatedAt(publication.getCreatedAt());
         if(publication.getUpfiles() != null && !publication.getUpfiles().isEmpty())
             dto.setUpFilesOutDtos(modelMapper.map(publication.getUpfiles(),new TypeToken<List<UpFileOutDTO>>(){}.getType()));
          else

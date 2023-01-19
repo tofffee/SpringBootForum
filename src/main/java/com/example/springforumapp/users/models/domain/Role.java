@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
-@Table(name = "Roles")
+@Table(name = "roles")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -18,7 +18,7 @@ public class Role {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
-    private int id;
+    private long id;
 
     @Column(name = "name")
     @NotNull

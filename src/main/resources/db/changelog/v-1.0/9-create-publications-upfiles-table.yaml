@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: create-publications_upfiles
+      id: 9
       author: tofffee
       changes:
         - createTable:

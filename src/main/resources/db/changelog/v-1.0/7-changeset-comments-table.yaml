@@ -1,0 +1,4 @@
+databaseChangeLog:
+  - include:
+      file: "7-create-comments-table.yaml"
+      relativeToChangelogFile: true

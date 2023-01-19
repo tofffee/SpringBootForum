@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface BoardsRepository extends JpaRepository<Board, Integer> {
+public interface BoardsRepository extends JpaRepository<Board, Long> {
     public  Optional<Board> findByName(String name);
 }

@@ -1,0 +1,40 @@
+databaseChangeLog:
+  - include:
+      file: "1-changeset-users-table.yaml"
+      relativeToChangelogFile: true
+  - include:
+      file: "2-changeset-roles-table.yaml"
+      relativeToChangelogFile: true
+  - include:
+      file: "3-changeset-users-roles-table.yaml"
+      relativeToChangelogFile: true
+  - include:
+      file: "4-changeset-emails-table.yaml"
+      relativeToChangelogFile: true
+  - include:
+      file: "5-changeset-boards-table.yaml"
+      relativeToChangelogFile: true
+  - include:
+      file: "6-changeset-publications-table.yaml"
+      relativeToChangelogFile: true
+  - include:
+      file: "7-changeset-comments-table.yaml"
+      relativeToChangelogFile: true
+  - include:
+      file: "8-changeset-upfiles-table.yaml"
+      relativeToChangelogFile: true
+  - include:
+      file: "9-changeset-publications-upfiles-table.yaml"
+      relativeToChangelogFile: true
+
+#  - include:
+#      file: "10-changeset-greeting-table.yaml"
+#      relativeToChangelogFile: true
+
+
+
+
+
+
+
+

@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: create-boards
+      id: 2
       author: tofffee
       changes:
         - createTable:
-            tableName: boards
+            tableName: roles
             columns:
               - column:
                   name: id
@@ -15,6 +15,6 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: name
-                  type: varchar(250)
+                  type: varchar(255)
                   constraints:
                     nullable: false

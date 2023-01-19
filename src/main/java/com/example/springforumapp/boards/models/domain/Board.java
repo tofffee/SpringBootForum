@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "Boards")
+@Table(name = "boards")
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Getter
@@ -17,7 +17,7 @@ public class Board {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     @Column(name = "name")
     private String name;

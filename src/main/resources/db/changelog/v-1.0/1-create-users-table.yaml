@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: create-users
+      id: 1
       author: tofffee
       changes:
         - createTable:
@@ -15,27 +15,27 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: username
-                  type: varchar(250)
+                  type: varchar(255)
                   constraints:
                     nullable: false
               - column:
                   name: avatar_url
-                  type: varchar(250)
+                  type: varchar(255)
                   constraints:
                     nullable: false
               - column:
                   name: email
-                  type: varchar(250)
+                  type: varchar(255)
                   constraints:
                     nullable: false
               - column:
                   name: password
-                  type: varchar(250)
+                  type: varchar(255)
                   constraints:
                     nullable: false
               - column:
                   name: activation_code
-                  type: varchar(250)
+                  type: varchar(255)
                   constraints:
                     nullable: true
               - column:

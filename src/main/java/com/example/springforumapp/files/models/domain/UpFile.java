@@ -24,7 +24,7 @@ public class UpFile {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Id;
+    private long id;
 
     @Column(name = "url")
     private String url;

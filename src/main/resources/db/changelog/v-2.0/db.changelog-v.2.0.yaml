@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - include:
+      file: "1-changeset-dummy-table.yaml"
+      relativeToChangelogFile: true
+
+
+
+
+
+
+

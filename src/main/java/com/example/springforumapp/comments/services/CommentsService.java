@@ -16,7 +16,7 @@ import java.util.*;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class CommentsService {
+public class CommentsService implements ICommentsService{
     private final CommentsRepository commentsRepository;
     @Transactional
     public void addComment(Comment comment, Publication publication, User user){
@@ -25,5 +25,4 @@ public class CommentsService {
         comment.setDateOfCreation(LocalDate.now());
         commentsRepository.save(comment);
     }
-
 }

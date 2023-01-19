@@ -27,9 +27,9 @@ public class StorageService implements IStorageService {
     private final FileUtil fileUtil;
     private final String imagesFolderPath = "uploads/images/";
     private final String videoFolderPath = "uploads/videos/";
-    @Value("${forum.scheme}")
+    @Value("${public.scheme}")
     String scheme;
-    @Value("${forum.hostname}")
+    @Value("${public.hostname}")
     String hostName;
     @Value("${server.port}")
     String port;

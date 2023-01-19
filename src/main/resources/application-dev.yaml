@@ -23,6 +23,7 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         show-sql: true
+        format_sql: true
     hibernate:
       ddl-auto: none
 
@@ -56,12 +57,23 @@ spring:
               - email
               - profile
 
+logging:
+  level:
+    root: info
+    org:
+      springframework:
+        security: debug
 
-#custom fields
-forum:
+#jwt
+jwt:
+  secret: wqeqwzcdasdasdcazcdas
+
+#public fields
+public:
   email_address: "springforumapp@yandex.ru"
   scheme: "http://"
   hostname: "localhost:"
 
-jwt:
-  secret: wqeqwzcdasdasdcazcdas
+
+
+

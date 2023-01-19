@@ -1,0 +1,4 @@
+databaseChangeLog:
+  - include:
+      file: "1-create-dummy-table.yaml"
+      relativeToChangelogFile: true

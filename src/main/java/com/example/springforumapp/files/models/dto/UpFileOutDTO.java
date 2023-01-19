@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpFileOutDTO {
-    private int id;
+    private long id;
     private String url;
     private String name;
     private UpFileType type;

@@ -16,10 +16,10 @@ import java.util.Optional;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class UpFileService {
+public class UpFileService implements IUpFileService {
     private final UpFilesRepository upFilesRepository;
 
-    public UpFile findFileById(int id) {
+    public UpFile findFileById(long id) {
         Optional<UpFile> file = upFilesRepository.findById(id);
         if (file.isPresent())
             return file.get();

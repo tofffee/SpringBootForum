@@ -13,8 +13,8 @@ public interface IUsersService {
     User findByUsernameOrEmail(String usernameOrEmail);
     void activateUser(UserDetailsImpl userDetailsImpl, ActivationCodeRequestDTO activationCodeRequestDTO);
     void addUser(User user);
-    void deleteUser(int id);
-    void grantAdminRole(int id);
-    void ungrantAdminRole(int id);
+    void deleteUser(long id);
+    void grantAdminRole(long id);
+    void ungrantAdminRole(long id);
 
 }

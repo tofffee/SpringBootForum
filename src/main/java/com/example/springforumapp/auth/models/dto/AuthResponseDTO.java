@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AuthResponseDTO {
-    private int id;
+    private long id;
     private String username;
     private String avatarUrl;
     private String email;

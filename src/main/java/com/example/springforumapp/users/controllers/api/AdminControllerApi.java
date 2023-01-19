@@ -17,19 +17,19 @@ public class AdminControllerApi {
     private final UsersService usersService;
 
     @PatchMapping("/grant/users/{id}")
-    public ResponseEntity<ResponseApi> grantAdminRole(@PathVariable("id") int id){
+    public ResponseEntity<ResponseApi> grantAdminRole(@PathVariable("id") long id){
         usersService.grantAdminRole(id);
         return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), "Admin rights were granted"));
     }
 
     @PatchMapping("/ungrant/users/{id}")
-    public ResponseEntity<ResponseApi> ungrantAdminRole(@PathVariable("id") int id){
+    public ResponseEntity<ResponseApi> ungrantAdminRole(@PathVariable("id") long id){
         usersService.ungrantAdminRole(id);
         return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), "Admin rights were deleted"));
     }
 
     @DeleteMapping ("/delete/users/{id}")
-    public ResponseEntity<ResponseApi> deleteUser(@PathVariable("id") int id){
+    public ResponseEntity<ResponseApi> deleteUser(@PathVariable("id") long id){
         usersService.deleteUser(id);
         return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), "User was deleted"));
     }

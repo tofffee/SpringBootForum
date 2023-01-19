@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CommentOutputDTO {
-    private int id;
+    private long id;
     private String text;
     private LocalDate dateOfCreation;
     private UserDTO userDTO;

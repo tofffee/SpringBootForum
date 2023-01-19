@@ -1,31 +1,29 @@
 databaseChangeLog:
-  - include:
-      file: db/changelog/changeset/create/create-users-table.yaml
-  - include:
-      file: db/changelog/changeset/create/create-boards-table.yaml
-  - include:
-      file: db/changelog/changeset/create/create-publications-table.yaml
-  - include:
-      file: db/changelog/changeset/create/create-comments-table.yaml
-  - include:
-      file: db/changelog/changeset/create/create-roles-table.yaml
-  - include:
-      file: db/changelog/changeset/create/create-users_roles-table.yaml
-  - include:
-      file: db/changelog/changeset/create/create-upfiles-table.yaml
-  - include:
-      file: db/changelog/changeset/create/create-publications_upfiles-table.yaml
-  - include:
-      file: db/changelog/changeset/create/create-emails-table.yaml
-  - include:
-      file: db/changelog/changeset/insert/insert-roles.yaml
-  - include:
-      file: db/changelog/changeset/insert/insert-boards.yaml
+  - changeSet:
+      id: 0
+      author: tofffee
+      changes:
+        - tagDatabase:
+            tag: database_init
 
-
-
-  #dummy data
   - include:
-      file: db/changelog/changeset/insert/dummyData/insert-dummy-users.yaml
-  - include:
-      file: db/changelog/changeset/insert/dummyData/insert-dummy-publications.yaml
+        file: "v-1.0/db.changelog-v.1.0.yaml"
+        relativeToChangelogFile: true
+
+  - changeSet:
+      id: 10
+      author: tofffee
+      changes:
+        - tagDatabase:
+            tag: v.1.0
+
+#  - include:
+#      file: "v-2.0/db.changelog-v.2.0.yaml"
+#      relativeToChangelogFile: true
+#
+#  - changeSet:
+#      id: 12
+#      author: tofffee
+#      changes:
+#        - tagDatabase:
+#            tag: v.2.0

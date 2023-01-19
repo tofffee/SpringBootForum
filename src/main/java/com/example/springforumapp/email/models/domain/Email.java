@@ -23,7 +23,7 @@ public class Email {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
-    private int id;
+    private long id;
 
     @Column(name = "subject")
     @NotNull

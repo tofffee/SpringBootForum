@@ -15,12 +15,12 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PublicationOutDTO {
-    private int id;
+    private long id;
     @JsonProperty("user")
     private UserDTO userDTO;
     private String name;
     private String text;
-    private LocalDate dateOfCreation;
+    private LocalDate createdAt;
     @JsonProperty("filesId")
     private List<UpFileOutDTO> upFilesOutDtos;
 }
