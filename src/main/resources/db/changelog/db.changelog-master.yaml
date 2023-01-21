@@ -4,7 +4,7 @@ databaseChangeLog:
       author: tofffee
       changes:
         - tagDatabase:
-            tag: database_init
+            tag: db_init
 
   - include:
         file: "v-1.0/db.changelog-v.1.0.yaml"
@@ -17,13 +17,3 @@ databaseChangeLog:
         - tagDatabase:
             tag: v.1.0
 
-#  - include:
-#      file: "v-2.0/db.changelog-v.2.0.yaml"
-#      relativeToChangelogFile: true
-#
-#  - changeSet:
-#      id: 12
-#      author: tofffee
-#      changes:
-#        - tagDatabase:
-#            tag: v.2.0

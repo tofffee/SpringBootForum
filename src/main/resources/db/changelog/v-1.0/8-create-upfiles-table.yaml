@@ -12,6 +12,7 @@ databaseChangeLog:
                   autoIncrement: true
                   constraints:
                     primaryKey: true
+                    primaryKeyName: pk_upfiles
                     nullable: false
               - column:
                   name: url
@@ -37,3 +38,6 @@ databaseChangeLog:
                   constraints:
                     foreignKeyName: fk_user_id
                     references: users(id)
+      rollback:
+        - dropTable:
+            tableName: upfiles

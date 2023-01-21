@@ -20,7 +20,10 @@ databaseChangeLog:
                     references: roles(id)
         - addPrimaryKey:
             columnNames: user_id, role_id
-            constraintName: pk_user_role
+            constraintName: pk_users_roles
+            tableName: users_roles
+      rollback:
+        - dropTable:
             tableName: users_roles
 
 

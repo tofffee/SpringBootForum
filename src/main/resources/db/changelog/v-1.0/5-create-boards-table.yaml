@@ -12,12 +12,13 @@ databaseChangeLog:
                   autoIncrement: true
                   constraints:
                     primaryKey: true
+                    primaryKeyName: pk_boards
                     nullable: false
               - column:
                   name: name
                   type: varchar(255)
                   constraints:
                     nullable: false
-#      rollback:
-#        - dropTable:
-#            tableName: boards
+      rollback:
+        - dropTable:
+            tableName: boards

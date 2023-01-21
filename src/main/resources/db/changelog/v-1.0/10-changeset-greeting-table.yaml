@@ -1,4 +1,0 @@
-databaseChangeLog:
-  - include:
-      file: "10-create-greeting-table.yaml"
-      relativeToChangelogFile: true

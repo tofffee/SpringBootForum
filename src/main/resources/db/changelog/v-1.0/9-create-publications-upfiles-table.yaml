@@ -22,3 +22,6 @@ databaseChangeLog:
             columnNames: publication_id, upfile_id
             constraintName: pk_publications_upfiles
             tableName: publications_upfiles
+      rollback:
+        - dropTable:
+            tableName: publications_upfiles

@@ -17,6 +17,11 @@
         <java.version>18</java.version>
         <spring_boot_version>2.7.2</spring_boot_version>
         <postgre_sql_version>42.4.1</postgre_sql_version>
+        <liquibase_version>4.18.0</liquibase_version>
+        <java_jwt_library_version>4.2.1</java_jwt_library_version>
+        <lombok_version>1.18.24</lombok_version>
+        <modelmapper_version>3.1.0</modelmapper_version>
+        <apache_common_version>2.11.0</apache_common_version>
     </properties>
 
     <dependencies>
@@ -39,7 +44,6 @@
             <version>${spring_boot_version}</version>
         </dependency>
 
-
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -61,20 +65,12 @@
             <version>${spring_boot_version}</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>${postgre_sql_version}</version>
-        </dependency>
-
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-mail -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
             <version>${spring_boot_version}</version>
         </dependency>
-
 
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-websocket -->
         <dependency>
@@ -90,98 +86,76 @@
             <version>${spring_boot_version}</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgre_sql_version}</version>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/com.auth0/java-jwt -->
         <dependency>
             <groupId>com.auth0</groupId>
             <artifactId>java-jwt</artifactId>
-            <version>4.2.1</version>
+            <version>${java_jwt_library_version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.24</version>
+            <version>${lombok_version}</version>
             <scope>provided</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.liquibase/liquibase-core -->
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>${liquibase_version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.liquibase/liquibase-maven-plugin -->
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-maven-plugin</artifactId>
+            <version>${liquibase_version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.modelmapper/modelmapper -->
         <dependency>
             <groupId>org.modelmapper</groupId>
             <artifactId>modelmapper</artifactId>
-            <version>3.1.0</version>
-        </dependency>
-
-
-        <!-- https://mvnrepository.com/artifact/org.liquibase/liquibase-core -->
-        <dependency>
-            <groupId>org.liquibase</groupId>
-            <artifactId>liquibase-core</artifactId>
-            <version>4.18.0</version>
+            <version>${modelmapper_version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.11.0</version>
+            <version>${apache_common_version}</version>
         </dependency>
-
-        <!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-log4j2 &ndash;&gt;-->
-        <!--        <dependency>-->
-        <!--            <groupId>org.springframework.boot</groupId>-->
-        <!--            <artifactId>spring-boot-starter-log4j2</artifactId>-->
-        <!--            <version>${spring_boot_version}</version>-->
-        <!--        </dependency>-->
-
-
-<!--                &lt;!&ndash; https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-thymeleaf &ndash;&gt;-->
-<!--                        <dependency>-->
-<!--                            <groupId>org.springframework.boot</groupId>-->
-<!--                            <artifactId>spring-boot-starter-thymeleaf</artifactId>-->
-<!--                            <version>${spring_boot_version}</version>-->
-<!--                        </dependency>-->
-
-        <!--        &lt;!&ndash;        needed for check if user authorized in thymeleaf&ndash;&gt;-->
-        <!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-springsecurity5 &ndash;&gt;-->
-        <!--        <dependency>-->
-        <!--            <groupId>org.thymeleaf.extras</groupId>-->
-        <!--            <artifactId>thymeleaf-extras-springsecurity5</artifactId>-->
-        <!--            <version>3.0.4.RELEASE</version>-->
-        <!--        </dependency>-->
-
-        <!--        -->
-        <!--&lt;!&ndash;        Webjars for bootstrap, jquery , jquery-validation&ndash;&gt;-->
-        <!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.webjars/bootstrap &ndash;&gt;-->
-        <!--        <dependency>-->
-        <!--            <groupId>org.webjars</groupId>-->
-        <!--            <artifactId>bootstrap</artifactId>-->
-        <!--            <version>5.2.0</version>-->
-        <!--        </dependency>-->
-
-        <!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.webjars.bower/jquery &ndash;&gt;-->
-        <!--        <dependency>-->
-        <!--            <groupId>org.webjars.bower</groupId>-->
-        <!--            <artifactId>jquery</artifactId>-->
-        <!--            <version>3.6.1</version>-->
-        <!--        </dependency>-->
-
-        <!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.webjars.bower/jquery-validation &ndash;&gt;-->
-        <!--        <dependency>-->
-        <!--            <groupId>org.webjars.bower</groupId>-->
-        <!--            <artifactId>jquery-validation</artifactId>-->
-        <!--            <version>1.19.3</version>-->
-        <!--        </dependency>-->
-
 
     </dependencies>
 
     <build>
         <plugins>
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>${liquibase_version}</version>
+                <configuration>
+                    <propertyFile>src/main/resources/db/liquibase.yaml</propertyFile>
+                    <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 
