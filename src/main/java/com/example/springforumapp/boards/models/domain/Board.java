@@ -23,5 +23,5 @@ public class Board {
     private String name;
 
     @OneToMany(mappedBy = "board")
-    private List<Publication> publications;
+    private List<Publication> publications;//
 }
