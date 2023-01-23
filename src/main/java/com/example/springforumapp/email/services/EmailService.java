@@ -22,9 +22,9 @@ public class EmailService implements IEmailService {
     private String from;
 
     @Transactional
-    public void sendActivationCode(User user, String activationCode) throws EmailException {
+    public void sendActivationCode(User user) throws EmailException {
         String subject = "Account activation";
-        String text = "Hello, " + user.getUsername() + ", your activation code is : " + activationCode;
+        String text = "Hello, " + user.getUsername() + ", your activation code is : " + user.getActivationCode();
         sendMessage(from, subject, text, user);
     }
 

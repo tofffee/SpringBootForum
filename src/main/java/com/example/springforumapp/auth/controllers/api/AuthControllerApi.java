@@ -11,13 +11,18 @@ import com.example.springforumapp.auth.util.validators.LoginValidator;
 import com.example.springforumapp.common.api.ResponseApi;
 import com.example.springforumapp.common.api.ResponseStatusApi;
 import com.example.springforumapp.common.api.ResponseSuccessApi;
+import com.example.springforumapp.security.JWTUtil;
 import com.example.springforumapp.security.UserDetailsImpl;
+import com.example.springforumapp.security.UserDetailsServiceImpl;
+import com.example.springforumapp.users.models.domain.User;
+import com.example.springforumapp.users.services.UsersService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,29 +33,34 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class AuthControllerApi {
     private final AuthService authService;
+    private final UsersService usersService;
+    private final UserDetailsServiceImpl userDetailsService;
+    private final JWTUtil jwtUtil;
     private final LoginValidator loginValidator;
-    private final ForgetPasswordValidator forgetPasswordValidator;
-    private final ModelMapper modelMapper; ///
+    private final ModelMapper modelMapper;
 
     @PostMapping("/login")
     public ResponseEntity<ResponseApi> loginApi(@RequestBody @Valid LoginRequestDTO loginRequestDTO, BindingResult bindingResult) {
         loginValidator.validate(loginRequestDTO,bindingResult);
-        String jwtToken = authService.authenticate(loginRequestDTO);
-        LoginResponseDTO loginResponseDTO = new LoginResponseDTO(jwtToken);
-        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS,HttpStatus.OK.value(),loginResponseDTO));
+        authService.authenticate(loginRequestDTO);
+        UserDetails userDetails = userDetailsService.loadUserByUsername(loginRequestDTO.getUsername());
+        String jwt = jwtUtil.generateToken(userDetails);
+        LoginResponseDTO dto = new LoginResponseDTO(jwt);
+        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), dto));
     }
 
     @GetMapping("/auth")
-    public ResponseEntity<ResponseApi> authUserApi(@AuthenticationPrincipal UserDetailsImpl userDetailsImpl) {
-        AuthResponseDTO authResponseDTO = modelMapper.map(userDetailsImpl.getUser(), AuthResponseDTO.class);
+    public ResponseEntity<ResponseApi> authUserApi(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+        User user = usersService.findByUsername(userDetails.getUsername());
+        AuthResponseDTO authResponseDTO = modelMapper.map(user, AuthResponseDTO.class);
         return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), authResponseDTO));
     }
 
-    @PostMapping("/forgetPassword")
-    public ResponseEntity<ResponseApi> forgetPasswordApi(@RequestBody @Valid ForgetPasswordRequestDTO forgetPasswordRequestDTO, BindingResult bindingResult){
-        forgetPasswordValidator.validate(forgetPasswordRequestDTO, bindingResult);
-        authService.forgetPassword(forgetPasswordRequestDTO);
-        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(),"Reset password code was sent to your email"));
-    }
+//    @PostMapping("/forgetPassword")
+//    public ResponseEntity<ResponseApi> forgetPasswordApi(@RequestBody @Valid ForgetPasswordRequestDTO forgetPasswordRequestDTO, BindingResult bindingResult){
+//        forgetPasswordValidator.validate(forgetPasswordRequestDTO, bindingResult);
+//        authService.forgetPassword(forgetPasswordRequestDTO);
+//        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(),"Reset password code was sent to your email"));
+//    }
 
 }

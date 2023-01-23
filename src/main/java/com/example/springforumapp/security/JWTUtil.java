@@ -1,41 +1,63 @@
 package com.example.springforumapp.security;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.JWTVerifier;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.auth0.jwt.interfaces.DecodedJWT;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.time.ZonedDateTime;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
 
 @Component
 public class JWTUtil {
     @Value("${jwt.secret}")
     private String secret;
 
-    public String generateToken(String username){
-        Date expirationDate = Date.from(ZonedDateTime.now().plusMinutes(60).toInstant());
-        return JWT.create()
-                .withSubject("User details")
-                .withClaim("username", username)
-                .withIssuedAt(new Date())
-                .withIssuer("forumapp")
-                .withExpiresAt(expirationDate)
-                .sign(Algorithm.HMAC256(secret));
+    private Claims extractAllClaims(String token) {
+        return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
     }
 
-    public String validateTokenAndRetrieveClaim(String token) throws JWTVerificationException
-    {
-        JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(secret))
-                .withSubject("User details")
-                .withIssuer("forumapp")
-                .build();
-        DecodedJWT jwt = jwtVerifier.verify(token);
-        return jwt.getClaim("username").asString();
+    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+        final Claims claims = extractAllClaims(token);
+        return claimsResolver.apply(claims);
+    }
+
+    public String extractUsername(String token) {
+        return extractClaim(token, Claims::getSubject);
+    }
+
+    public Date extractExpiration(String token) {
+        return extractClaim(token, Claims::getExpiration);
+    }
+
+    private Boolean isTokenExpired(String token) {
+        final Date expiration = extractExpiration(token);
+        return expiration.before(new Date());
+    }
+
+    public String generateToken(UserDetails userDetails) {
+        Map<String, Object> claims = new HashMap<>();
+        return createToken(claims, userDetails.getUsername());
+    }
+
+    private String createToken(Map<String, Object> claims, String subject) {
+
+        return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + 60 * 1000))
+                .signWith(SignatureAlgorithm.HS512, secret).compact();
+    }
+
+    public Boolean validateToken(String token, UserDetails userDetails) {
+        final String username = extractUsername(token);
+        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 }

@@ -33,6 +33,9 @@ databaseChangeLog:
       file: "insert/insert-roles.yaml"
       relativeToChangelogFile: true
 
+  - include:
+      file: "insert/dummyData/insert-dummy-users.yaml"
+      relativeToChangelogFile: true
 
 
 

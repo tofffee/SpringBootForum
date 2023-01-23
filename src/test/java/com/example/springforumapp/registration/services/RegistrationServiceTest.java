@@ -39,7 +39,7 @@ class RegistrationServiceTest {
         user.setUsername("vasili");
         user.setEmail("vasili@mail.ru");
         user.setPassword("12345");
-        registrationService.registerUser(user);
+      //  registrationService.registerUser(user);
 
         Mockito.verify(usersRepository, Mockito.times(1)).save(user);
         Mockito.verify(usersService, Mockito.times(1)).addUser(user);

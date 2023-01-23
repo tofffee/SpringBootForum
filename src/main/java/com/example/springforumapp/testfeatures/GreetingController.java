@@ -1,6 +1,7 @@
 package com.example.springforumapp.testfeatures;
 
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
@@ -12,18 +13,21 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/test")
 @RequiredArgsConstructor
 public class GreetingController {
 
     private final GreetingService greetingService;
-
+    private final ModelMapper modelMapper;
 
     @GetMapping
-    public String smth(Model model){
-        model.addAttribute("greeting", new Greeting());
-        return "testPage";
+    public ResponseEntity<?> smth(){
+        Greeting greeting = new Greeting();
+        greeting.setId(1L);
+        greeting.setName("qwe");
+        GreetingDTO dto = modelMapper.map(greeting, GreetingDTO.class);
+        return ResponseEntity.ok(dto)  ;
     }
 
     @PostMapping

@@ -1,12 +1,16 @@
 package com.example.springforumapp.security;
 
-import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.example.springforumapp.security.JWTUtil;
-import com.example.springforumapp.users.services.UsersService;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import com.example.springforumapp.common.api.ResponseErrorApi;
+import com.example.springforumapp.common.api.ResponseStatusApi;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.jsonwebtoken.JwtException;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -17,42 +21,58 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
+@RequiredArgsConstructor
 public class JWTFilter extends OncePerRequestFilter {
-    private final JWTUtil jwtUtil;
-    private final UsersService usersService;
 
-    public JWTFilter(JWTUtil jwtUtil, UsersService usersService) {
-        this.jwtUtil = jwtUtil;
-        this.usersService = usersService;
-    }
+    private final JWTUtil jwtUtil;
+    private final UserDetailsServiceImpl userDetailsService;
+    private final ObjectMapper objectMapper;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        String authHeader = request.getHeader("Authorization");
-        if (authHeader!=null && !authHeader.isBlank() && authHeader.startsWith("Bearer ")){
-            String jwt = authHeader.substring(7);
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
 
-            if (jwt.isBlank()){
-                response.sendError(HttpServletResponse.SC_BAD_REQUEST,"Invalid JWT Token in Bearer Header");
-            } else {
-                try{
-                    String username = jwtUtil.validateTokenAndRetrieveClaim(jwt);
-                    UserDetails userDetails = usersService.loadUserByUsername(username);
+        final String authorizationHeader = request.getHeader("Authorization");
 
-                    UsernamePasswordAuthenticationToken authToken =
-                            new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
+        String username = null;
+        String jwtToken = null;
 
-                    if(SecurityContextHolder.getContext().getAuthentication() == null){
-                        SecurityContextHolder.getContext().setAuthentication(authToken);
-                    }
-
-                } catch (JWTVerificationException jwtVerificationException){
-                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED,"Invalid JWT Token in Bearer Header");
-                    return;
-                }
+        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+            jwtToken = authorizationHeader.substring(7);
+            try{
+                username = jwtUtil.extractUsername(jwtToken);
+            } catch (JwtException e) {
+                handleJwtException(response, e);
+                return;
             }
         }
 
-        filterChain.doFilter(request, response);
+        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+
+            if (jwtUtil.validateToken(jwtToken, userDetails)) {
+
+                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
+                        userDetails, null, userDetails.getAuthorities());
+                usernamePasswordAuthenticationToken
+                        .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+            }
+        }
+        chain.doFilter(request, response);
     }
+
+    private void handleJwtException(HttpServletResponse response, JwtException e) throws IOException {
+        ResponseErrorApi responseErrorApi = new ResponseErrorApi();
+        responseErrorApi.setStatus(ResponseStatusApi.FAIL);
+        responseErrorApi.setCode(HttpStatus.BAD_REQUEST.value());
+        responseErrorApi.setMessage(e.getMessage());
+        responseErrorApi.setDbgMessage("JWTFilter.java: JwtException.java");
+        responseErrorApi.setTimestamp(System.currentTimeMillis());
+
+        response.setContentType("application/json");
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        response.getWriter().write(objectMapper.writeValueAsString(responseErrorApi));
+    }
+
 }

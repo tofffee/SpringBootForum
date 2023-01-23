@@ -29,7 +29,7 @@ databaseChangeLog:
                   value: true
 
         - insert:
-            tableName: user_role
+            tableName: users_roles
             columns:
               - column:
                   name: user_id
@@ -38,7 +38,7 @@ databaseChangeLog:
                   name: role_id
                   value: 1
         - insert:
-            tableName: user_role
+            tableName: users_roles
             columns:
               - column:
                   name: user_id
@@ -74,7 +74,7 @@ databaseChangeLog:
                   value: false
 
         - insert:
-            tableName: user_role
+            tableName: users_roles
             columns:
               - column:
                   name: user_id
@@ -109,7 +109,7 @@ databaseChangeLog:
                   value: false
 
         - insert:
-            tableName: user_role
+            tableName: users_roles
             columns:
               - column:
                   name: user_id

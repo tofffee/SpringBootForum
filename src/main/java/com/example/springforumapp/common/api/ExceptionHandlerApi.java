@@ -7,6 +7,7 @@ import com.example.springforumapp.publications.util.exceptions.PublicationExcept
 import com.example.springforumapp.registration.util.exceptions.RegistrationException;
 import com.example.springforumapp.users.util.exceptions.ActivationProfileException;
 import com.example.springforumapp.users.util.exceptions.UserNotFoundException;
+import io.jsonwebtoken.SignatureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -40,7 +41,7 @@ public class ExceptionHandlerApi {
     }
 
     @ExceptionHandler({ActivationProfileException.class})
-    protected ResponseEntity<ResponseApi> handleAuthException(ActivationProfileException e) {
+    protected ResponseEntity<ResponseApi> handleActivationProfileException(ActivationProfileException e) {
         ResponseErrorApi responseErrorApi = new ResponseErrorApi(
                 ResponseStatusApi.FAIL,
                 HttpStatus.NOT_FOUND.value(),
@@ -53,7 +54,7 @@ public class ExceptionHandlerApi {
 
 
     @ExceptionHandler(PublicationException.class)
-    protected ResponseEntity<ResponseApi> handleAuthException(PublicationException e) {
+    protected ResponseEntity<ResponseApi> handlePublicationException(PublicationException e) {
         ResponseErrorApi responseErrorApi = new ResponseErrorApi(
                 ResponseStatusApi.FAIL,
                 HttpStatus.NOT_FOUND.value(),
@@ -99,4 +100,5 @@ public class ExceptionHandlerApi {
         );
         return new ResponseEntity<>(responseErrorApi, HttpStatus.BAD_REQUEST);
     }
+
 }
