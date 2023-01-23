@@ -1,9 +1,8 @@
 package com.example.springforumapp.registration.controllers.api;
 
-import com.example.springforumapp.registration.models.dto.RegisterRequestDTO;
+import com.example.springforumapp.users.models.dto.RegisterInDTO;
 import com.example.springforumapp.users.repositories.UsersRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +39,9 @@ class RegistrationControllerApiTest {
 
     @Test
     void registerApi_correct_data() throws Exception {
-        RegisterRequestDTO registerRequestDTO = new RegisterRequestDTO("vasyaacc","vasya@mail.ru","12345");
+        RegisterInDTO registerInDTO = new RegisterInDTO("vasyaacc","vasya@mail.ru","12345");
         mockMvc.perform(post("/api/register")
-                .content(objectMapper.writeValueAsString(registerRequestDTO))
+                .content(objectMapper.writeValueAsString(registerInDTO))
                 .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andDo(MockMvcResultHandlers.print())

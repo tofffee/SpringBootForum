@@ -1,13 +1,12 @@
 package com.example.springforumapp.common.api;
 
-import com.example.springforumapp.auth.util.exceptions.AuthException;
+import com.example.springforumapp.users.util.exceptions.AuthException;
 import com.example.springforumapp.boards.util.exceptions.BoardException;
 import com.example.springforumapp.files.util.exceptions.FileException;
 import com.example.springforumapp.publications.util.exceptions.PublicationException;
-import com.example.springforumapp.registration.util.exceptions.RegistrationException;
+import com.example.springforumapp.users.util.exceptions.RegistrationException;
 import com.example.springforumapp.users.util.exceptions.ActivationProfileException;
 import com.example.springforumapp.users.util.exceptions.UserNotFoundException;
-import io.jsonwebtoken.SignatureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

@@ -1,21 +1,16 @@
-package com.example.springforumapp.auth.services;
+package com.example.springforumapp.users.services;
 
 
 
-import com.example.springforumapp.auth.models.dto.ForgetPasswordRequestDTO;
-import com.example.springforumapp.auth.models.dto.LoginRequestDTO;
-import com.example.springforumapp.auth.models.dto.LoginResponseDTO;
-import com.example.springforumapp.auth.util.exceptions.AuthException;
-import com.example.springforumapp.common.util.RandomUtil;
-import com.example.springforumapp.email.services.EmailService;
-import com.example.springforumapp.security.JWTUtil;
+import com.example.springforumapp.users.models.dto.ForgetPasswordInDTO;
+import com.example.springforumapp.users.models.dto.LoginInDTO;
+import com.example.springforumapp.users.util.exceptions.AuthException;
+import com.example.springforumapp.security.UserDetailsImpl;
 import com.example.springforumapp.security.UserDetailsServiceImpl;
-import com.example.springforumapp.users.services.UsersService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,19 +18,19 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class AuthService implements IAuthSevice {
-    private final UserDetailsServiceImpl userDetailsService;
     private final AuthenticationManager authenticationManager;
-    private final JWTUtil jwtUtil;
+    private final UserDetailsServiceImpl userDetailsService;
 
-    public void authenticate(LoginRequestDTO loginRequestDTO) throws AuthException {
+    public UserDetailsImpl login(LoginInDTO loginInDTO) throws AuthException {
         try{
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequestDTO.getUsername(), loginRequestDTO.getPassword()));
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginInDTO.getUsername(), loginInDTO.getPassword()));
         } catch (BadCredentialsException badCredentialsException){
             throw new AuthException("Incorrect credentials","AuthService.java: AuthException");
         }
+        return (UserDetailsImpl)userDetailsService.loadUserByUsername(loginInDTO.getUsername());
     }
 
-    public void forgetPassword(ForgetPasswordRequestDTO forgetPasswordRequestDTO) {
+    public void forgetPassword(ForgetPasswordInDTO forgetPasswordInDTO) {
 //        if (usersService.findByUsername(forgetPasswordRequestDTO.getUserNameOrEmail()) == null)
 //            throw new AuthException("User with such username is not registered","AuthService.java: AuthException");
 //

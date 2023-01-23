@@ -3,6 +3,7 @@ package com.example.springforumapp.registration.services;
 import com.example.springforumapp.email.services.EmailService;
 import com.example.springforumapp.users.models.domain.User;
 import com.example.springforumapp.users.repositories.UsersRepository;
+import com.example.springforumapp.users.services.RegistrationService;
 import com.example.springforumapp.users.services.UsersService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

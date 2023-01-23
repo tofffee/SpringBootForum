@@ -1,4 +1,4 @@
-package com.example.springforumapp.auth.util.exceptions;
+package com.example.springforumapp.users.util.exceptions;
 
 import lombok.*;
 

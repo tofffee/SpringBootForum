@@ -1,12 +1,13 @@
-package com.example.springforumapp.registration.models.dto;
+package com.example.springforumapp.users.models.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
-public class RegisterResponseDTO {
+@Builder
+public class RegisterOutDTO {
     private String jwt;
 }

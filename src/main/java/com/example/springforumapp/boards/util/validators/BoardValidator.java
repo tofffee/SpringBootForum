@@ -1,11 +1,8 @@
 package com.example.springforumapp.boards.util.validators;
 
-import com.example.springforumapp.auth.models.dto.LoginRequestDTO;
-import com.example.springforumapp.auth.util.exceptions.AuthException;
 import com.example.springforumapp.boards.models.dto.BoardInputDTO;
 import com.example.springforumapp.boards.util.exceptions.BoardException;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;

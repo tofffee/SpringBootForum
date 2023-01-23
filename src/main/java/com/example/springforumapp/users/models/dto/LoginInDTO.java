@@ -1,17 +1,14 @@
-package com.example.springforumapp.auth.models.dto;
+package com.example.springforumapp.users.models.dto;
 
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Size;
-import java.lang.management.LockInfo;
 
 @Data
 @Builder
-public class LoginRequestDTO {
+public class LoginInDTO {
     @Size(min = 4 ,max = 85, message = "User error (username must be > 4 and < 15)")
     private String username;
 

@@ -1,4 +1,4 @@
-package com.example.springforumapp.registration.util.exceptions;
+package com.example.springforumapp.users.util.exceptions;
 
 import lombok.Getter;
 import lombok.Setter;

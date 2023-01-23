@@ -1,10 +1,7 @@
-package com.example.springforumapp.registration.util.validators;
+package com.example.springforumapp.users.util.validators;
 
-import com.example.springforumapp.registration.models.dto.RegisterRequestDTO;
-import com.example.springforumapp.registration.services.RegistrationService;
-import com.example.springforumapp.registration.util.exceptions.RegistrationException;
-import com.example.springforumapp.users.services.UsersService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.springforumapp.users.models.dto.RegisterInDTO;
+import com.example.springforumapp.users.util.exceptions.RegistrationException;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
@@ -17,7 +14,7 @@ public class RegistrationValidator implements Validator {
     public RegistrationValidator() {}
     @Override
     public boolean supports(Class<?> clazz) {
-        return RegisterRequestDTO.class.equals(clazz);
+        return RegisterInDTO.class.equals(clazz);
     }
     @Override
     public void validate(Object target, Errors errors) throws RegistrationException {

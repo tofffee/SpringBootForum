@@ -1,7 +1,7 @@
-package com.example.springforumapp.auth.util.validators;
+package com.example.springforumapp.users.util.validators;
 
-import com.example.springforumapp.auth.models.dto.LoginRequestDTO;
-import com.example.springforumapp.auth.util.exceptions.AuthException;
+import com.example.springforumapp.users.models.dto.LoginInDTO;
+import com.example.springforumapp.users.util.exceptions.AuthException;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
@@ -16,7 +16,7 @@ public class ForgetPasswordValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return LoginRequestDTO.class.equals(clazz);
+        return LoginInDTO.class.equals(clazz);
     }
 
     @Override

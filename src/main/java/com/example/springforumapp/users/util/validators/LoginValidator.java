@@ -1,11 +1,9 @@
-package com.example.springforumapp.auth.util.validators;
+package com.example.springforumapp.users.util.validators;
 
 
-import com.example.springforumapp.auth.models.dto.LoginRequestDTO;
-import com.example.springforumapp.auth.util.exceptions.AuthException;
-import com.example.springforumapp.users.services.UsersService;
+import com.example.springforumapp.users.models.dto.LoginInDTO;
+import com.example.springforumapp.users.util.exceptions.AuthException;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
@@ -18,7 +16,7 @@ import java.util.List;
 public class LoginValidator implements Validator {
     @Override
     public boolean supports(Class<?> clazz) {
-        return LoginRequestDTO.class.equals(clazz);
+        return LoginInDTO.class.equals(clazz);
     }
     @Override
     public void validate(Object target, Errors errors) throws AuthException {
