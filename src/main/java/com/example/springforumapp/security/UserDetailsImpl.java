@@ -56,11 +56,12 @@ public class UserDetailsImpl implements UserDetails {
     @Override
     public boolean isEnabled() { return true; }
 
-    public User getUser() {
-        return user;
-    }
     public String getEmail(){
         return user.getEmail();
     }
+    public User getUser() {
+        return user;
+    }
+
 
 }

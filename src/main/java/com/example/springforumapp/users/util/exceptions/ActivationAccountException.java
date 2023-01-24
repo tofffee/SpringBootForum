@@ -5,10 +5,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ActivationProfileException extends RuntimeException{
+public class ActivationAccountException extends RuntimeException{
     private String dbgMessage;
 
-    public ActivationProfileException(String message, String dbgMessagee)
+    public ActivationAccountException(String message, String dbgMessagee)
     {
         super(message);
         this.dbgMessage = dbgMessage;

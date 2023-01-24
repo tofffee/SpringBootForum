@@ -4,12 +4,10 @@ import com.example.springforumapp.users.models.domain.User;
 import com.example.springforumapp.users.repositories.UsersRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
@@ -17,7 +15,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @AutoConfigureMockMvc
 class UsersServiceTest {
     @Autowired
-    private UsersService usersService;
+    private UsersServiceImpl usersServiceImpl;
 
     @Autowired
     private UsersRepository usersRepository;
@@ -32,7 +30,7 @@ class UsersServiceTest {
         user.setActivationCode("1425");
         user.setEnabled(false);
 
-        usersService.addUser(user);
+        usersServiceImpl.addUser(user);
         Mockito.verify(usersRepository, Mockito.times(1)).save(user);
     }
 }

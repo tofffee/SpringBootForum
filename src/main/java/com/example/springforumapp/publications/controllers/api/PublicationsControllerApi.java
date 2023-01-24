@@ -13,16 +13,13 @@ import com.example.springforumapp.publications.models.domain.Publication;
 import com.example.springforumapp.publications.models.dto.PublicationInDTO;
 import com.example.springforumapp.publications.models.dto.PublicationOutDTO;
 import com.example.springforumapp.publications.services.PublicationsService;
-import com.example.springforumapp.publications.util.exceptions.PublicationException;
 import com.example.springforumapp.publications.util.validators.PublicationValidator;
 import com.example.springforumapp.security.UserDetailsImpl;
 import com.example.springforumapp.users.models.dto.UserDTO;
-import com.example.springforumapp.users.services.UsersService;
+import com.example.springforumapp.users.services.UsersServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -40,7 +37,7 @@ import java.util.stream.Collectors;
 public class PublicationsControllerApi {
     private final PublicationsService publicationsService;
     private final BoardsService boardsService;
-    private final UsersService usersService;
+    private final UsersServiceImpl usersServiceImpl;
     private final UpFileService upFileService;
     private final PublicationValidator publicationValidator;
     private final ModelMapper modelMapper;
@@ -89,7 +86,7 @@ public class PublicationsControllerApi {
 
         Publication publication = convertInDtoToPublication(publicationInDTO);
         publication.setBoard(boardsService.findByName(boardName));
-        publication.setUser(usersService.findById(userDetails.getUser().getId()));
+        publication.setUser(usersServiceImpl.findById(userDetails.getUser().getId()));
         publicationsService.savePublication(publication);
 
         PublicationOutDTO dto = publicationToOutDTO(publication);

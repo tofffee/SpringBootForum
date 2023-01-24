@@ -1,8 +1,6 @@
 package com.example.springforumapp.security.oAuth2;
 
-import com.example.springforumapp.users.models.domain.User;
-import com.example.springforumapp.users.services.UsersService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.springforumapp.users.services.UsersServiceImpl;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -14,10 +12,10 @@ import java.io.IOException;
 
 @Component
 public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
-    private final UsersService usersService;
+    private final UsersServiceImpl usersServiceImpl;
 
-    public OAuth2LoginSuccessHandler(UsersService usersService) {
-        this.usersService = usersService;
+    public OAuth2LoginSuccessHandler(UsersServiceImpl usersServiceImpl) {
+        this.usersServiceImpl = usersServiceImpl;
     }
 
     @Override

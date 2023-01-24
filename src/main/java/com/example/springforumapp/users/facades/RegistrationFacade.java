@@ -5,5 +5,5 @@ import com.example.springforumapp.users.models.dto.RegisterOutDTO;
 
 
 public interface RegistrationFacade {
-    public RegisterOutDTO register(RegisterInDTO register);
+    public RegisterOutDTO register(RegisterInDTO registerInDTO);
 }

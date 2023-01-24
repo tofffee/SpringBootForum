@@ -1,6 +1,5 @@
 package com.example.springforumapp.security;
 
-import com.example.springforumapp.security.UserDetailsImpl;
 import com.example.springforumapp.users.models.domain.User;
 import com.example.springforumapp.users.repositories.UsersRepository;
 import lombok.RequiredArgsConstructor;

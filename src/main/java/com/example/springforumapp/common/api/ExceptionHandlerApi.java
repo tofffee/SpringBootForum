@@ -5,16 +5,37 @@ import com.example.springforumapp.boards.util.exceptions.BoardException;
 import com.example.springforumapp.files.util.exceptions.FileException;
 import com.example.springforumapp.publications.util.exceptions.PublicationException;
 import com.example.springforumapp.users.util.exceptions.RegistrationException;
-import com.example.springforumapp.users.util.exceptions.ActivationProfileException;
+import com.example.springforumapp.users.util.exceptions.ActivationAccountException;
 import com.example.springforumapp.users.util.exceptions.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 
-@ControllerAdvice
+@RestControllerAdvice
 public class ExceptionHandlerApi {
+
+    @ExceptionHandler({MethodArgumentNotValidException.class})
+    protected ResponseEntity<ResponseApi> handleValidationException(MethodArgumentNotValidException e) {
+        StringBuilder errorMessage = new StringBuilder();
+        e.getBindingResult().getFieldErrors().forEach(fieldError ->
+                errorMessage
+                        .append(fieldError.getField())
+                        .append("-")
+                        .append(fieldError.getDefaultMessage())
+                        .append("; "));
+
+        ResponseErrorApi responseErrorApi = new ResponseErrorApi(
+                ResponseStatusApi.FAIL,
+                HttpStatus.BAD_REQUEST.value(),
+                errorMessage.toString(),
+                e.getMessage(),
+                System.currentTimeMillis()
+        );
+        return new ResponseEntity<>(responseErrorApi, HttpStatus.BAD_REQUEST);
+    }
     @ExceptionHandler({AuthException.class})
     protected ResponseEntity<ResponseApi> handleAuthException(AuthException e) {
         ResponseErrorApi responseErrorApi = new ResponseErrorApi(
@@ -39,8 +60,8 @@ public class ExceptionHandlerApi {
         return new ResponseEntity<>(responseErrorApi, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler({ActivationProfileException.class})
-    protected ResponseEntity<ResponseApi> handleActivationProfileException(ActivationProfileException e) {
+    @ExceptionHandler({ActivationAccountException.class})
+    protected ResponseEntity<ResponseApi> handleActivationProfileException(ActivationAccountException e) {
         ResponseErrorApi responseErrorApi = new ResponseErrorApi(
                 ResponseStatusApi.FAIL,
                 HttpStatus.NOT_FOUND.value(),

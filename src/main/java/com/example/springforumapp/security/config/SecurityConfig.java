@@ -1,9 +1,9 @@
 package com.example.springforumapp.security.config;
 
 import com.example.springforumapp.security.JWTFilter;
+import com.example.springforumapp.security.UserDetailsServiceImpl;
 import com.example.springforumapp.security.oAuth2.CustomOAuth2UserService;
 import com.example.springforumapp.security.oAuth2.OAuth2LoginSuccessHandler;
-import com.example.springforumapp.security.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
@@ -31,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
 
                 .antMatchers("/api/activate").authenticated()
-                .antMatchers(HttpMethod.GET,"/api/auth").authenticated()
+                .antMatchers(HttpMethod.GET,"/user/authuserinfo").authenticated()
                 .antMatchers(HttpMethod.POST,"/api/boards/{boardName}",
                                                         "/api/upload/image",
                                                         "/api/boards/{boardName}/{publicationId}").authenticated()

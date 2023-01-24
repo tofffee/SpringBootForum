@@ -1,10 +1,10 @@
 package com.example.springforumapp.registration.services;
 
-import com.example.springforumapp.email.services.EmailService;
+import com.example.springforumapp.email.services.EmailServiceImpl;
 import com.example.springforumapp.users.models.domain.User;
 import com.example.springforumapp.users.repositories.UsersRepository;
 import com.example.springforumapp.users.services.RegistrationService;
-import com.example.springforumapp.users.services.UsersService;
+import com.example.springforumapp.users.services.UsersServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -24,12 +24,12 @@ class RegistrationServiceTest {
     private RegistrationService registrationService;
 
     @MockBean
-    private UsersService usersService;
+    private UsersServiceImpl usersServiceImpl;
     @MockBean
     private UsersRepository usersRepository;
 
     @MockBean
-    private EmailService emailService;
+    private EmailServiceImpl emailServiceImpl;
 
     @MockBean
     private PasswordEncoder passwordEncoder;
@@ -43,7 +43,7 @@ class RegistrationServiceTest {
       //  registrationService.registerUser(user);
 
         Mockito.verify(usersRepository, Mockito.times(1)).save(user);
-        Mockito.verify(usersService, Mockito.times(1)).addUser(user);
+        Mockito.verify(usersServiceImpl, Mockito.times(1)).addUser(user);
         //Mockito.verify(emailService, Mockito.times(1)).addUser(user);
     }
 }
