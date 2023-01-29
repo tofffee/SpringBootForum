@@ -26,7 +26,7 @@ public class AuthControllerApi {
     @PostMapping()
     public ResponseEntity<ResponseApi> loginApi(@RequestBody @Valid LoginInDTO loginInDTO) {
         LoginOutDTO loginOutDTO = authFacade.login(loginInDTO);
-        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), loginOutDTO));
+        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, loginOutDTO));
     }
 
 

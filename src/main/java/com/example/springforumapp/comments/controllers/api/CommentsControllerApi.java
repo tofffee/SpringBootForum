@@ -51,7 +51,7 @@ public class CommentsControllerApi {
         commentsService.addComment(comment, publication, userDetails.getUser());
 
         CommentOutputDTO dto = commentToOutputDTO(comment);
-        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), dto));
+        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, dto));
     }
 
     private CommentOutputDTO commentToOutputDTO(Comment comment){

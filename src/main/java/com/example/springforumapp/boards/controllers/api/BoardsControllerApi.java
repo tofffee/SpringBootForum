@@ -31,7 +31,7 @@ public class BoardsControllerApi {
     public ResponseEntity<ResponseApi> getAllBoardsApi(){
         List<Board> boards = boardsService.getAllBoards();
         List<BoardOutputDTO> dtos = boardsToOutputDTOs(boards);
-        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), dtos));
+        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, dtos));
     }
 
     @PostMapping()
@@ -41,25 +41,25 @@ public class BoardsControllerApi {
         Board board = modelMapper.map(boardInputDTO, Board.class);
         boardsService.addBoard(board);
         BoardOutputDTO dto = boardToOutputDTO(board);
-        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), dto));
+        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, dto));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ResponseApi> deleteBoardApi(@PathVariable long id){
         boardsService.deleteBoard(id);
-        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), "Board deleted successfully"));
+        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, "Board deleted successfully"));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<ResponseApi> changeBoardApi(@PathVariable long id, @RequestBody BoardInputDTO boardInputDTO){
         boardsService.changeBoard(id, boardInputDTO);
-        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), "Board updated successfully"));
+        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, "Board updated successfully"));
     }
 
     @DeleteMapping()
     public ResponseEntity<ResponseApi> deleteAllBoardsApi(){
         boardsService.deleteAllBoards();
-        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), "All boards deleted successfully"));
+        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, "All boards deleted successfully"));
     }
 
     private BoardOutputDTO boardToOutputDTO(Board board){

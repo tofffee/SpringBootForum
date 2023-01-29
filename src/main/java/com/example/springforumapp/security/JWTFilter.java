@@ -65,7 +65,6 @@ public class JWTFilter extends OncePerRequestFilter {
     private void handleJwtException(HttpServletResponse response, JwtException e) throws IOException {
         ResponseErrorApi responseErrorApi = new ResponseErrorApi();
         responseErrorApi.setStatus(ResponseStatusApi.FAIL);
-        responseErrorApi.setCode(HttpStatus.BAD_REQUEST.value());
         responseErrorApi.setMessage(e.getMessage());
         responseErrorApi.setDbgMessage("JWTFilter.java: JwtException.java");
         responseErrorApi.setTimestamp(System.currentTimeMillis());

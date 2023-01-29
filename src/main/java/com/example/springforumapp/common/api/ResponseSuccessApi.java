@@ -10,8 +10,8 @@ import lombok.*;
 public class ResponseSuccessApi extends ResponseApi{
     private Object body;
 
-    public ResponseSuccessApi(ResponseStatusApi status, int code, Object body) {
-        super(status, code);
+    public ResponseSuccessApi(ResponseStatusApi status, Object body) {
+        super(status);
         this.body = body;
     }
 }

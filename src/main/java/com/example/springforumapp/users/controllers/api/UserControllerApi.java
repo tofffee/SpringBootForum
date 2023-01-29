@@ -26,12 +26,12 @@ public class UserControllerApi {
     @GetMapping("/user/authuserinfo")
     public ResponseEntity<ResponseApi> activateUser(@AuthenticationPrincipal UserDetailsImpl userDetails){
         AuthUserInfoOutDTO authUserInfoOutDTO = usersService.getAuthUserInfo(userDetails);
-        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(),authUserInfoOutDTO));
+        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, authUserInfoOutDTO));
     }
     @PostMapping("/activate")
     public ResponseEntity<ResponseApi> activateUser(@AuthenticationPrincipal UserDetailsImpl userDetailsImpl, @RequestBody @Valid ActivationCodeRequestDTO activationCodeRequestDTO){
         usersService.activateUser(userDetailsImpl, activationCodeRequestDTO);
         ActivationCodeResponseDTO activationCodeResponseDTO = new ActivationCodeResponseDTO("Your profile was activated");
-        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), activationCodeResponseDTO));
+        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, activationCodeResponseDTO));
     }
 }

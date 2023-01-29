@@ -29,7 +29,6 @@ public class ExceptionHandlerApi {
 
         ResponseErrorApi responseErrorApi = new ResponseErrorApi(
                 ResponseStatusApi.FAIL,
-                HttpStatus.BAD_REQUEST.value(),
                 errorMessage.toString(),
                 e.getMessage(),
                 System.currentTimeMillis()
@@ -40,7 +39,6 @@ public class ExceptionHandlerApi {
     protected ResponseEntity<ResponseApi> handleAuthException(AuthException e) {
         ResponseErrorApi responseErrorApi = new ResponseErrorApi(
                 ResponseStatusApi.FAIL,
-                HttpStatus.UNAUTHORIZED.value(),
                 e.getMessage(),
                 e.getDbgMessage(),
                 System.currentTimeMillis()
@@ -52,7 +50,6 @@ public class ExceptionHandlerApi {
     protected ResponseEntity<ResponseApi> handleRegistrationException(RegistrationException e) {
         ResponseErrorApi responseErrorApi = new ResponseErrorApi(
                 ResponseStatusApi.FAIL,
-                HttpStatus.UNAUTHORIZED.value(),
                 e.getMessage(),
                 e.getDbgMessage(),
                 System.currentTimeMillis()
@@ -64,7 +61,6 @@ public class ExceptionHandlerApi {
     protected ResponseEntity<ResponseApi> handleActivationProfileException(ActivationAccountException e) {
         ResponseErrorApi responseErrorApi = new ResponseErrorApi(
                 ResponseStatusApi.FAIL,
-                HttpStatus.NOT_FOUND.value(),
                 e.getMessage(),
                 e.getDbgMessage(),
                 System.currentTimeMillis()
@@ -77,7 +73,6 @@ public class ExceptionHandlerApi {
     protected ResponseEntity<ResponseApi> handlePublicationException(PublicationException e) {
         ResponseErrorApi responseErrorApi = new ResponseErrorApi(
                 ResponseStatusApi.FAIL,
-                HttpStatus.NOT_FOUND.value(),
                 e.getMessage(),
                 e.getDbgMessage(),
                 System.currentTimeMillis()
@@ -89,7 +84,6 @@ public class ExceptionHandlerApi {
     protected ResponseEntity<ResponseApi> handleUserNotFoundException(UserNotFoundException e) {
         ResponseErrorApi responseErrorApi = new ResponseErrorApi(
                 ResponseStatusApi.FAIL,
-                HttpStatus.NOT_FOUND.value(),
                 e.getMessage(),
                 e.getDbgMessage(),
                 System.currentTimeMillis()
@@ -101,7 +95,6 @@ public class ExceptionHandlerApi {
     protected ResponseEntity<ResponseApi> handleBoardException(BoardException e) {
         ResponseErrorApi responseErrorApi = new ResponseErrorApi(
                 ResponseStatusApi.FAIL,
-                HttpStatus.NOT_FOUND.value(),
                 e.getMessage(),
                 e.getDbgMessage(),
                 System.currentTimeMillis()
@@ -113,7 +106,6 @@ public class ExceptionHandlerApi {
     protected ResponseEntity<ResponseApi> handleFileException(FileException e) {
         ResponseErrorApi responseErrorApi = new ResponseErrorApi(
                 ResponseStatusApi.FAIL,
-                HttpStatus.NOT_FOUND.value(),
                 e.getMessage(),
                 e.getDbgMessage(),
                 System.currentTimeMillis()

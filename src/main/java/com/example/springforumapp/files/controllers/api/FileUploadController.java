@@ -33,6 +33,6 @@ public class FileUploadController {
             UpFile upFile = storageService.store(file);
             upFileService.saveFile(usersServiceImpl.findById(userDetails.getUser().getId()),upFile);
             UpFileOutDTO dto = modelMapper.map(upFile, UpFileOutDTO.class);
-            return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), dto));
+            return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, dto));
         }
 }

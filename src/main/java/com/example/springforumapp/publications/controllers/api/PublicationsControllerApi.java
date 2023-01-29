@@ -51,7 +51,7 @@ public class PublicationsControllerApi {
             @RequestParam(name = "sortBy",required = false, defaultValue = "id") String sortBy){
         List<Publication> publications = publicationsService.getAllPublicationsByPage(pageNum,pageSize, sortType, sortBy);
         List<PublicationOutDTO> dtos = publicationsToOutDTOs(publications);
-        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(),dtos));
+        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, dtos));
     }
 
     @GetMapping("/boards/{boardName}")
@@ -63,7 +63,7 @@ public class PublicationsControllerApi {
             @RequestParam(name = "sortBy",required = false, defaultValue = "id") String sortBy) {
         List<Publication> publications = publicationsService.getAllBoardPublicationsByPage(boardName,pageNum,pageSize, sortType, sortBy);
         List<PublicationOutDTO> dtos = publicationsToOutDTOs(publications);
-        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), dtos));
+        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, dtos));
     }
 
     @GetMapping("/boards/{boardName}/{publicationId}")
@@ -74,7 +74,7 @@ public class PublicationsControllerApi {
         Publication publication = publicationsService.getPublication(publicationId, board);
 
         PublicationOutDTO dto = publicationToOutDTO(publication);
-        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), dto));
+        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, dto));
     }
     @PostMapping(path = "/boards/{boardName}")
     public ResponseEntity<ResponseApi> createPublicationInBoardApi(@AuthenticationPrincipal UserDetailsImpl userDetails,
@@ -90,7 +90,7 @@ public class PublicationsControllerApi {
         publicationsService.savePublication(publication);
 
         PublicationOutDTO dto = publicationToOutDTO(publication);
-        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), dto));
+        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, dto));
     }
 
     @DeleteMapping("/boards/{boardName}/{publicationId}")
@@ -98,7 +98,7 @@ public class PublicationsControllerApi {
                                                          @PathVariable("boardName") String boardName,
                                                          @PathVariable("publicationId") long publicationId) {
         publicationsService.deletePublication(userDetailsImpl.getUser(), publicationId);
-        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(), "publication deleted successfully"));
+        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, "publication deleted successfully"));
     }
 
 

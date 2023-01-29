@@ -23,7 +23,7 @@ public class RegistrationControllerApi {
     @PostMapping("/register")
     public ResponseEntity<ResponseApi> registerApi(@RequestBody @Valid RegisterInDTO registerInDTO){
         RegisterOutDTO registerOutDTO = registrationFacade.register(registerInDTO);
-        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, HttpStatus.OK.value(),registerOutDTO));
+        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, registerOutDTO));
     }
 
 }

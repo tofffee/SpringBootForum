@@ -10,5 +10,4 @@ import lombok.*;
 @NoArgsConstructor
 public abstract class ResponseApi {
     private ResponseStatusApi status;
-    private int code;
 }
