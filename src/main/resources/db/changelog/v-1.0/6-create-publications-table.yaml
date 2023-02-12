@@ -25,7 +25,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: date_of_creation
+                  name: created_at
                   type: date
               - column:
                   name: user_id

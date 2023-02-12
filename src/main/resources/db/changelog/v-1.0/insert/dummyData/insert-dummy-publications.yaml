@@ -16,7 +16,7 @@ databaseChangeLog:
                   name: text
                   value: "In Brasilia everyone play this game"
               - column:
-                  name: date_of_creation
+                  name: created_at
                   value: now()
               - column:
                   name: user_id
@@ -38,7 +38,7 @@ databaseChangeLog:
                   name: text
                   value: "Basketball stars were playing in team"
               - column:
-                  name: date_of_creation
+                  name: created_at
                   value: now()
               - column:
                   name: user_id
@@ -60,7 +60,7 @@ databaseChangeLog:
                   name: text
                   value: "tennis is a popular game"
               - column:
-                  name: date_of_creation
+                  name: created_at
                   value: now()
               - column:
                   name: user_id
@@ -82,7 +82,7 @@ databaseChangeLog:
                   name: text
                   value: "Canada likes to play hockey"
               - column:
-                  name: date_of_creation
+                  name: created_at
                   value: now()
               - column:
                   name: user_id
@@ -104,7 +104,7 @@ databaseChangeLog:
                   name: text
                   value: "wood skates in top"
               - column:
-                  name: date_of_creation
+                  name: created_at
                   value: now()
               - column:
                   name: user_id
@@ -126,7 +126,7 @@ databaseChangeLog:
                   name: text
                   value: "rap music is cool"
               - column:
-                  name: date_of_creation
+                  name: created_at
                   value: now()
               - column:
                   name: user_id
@@ -148,7 +148,7 @@ databaseChangeLog:
                   name: text
                   value: "classic music is played in theatres"
               - column:
-                  name: date_of_creation
+                  name: created_at
                   value: now()
               - column:
                   name: user_id
@@ -170,7 +170,7 @@ databaseChangeLog:
                   name: text
                   value: "electronic music is awesome"
               - column:
-                  name: date_of_creation
+                  name: created_at
                   value: now()
               - column:
                   name: user_id
@@ -192,7 +192,7 @@ databaseChangeLog:
                   name: text
                   value: "rock of 70s"
               - column:
-                  name: date_of_creation
+                  name: created_at
                   value: now()
               - column:
                   name: user_id
@@ -214,7 +214,7 @@ databaseChangeLog:
                   name: text
                   value: "disco was popular"
               - column:
-                  name: date_of_creation
+                  name: created_at
                   value: now()
               - column:
                   name: user_id

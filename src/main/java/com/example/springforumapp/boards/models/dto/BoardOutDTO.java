@@ -7,7 +7,7 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BoardOutputDTO {
+public class BoardOutDTO {
     private long id;
     private String name;
 }

@@ -1,7 +1,7 @@
 package com.example.springforumapp;
 
 
-import com.example.springforumapp.files.services.StorageService;
+import com.example.springforumapp.files.services.StorageServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -10,9 +10,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class SpringForumAppApplication implements CommandLineRunner {
 
-    private final StorageService storageService;
+    private final StorageServiceImpl storageService;
     @Autowired
-    public SpringForumAppApplication(StorageService storageService) {
+    public SpringForumAppApplication(StorageServiceImpl storageService) {
         this.storageService = storageService;
     }
 

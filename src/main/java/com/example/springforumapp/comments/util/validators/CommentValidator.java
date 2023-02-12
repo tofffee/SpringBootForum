@@ -1,7 +1,5 @@
 package com.example.springforumapp.comments.util.validators;
 
-import com.example.springforumapp.boards.models.dto.BoardInputDTO;
-import com.example.springforumapp.boards.util.exceptions.BoardException;
 import com.example.springforumapp.comments.models.dto.CommentInputDTO;
 import com.example.springforumapp.comments.util.exceptions.CommentException;
 import lombok.AllArgsConstructor;

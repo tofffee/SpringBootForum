@@ -1,9 +1,12 @@
 package com.example.springforumapp.common.api;
 
+import com.example.springforumapp.boards.util.exceptions.BoardCreateException;
+import com.example.springforumapp.boards.util.exceptions.BoardNotFoundException;
+import com.example.springforumapp.common.util.AppException;
+import com.example.springforumapp.publications.util.exceptions.PublicationDeleteException;
+import com.example.springforumapp.publications.util.exceptions.PublicationNotFoundException;
 import com.example.springforumapp.users.util.exceptions.AuthException;
-import com.example.springforumapp.boards.util.exceptions.BoardException;
 import com.example.springforumapp.files.util.exceptions.FileException;
-import com.example.springforumapp.publications.util.exceptions.PublicationException;
 import com.example.springforumapp.users.util.exceptions.RegistrationException;
 import com.example.springforumapp.users.util.exceptions.ActivationAccountException;
 import com.example.springforumapp.users.util.exceptions.UserNotFoundException;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ExceptionHandlerApi {
 
+    //@Valid exception
     @ExceptionHandler({MethodArgumentNotValidException.class})
     protected ResponseEntity<ResponseApi> handleValidationException(MethodArgumentNotValidException e) {
         StringBuilder errorMessage = new StringBuilder();
@@ -31,6 +35,54 @@ public class ExceptionHandlerApi {
                 ResponseStatusApi.FAIL,
                 errorMessage.toString(),
                 e.getMessage(),
+                System.currentTimeMillis()
+        );
+        return new ResponseEntity<>(responseErrorApi, HttpStatus.BAD_REQUEST);
+    }
+
+    //when url params wrong
+    @ExceptionHandler({IllegalArgumentException.class})
+    protected ResponseEntity<ResponseApi> handleIllegalArgumentException(IllegalArgumentException e) {
+        ResponseErrorApi responseErrorApi = new ResponseErrorApi(
+                ResponseStatusApi.FAIL,
+                "wrong url parameters",
+                e.getMessage(),
+                System.currentTimeMillis()
+        );
+        return new ResponseEntity<>(responseErrorApi, HttpStatus.BAD_REQUEST);
+    }
+
+    //Not found
+    @ExceptionHandler({BoardNotFoundException.class, UserNotFoundException.class, PublicationNotFoundException.class})
+    protected ResponseEntity<ResponseApi> handleNotFoundException(AppException e) {
+        ResponseErrorApi responseErrorApi = new ResponseErrorApi(
+                ResponseStatusApi.FAIL,
+                e.getMessage(),
+                e.getDbgMessage(),
+                System.currentTimeMillis()
+        );
+        return new ResponseEntity<>(responseErrorApi, HttpStatus.NOT_FOUND);
+    }
+
+    //Create exception
+    @ExceptionHandler({BoardCreateException.class})
+    protected ResponseEntity<ResponseApi> handleCreateException(AppException e) {
+        ResponseErrorApi responseErrorApi = new ResponseErrorApi(
+                ResponseStatusApi.FAIL,
+                e.getMessage(),
+                e.getDbgMessage(),
+                System.currentTimeMillis()
+        );
+        return new ResponseEntity<>(responseErrorApi, HttpStatus.BAD_REQUEST);
+    }
+
+    //Delete exception
+    @ExceptionHandler({PublicationDeleteException.class})
+    protected ResponseEntity<ResponseApi> handleDeleteException(AppException e) {
+        ResponseErrorApi responseErrorApi = new ResponseErrorApi(
+                ResponseStatusApi.FAIL,
+                e.getMessage(),
+                e.getDbgMessage(),
                 System.currentTimeMillis()
         );
         return new ResponseEntity<>(responseErrorApi, HttpStatus.BAD_REQUEST);
@@ -68,39 +120,6 @@ public class ExceptionHandlerApi {
         return new ResponseEntity<>(responseErrorApi, HttpStatus.BAD_REQUEST);
     }
 
-
-    @ExceptionHandler(PublicationException.class)
-    protected ResponseEntity<ResponseApi> handlePublicationException(PublicationException e) {
-        ResponseErrorApi responseErrorApi = new ResponseErrorApi(
-                ResponseStatusApi.FAIL,
-                e.getMessage(),
-                e.getDbgMessage(),
-                System.currentTimeMillis()
-        );
-        return new ResponseEntity<>(responseErrorApi, HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(UserNotFoundException.class)
-    protected ResponseEntity<ResponseApi> handleUserNotFoundException(UserNotFoundException e) {
-        ResponseErrorApi responseErrorApi = new ResponseErrorApi(
-                ResponseStatusApi.FAIL,
-                e.getMessage(),
-                e.getDbgMessage(),
-                System.currentTimeMillis()
-        );
-        return new ResponseEntity<>(responseErrorApi, HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler(BoardException.class)
-    protected ResponseEntity<ResponseApi> handleBoardException(BoardException e) {
-        ResponseErrorApi responseErrorApi = new ResponseErrorApi(
-                ResponseStatusApi.FAIL,
-                e.getMessage(),
-                e.getDbgMessage(),
-                System.currentTimeMillis()
-        );
-        return new ResponseEntity<>(responseErrorApi, HttpStatus.BAD_REQUEST);
-    }
 
     @ExceptionHandler(FileException.class)
     protected ResponseEntity<ResponseApi> handleFileException(FileException e) {

@@ -32,8 +32,8 @@ public class UpFile {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "date_of_creation")
-    private LocalDate dateOfCreation;
+    @Column(name = "created_at")
+    private LocalDate createdAt;
 
     @Column(name = "type")
     @Enumerated(EnumType.STRING)

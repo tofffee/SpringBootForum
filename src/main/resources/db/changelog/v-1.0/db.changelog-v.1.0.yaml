@@ -26,9 +26,9 @@ databaseChangeLog:
   - include:
       file: "9-changeset-publications-upfiles-table.yaml"
       relativeToChangelogFile: true
-  - include:
-      file: "insert/insert-boards.yaml"
-      relativeToChangelogFile: true
+#  - include:
+#      file: "insert/insert-boards.yaml"
+#      relativeToChangelogFile: true
   - include:
       file: "insert/insert-roles.yaml"
       relativeToChangelogFile: true
@@ -37,6 +37,9 @@ databaseChangeLog:
       file: "insert/dummyData/insert-dummy-users.yaml"
       relativeToChangelogFile: true
 
+#  - include:
+#      file: "insert/dummyData/insert-dummy-publications.yaml"
+#      relativeToChangelogFile: true
 
 
 

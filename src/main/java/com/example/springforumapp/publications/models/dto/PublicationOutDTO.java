@@ -21,6 +21,6 @@ public class PublicationOutDTO {
     private String name;
     private String text;
     private LocalDate createdAt;
-    @JsonProperty("filesId")
+    @JsonProperty("files")
     private List<UpFileOutDTO> upFilesOutDtos;
 }

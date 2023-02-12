@@ -12,6 +12,6 @@ import java.util.Optional;
 
 @Repository
 public interface PublicationsRepository extends JpaRepository<Publication,Long> {
-    Page<Publication> findAllByBoardName(String boardName, Pageable pageable);
-    Optional<Publication> findByIdAndBoardName(long id, String boardName);
+    Page<Publication> findAllByBoardId(Long boardId, Pageable pageable);
+    Optional<Publication> findByIdAndBoardId( Long publicationId, Long boardId);
 }

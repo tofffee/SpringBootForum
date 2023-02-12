@@ -10,8 +10,9 @@ import javax.validation.constraints.Size;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BoardInputDTO {
+public class BoardInDTO {
     @Size(min = 3, message = "Board error (name of board is too small)")
+    @Size(min = 20, message = "Board error (name of board is too big)")
     @NotNull
     private String name;
 }
