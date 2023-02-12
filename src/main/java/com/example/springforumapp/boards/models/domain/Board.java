@@ -13,6 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Getter
 @Setter
+@Builder
 public class Board {
     @Id
     @Column(name = "id")
@@ -23,5 +24,6 @@ public class Board {
     private String name;
 
     @OneToMany(mappedBy = "board")
-    private List<Publication> publications;//
+    private List<Publication> publications;
+
 }

@@ -20,6 +20,6 @@ public class ChatMessage {
     @Column(name = "text")
     private String text;
 
-    @Column(name = "time")
-    private LocalDate timeOfChatMessage;
+    @Column(name = "created_at")
+    private LocalDate createdAt;
 }

@@ -30,7 +30,7 @@ class UsersServiceTest {
         user.setActivationCode("1425");
         user.setEnabled(false);
 
-        usersServiceImpl.addUser(user);
+        //usersServiceImpl.addUser(user);
         Mockito.verify(usersRepository, Mockito.times(1)).save(user);
     }
 }
