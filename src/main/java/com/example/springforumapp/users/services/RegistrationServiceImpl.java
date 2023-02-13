@@ -8,6 +8,7 @@ import com.example.springforumapp.users.repositories.RolesRepository;
 import com.example.springforumapp.users.repositories.UsersRepository;
 import com.example.springforumapp.users.util.exceptions.RegistrationException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import java.util.Collections;
 
 @Service
 @Transactional(readOnly = true)
+@Slf4j
 @RequiredArgsConstructor
 public class RegistrationServiceImpl implements RegistrationService {
 

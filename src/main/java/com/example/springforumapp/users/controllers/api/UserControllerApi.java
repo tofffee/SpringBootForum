@@ -10,6 +10,7 @@ import com.example.springforumapp.users.models.dto.AuthUserInfoOutDTO;
 import com.example.springforumapp.users.services.UsersService;
 import com.example.springforumapp.users.services.UsersServiceImpl;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -20,6 +21,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api")
+@Slf4j
 @RequiredArgsConstructor
 public class UserControllerApi {
     private final UsersService usersService;

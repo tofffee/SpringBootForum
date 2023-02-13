@@ -13,6 +13,7 @@ import com.example.springforumapp.files.services.StorageServiceImpl;
 import com.example.springforumapp.security.UserDetailsImpl;
 import com.example.springforumapp.users.services.UsersServiceImpl;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -21,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/upload")
+@Slf4j
 @RequiredArgsConstructor
 public class FileUploadController {
         private final UpFileFacadeImpl upFileFacade;

@@ -6,12 +6,14 @@ import com.example.springforumapp.common.api.ResponseSuccessApi;
 import com.example.springforumapp.users.services.UsersService;
 import com.example.springforumapp.users.services.UsersServiceImpl;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/admin")
+@Slf4j
 @RequiredArgsConstructor
 public class AdminControllerApi {
     private final UsersService usersService;

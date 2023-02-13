@@ -9,6 +9,7 @@ import com.example.springforumapp.users.services.AuthService;
 import com.example.springforumapp.users.services.AuthServiceImpl;
 import com.example.springforumapp.users.util.exceptions.AuthException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional(readOnly = true)
+@Slf4j
 @RequiredArgsConstructor
 public class AuthFacadeImpl implements AuthFacade{
     private final AuthService authService;

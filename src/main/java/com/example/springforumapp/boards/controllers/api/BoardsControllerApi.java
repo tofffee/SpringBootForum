@@ -7,6 +7,7 @@ import com.example.springforumapp.common.api.ResponseApi;
 import com.example.springforumapp.common.api.ResponseStatusApi;
 import com.example.springforumapp.common.api.ResponseSuccessApi;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/boards")
+@Slf4j
 @RequiredArgsConstructor
 public class BoardsControllerApi {
     private final BoardsServiceImpl boardsService;

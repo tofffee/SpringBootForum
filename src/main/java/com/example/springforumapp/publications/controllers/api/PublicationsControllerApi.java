@@ -9,6 +9,7 @@ import com.example.springforumapp.publications.models.dto.PublicationOutDTO;
 import com.example.springforumapp.publications.services.PublicationsServiceImpl;
 import com.example.springforumapp.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@Slf4j
 @RequiredArgsConstructor
 public class PublicationsControllerApi {
     private final PublicationsServiceImpl publicationsService;

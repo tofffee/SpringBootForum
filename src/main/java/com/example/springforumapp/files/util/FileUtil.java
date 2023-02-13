@@ -1,5 +1,6 @@
 package com.example.springforumapp.files.util;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -7,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.UUID;
 
 @Component
+@Slf4j
 public class FileUtil {
 
     public String generateRandomFileName(MultipartFile file){

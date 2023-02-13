@@ -6,6 +6,7 @@ import com.example.springforumapp.files.repositories.UpFilesRepository;
 import com.example.springforumapp.files.util.exceptions.FileException;
 import com.example.springforumapp.users.models.domain.User;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +17,7 @@ import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
+@Slf4j
 @RequiredArgsConstructor
 public class UpFileServiceImpl implements UpFileService {
     private final UpFilesRepository upFilesRepository;

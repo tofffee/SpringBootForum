@@ -6,6 +6,7 @@ import com.example.springforumapp.files.models.domain.UpFile;
 import com.example.springforumapp.files.util.FileUtil;
 import com.example.springforumapp.files.util.exceptions.FileException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -21,6 +22,7 @@ import java.util.stream.Stream;
 
 @Service
 @Transactional(readOnly = true)
+@Slf4j
 @RequiredArgsConstructor
 public class StorageServiceImpl implements StorageService {
     private final FileUtil fileUtil;

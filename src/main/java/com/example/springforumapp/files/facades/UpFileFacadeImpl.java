@@ -8,12 +8,14 @@ import com.example.springforumapp.security.UserDetailsImpl;
 import com.example.springforumapp.users.models.domain.User;
 import com.example.springforumapp.users.services.UsersServiceImpl;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class UpFileFacadeImpl implements UpFileFacade{
 

@@ -10,6 +10,7 @@ import com.example.springforumapp.files.util.exceptions.FileException;
 import com.example.springforumapp.users.util.exceptions.RegistrationException;
 import com.example.springforumapp.users.util.exceptions.ActivationAccountException;
 import com.example.springforumapp.users.util.exceptions.UserNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 
 @RestControllerAdvice
+@Slf4j
 public class ExceptionHandlerApi {
 
     //@Valid exception

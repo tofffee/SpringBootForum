@@ -13,6 +13,7 @@ import com.example.springforumapp.publications.util.exceptions.PublicationNotFou
 import com.example.springforumapp.users.models.domain.User;
 import com.example.springforumapp.users.models.dto.UserDTO;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.data.domain.PageRequest;
@@ -28,10 +29,10 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
+@Slf4j
 @RequiredArgsConstructor
 public class PublicationsServiceImpl implements PublicationService {
     private final PublicationsRepository publicationsRepository;
-    private final UpFileServiceImpl upFileServiceImpl;
     private final ModelMapper modelMapper;
     @Override
     public List<PublicationOutDTO> findAllPublicationsByPage(int pageNum,

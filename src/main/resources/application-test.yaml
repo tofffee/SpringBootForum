@@ -45,6 +45,14 @@ spring:
     port: 465
     protocol: smtps
 
+  #rabbitmq
+  rabbitmq:
+    host: localhost
+    port: 5672
+    stream:
+      username: guest
+      password: guest
+
   #auth by google
   security:
     oauth2:
@@ -56,13 +64,6 @@ spring:
             scope:
               - email
               - profile
-
-logging:
-  level:
-    root: info
-    org:
-      springframework:
-        security: debug
 
 #jwt
 jwt:

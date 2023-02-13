@@ -1,21 +1,21 @@
 package com.example.springforumapp.comments.controllers.api;
 
 import com.example.springforumapp.boards.services.BoardsServiceImpl;
-import com.example.springforumapp.comments.services.CommentsService;
-import com.example.springforumapp.comments.util.validators.CommentValidator;
+import com.example.springforumapp.comments.services.CommentsServiceImpl;
 import com.example.springforumapp.publications.services.PublicationsServiceImpl;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
+@Slf4j
 @RequiredArgsConstructor
 public class CommentsControllerApi {
-    private final CommentsService commentsService;
+    private final CommentsServiceImpl commentsServiceImpl;
     private final BoardsServiceImpl boardsService;
     private final PublicationsServiceImpl publicationsServiceImpl;
-    private final CommentValidator commentValidator;
     private final ModelMapper modelMapper;
 
 //    @PostMapping("/boards/{boardName}/{publicationId}")

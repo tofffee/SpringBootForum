@@ -7,6 +7,7 @@ import com.example.springforumapp.boards.repositories.BoardsRepository;
 import com.example.springforumapp.boards.util.exceptions.BoardNotFoundException;
 import com.example.springforumapp.boards.util.exceptions.BoardCreateException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +18,7 @@ import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
+@Slf4j
 @RequiredArgsConstructor
 public class BoardsServiceImpl implements BoardService {
     private final BoardsRepository boardsRepository;

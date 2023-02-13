@@ -4,6 +4,8 @@ package com.example.springforumapp.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -18,6 +20,8 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Component
+@Slf4j
+@RequiredArgsConstructor
 public class JWTUtil {
     @Value("${jwt.secret}")
     private String secret;

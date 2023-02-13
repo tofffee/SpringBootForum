@@ -1,4 +1,4 @@
-package com.example.springforumapp.testfeatures;
+package com.example.springforumapp.testfeaturesplayground;
 
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;

@@ -12,12 +12,14 @@ import com.example.springforumapp.security.UserDetailsImpl;
 import com.example.springforumapp.users.models.domain.User;
 import com.example.springforumapp.users.services.UsersServiceImpl;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class PublicationFacadeImpl implements PublicationFacade{
     private final BoardsServiceImpl boardsService;

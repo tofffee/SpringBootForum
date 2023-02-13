@@ -3,6 +3,8 @@ package com.example.springforumapp.security;
 
 import com.example.springforumapp.users.models.domain.Role;
 import com.example.springforumapp.users.models.domain.User;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,12 +15,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+@Slf4j
+@RequiredArgsConstructor
 public class UserDetailsImpl implements UserDetails {
     private final User user;
-
-    public UserDetailsImpl(User user){
-        this.user = user;
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
