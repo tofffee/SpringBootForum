@@ -10,6 +10,8 @@ import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.List;
 
+import static javax.persistence.GenerationType.SEQUENCE;
+
 @Entity
 @Table(name = "comments")
 @AllArgsConstructor
@@ -19,7 +21,8 @@ import java.util.List;
 public class Comment {
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "comments_id_seq_pk", sequenceName = "comments_id_seq_pk", allocationSize = 1)
+    @GeneratedValue(strategy = SEQUENCE, generator = "comments_id_seq_pk")
     private long id;
 
     @Column(name = "text")
@@ -27,8 +30,8 @@ public class Comment {
     @Size(min = 1,message = "Comment error (text of publication is too small)")
     private String text;
 
-    @Column(name = "date_of_creation")
-    private LocalDate dateOfCreation;
+    @Column(name = "created_at")
+    private LocalDate createdAt;
 
     @ManyToOne
     @JoinColumn(name = "publication_id", referencedColumnName = "id")

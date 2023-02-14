@@ -1,0 +1,92 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-dummy-comments-fields
+      author: tofffee
+      changes:
+        - insert:
+            tableName: comments
+            columns:
+              - column:
+                  name: id
+                  valueSequenceNext: comments_id_seq_pk
+              - column:
+                  name: text
+                  value: "fine post, very funny"
+              - column:
+                  name: created_at
+                  value: now()
+              - column:
+                  name: publication_id
+                  value: 1
+              - column:
+                  name: user_id
+                  value: 1
+              - column:
+                  name: parent_comment_id
+                  value: null
+
+        - insert:
+            tableName: comments
+            columns:
+              - column:
+                  name: id
+                  valueSequenceNext: comments_id_seq_pk
+              - column:
+                  name: text
+                  value: "is it real?"
+              - column:
+                  name: created_at
+                  value: now()
+              - column:
+                  name: publication_id
+                  value: 1
+              - column:
+                  name: user_id
+                  value: 2
+              - column:
+                  name: parent_comment_id
+                  value: null
+
+        - insert:
+            tableName: comments
+            columns:
+              - column:
+                  name: id
+                  valueSequenceNext: comments_id_seq_pk
+              - column:
+                  name: text
+                  value: "Yes it is real"
+              - column:
+                  name: created_at
+                  value: now()
+              - column:
+                  name: publication_id
+                  value: 1
+              - column:
+                  name: user_id
+                  value: 1
+              - column:
+                  name: parent_comment_id
+                  value: null
+
+        - insert:
+            tableName: comments
+            columns:
+              - column:
+                  name: id
+                  valueSequenceNext: comments_id_seq_pk
+              - column:
+                  name: text
+                  value: "no one answer here"
+              - column:
+                  name: created_at
+                  value: now()
+              - column:
+                  name: publication_id
+                  value: 2
+              - column:
+                  name: user_id
+                  value: 1
+              - column:
+                  name: parent_comment_id
+                  value: null

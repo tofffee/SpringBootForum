@@ -12,9 +12,10 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CommentOutputDTO {
+public class CommentOutDTO {
     private long id;
     private String text;
-    private LocalDate dateOfCreation;
+    private LocalDate createdAt;
+    @JsonProperty("user")
     private UserDTO userDTO;
 }

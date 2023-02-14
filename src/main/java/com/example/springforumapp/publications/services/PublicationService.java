@@ -14,7 +14,7 @@ public interface PublicationService {
 
     public List<PublicationOutDTO> findAllPublicationsInBoardByPage(Board board, int pageNum, int pageSize, String sortType, String sortBy);
 
-    public PublicationOutDTO findPublicationByIdInBoard(Board board, long publicationId);
+    public Publication findPublicationByIdInBoard(Board board, long publicationId);
 
     public PublicationOutDTO savePublication(User user, Board board, PublicationInDTO inDto,List<UpFile> upFiles);
 

@@ -53,12 +53,12 @@ public class PublicationsServiceImpl implements PublicationService {
         return publicationsToOutDTOs(publications);
     }
     @Override
-    public PublicationOutDTO findPublicationByIdInBoard(Board board, long publicationId) throws PublicationNotFoundException{
+    public Publication findPublicationByIdInBoard(Board board, long publicationId) throws PublicationNotFoundException{
         Optional<Publication> publication = publicationsRepository.findByIdAndBoardId(publicationId, board.getId());
         if(publication.isEmpty())
             throw new PublicationNotFoundException("Such publication does not exist",
                                                    "PublicationService.java: PublicationNotFoundException");
-        return publicationToOutDTO(publication.get());
+        return publication.get();
     }
 
     @Override
@@ -88,7 +88,7 @@ public class PublicationsServiceImpl implements PublicationService {
     }
 
 
-    private PublicationOutDTO publicationToOutDTO(Publication publication){
+    public PublicationOutDTO publicationToOutDTO(Publication publication){
         PublicationOutDTO dto = new PublicationOutDTO();
         dto.setId(publication.getId());
         dto.setUserDTO(modelMapper.map(publication.getUser(), UserDTO.class));

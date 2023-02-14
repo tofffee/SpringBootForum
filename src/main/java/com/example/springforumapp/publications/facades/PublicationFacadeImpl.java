@@ -5,6 +5,7 @@ import com.example.springforumapp.boards.services.BoardsServiceImpl;
 import com.example.springforumapp.boards.util.exceptions.BoardNotFoundException;
 import com.example.springforumapp.files.models.domain.UpFile;
 import com.example.springforumapp.files.services.UpFileServiceImpl;
+import com.example.springforumapp.publications.models.domain.Publication;
 import com.example.springforumapp.publications.models.dto.PublicationInDTO;
 import com.example.springforumapp.publications.models.dto.PublicationOutDTO;
 import com.example.springforumapp.publications.services.PublicationsServiceImpl;
@@ -40,7 +41,8 @@ public class PublicationFacadeImpl implements PublicationFacade{
     @Override
     public PublicationOutDTO findPublicationsByIdInBoard(long publicationId, String boardName) {
         Board board = boardsService.findByName(boardName);
-        return publicationsService.findPublicationByIdInBoard(board, publicationId);
+        Publication publication = publicationsService.findPublicationByIdInBoard(board, publicationId);
+        return publicationsService.publicationToOutDTO(publication);
     }
 
 
