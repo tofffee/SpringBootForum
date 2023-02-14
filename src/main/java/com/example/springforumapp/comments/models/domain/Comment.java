@@ -10,7 +10,6 @@ import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.List;
 
-import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
 @Table(name = "comments")
@@ -21,8 +20,7 @@ import static javax.persistence.GenerationType.SEQUENCE;
 public class Comment {
     @Id
     @Column(name = "id")
-    @SequenceGenerator(name = "comments_id_seq_pk", sequenceName = "comments_id_seq_pk", allocationSize = 1)
-    @GeneratedValue(strategy = SEQUENCE, generator = "comments_id_seq_pk")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "text")

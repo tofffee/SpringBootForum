@@ -8,7 +8,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  valueSequenceNext: comments_id_seq_pk
+                  valueSequenceNext: comments_id_seq
               - column:
                   name: text
                   value: "fine post, very funny"
@@ -30,7 +30,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  valueSequenceNext: comments_id_seq_pk
+                  valueSequenceNext: comments_id_seq
               - column:
                   name: text
                   value: "is it real?"
@@ -52,7 +52,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  valueSequenceNext: comments_id_seq_pk
+                  valueSequenceNext: comments_id_seq
               - column:
                   name: text
                   value: "Yes it is real"
@@ -74,7 +74,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  valueSequenceNext: comments_id_seq_pk
+                  valueSequenceNext: comments_id_seq
               - column:
                   name: text
                   value: "no one answer here"

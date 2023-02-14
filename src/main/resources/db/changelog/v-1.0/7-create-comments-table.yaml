@@ -3,21 +3,13 @@ databaseChangeLog:
       id: 7
       author: tofffee
       changes:
-        - createSequence:
-            dataType: bigint
-            incrementBy: 1
-            maxValue: 1000
-            minValue: 1
-            sequenceName: comments_id_seq_pk
-            startValue: 1
-            schemaName: public
         - createTable:
             tableName: comments
             columns:
               - column:
                   name: id
                   type: bigint
-                  valueSequenceNext: comments_id_seq_pk
+                  autoIncrement: true
                   constraints:
                     primaryKey: true
                     primaryKeyName: pk_comments
