@@ -2,6 +2,7 @@ package com.example.springforumapp.common.api;
 
 import com.example.springforumapp.boards.util.exceptions.BoardCreateException;
 import com.example.springforumapp.boards.util.exceptions.BoardNotFoundException;
+import com.example.springforumapp.chat.util.exceptions.DialogNotFoundException;
 import com.example.springforumapp.common.util.AppException;
 import com.example.springforumapp.publications.util.exceptions.PublicationDeleteException;
 import com.example.springforumapp.publications.util.exceptions.PublicationNotFoundException;
@@ -55,7 +56,10 @@ public class ExceptionHandlerApi {
     }
 
     //Not found
-    @ExceptionHandler({BoardNotFoundException.class, UserNotFoundException.class, PublicationNotFoundException.class})
+    @ExceptionHandler({BoardNotFoundException.class,
+                       UserNotFoundException.class,
+                       PublicationNotFoundException.class,
+                       DialogNotFoundException.class})
     protected ResponseEntity<ResponseApi> handleNotFoundException(AppException e) {
         ResponseErrorApi responseErrorApi = new ResponseErrorApi(
                 ResponseStatusApi.FAIL,

@@ -25,7 +25,7 @@ public class PublicationsControllerApi {
     private final PublicationFacadeImpl publicationFacade;
 
     private final String defaultPage = "0";
-    private final String defaultPageSize = "3";
+    private final String defaultPageSize = "10";
     private final String defaultSortType = "asc";
     private final String defaultSortBy = "id";
     @GetMapping("/publications")

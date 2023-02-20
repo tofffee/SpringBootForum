@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: 11
+      author: tofffee
+      changes:
+        - createTable:
+            tableName: users_dialogs
+            columns:
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_user_id
+                    references: users(id)
+              - column:
+                  name: dialog_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_dialog_id
+                    references: dialogs(id)
+        - addPrimaryKey:
+            columnNames: user_id, dialog_id
+            constraintName: pk_users_dialogs
+            tableName: users_dialogs
+      rollback:
+        - dropTable:
+            tableName: users_dialogs
+
+

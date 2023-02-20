@@ -1,5 +1,6 @@
 package com.example.springforumapp.users.models.domain;
 
+import com.example.springforumapp.chat.models.domain.Dialog;
 import com.example.springforumapp.comments.models.domain.Comment;
 import com.example.springforumapp.files.models.domain.UpFile;
 import com.example.springforumapp.publications.models.domain.Publication;
@@ -9,7 +10,9 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -43,12 +46,7 @@ public class User {
     @NotNull
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "users_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
+    @ManyToMany(mappedBy = "users",fetch = FetchType.EAGER)
     private List<Role> roles;
 
     @Column(name = "activation_code")
@@ -69,5 +67,12 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<UpFile> upFiles;
+
+    @ManyToMany(mappedBy = "users")
+    private Set<Dialog> dialogs = new HashSet<>();
+
+//    @OneToMany(mappedBy = "user")
+//    private List<ChatMessage> chatMessages;
+
 
 }

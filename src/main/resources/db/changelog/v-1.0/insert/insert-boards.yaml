@@ -8,7 +8,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  value: "1"
+                  valueSequenceNext: boards_id_seq
               - column:
                   name: name
                   value: "Sport"
@@ -17,7 +17,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  value: "2"
+                  valueSequenceNext: boards_id_seq
               - column:
                   name: name
                   value: "Games"
@@ -26,7 +26,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  value: "3"
+                  valueSequenceNext: boards_id_seq
               - column:
                   name: name
                   value: "Music"

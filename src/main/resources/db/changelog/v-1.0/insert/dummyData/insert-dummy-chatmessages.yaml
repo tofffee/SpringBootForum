@@ -1,0 +1,154 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-dummy-chatmessages-fields
+      author: tofffee
+      changes:
+        - insert:
+            tableName: chatmessages
+            columns:
+              - column:
+                  name: id
+                  valueSequenceNext: chatmessages_id_seq
+              - column:
+                  name: text
+                  value: "hello"
+              - column:
+                  name: created_at
+                  value: now()
+              - column:
+                  name: dialog_id
+                  value: 1
+              - column:
+                  name: user_id
+                  value: 1
+        - insert:
+            tableName: chatmessages
+            columns:
+              - column:
+                  name: id
+                  valueSequenceNext: chatmessages_id_seq
+              - column:
+                  name: text
+                  value: "how are you?"
+              - column:
+                  name: created_at
+                  value: now()
+              - column:
+                  name: dialog_id
+                  value: 1
+              - column:
+                  name: user_id
+                  value: 1
+
+        - insert:
+            tableName: chatmessages
+            columns:
+              - column:
+                  name: id
+                  valueSequenceNext: chatmessages_id_seq
+              - column:
+                  name: text
+                  value: "I am fine, and you?"
+              - column:
+                  name: created_at
+                  value: now()
+              - column:
+                  name: dialog_id
+                  value: 1
+              - column:
+                  name: user_id
+                  value: 2
+
+        - insert:
+            tableName: chatmessages
+            columns:
+              - column:
+                  name: id
+                  valueSequenceNext: chatmessages_id_seq
+              - column:
+                  name: text
+                  value: "Same, thank you?"
+              - column:
+                  name: created_at
+                  value: now()
+              - column:
+                  name: dialog_id
+                  value: 1
+              - column:
+                  name: user_id
+                  value: 1
+
+        - insert:
+            tableName: chatmessages
+            columns:
+              - column:
+                  name: id
+                  valueSequenceNext: chatmessages_id_seq
+              - column:
+                  name: text
+                  value: "will you go to work?"
+              - column:
+                  name: created_at
+                  value: now()
+              - column:
+                  name: dialog_id
+                  value: 2
+              - column:
+                  name: user_id
+                  value: 2
+        - insert:
+            tableName: chatmessages
+            columns:
+              - column:
+                  name: id
+                  valueSequenceNext: chatmessages_id_seq
+              - column:
+                  name: text
+                  value: "I think no, i am tired"
+              - column:
+                  name: created_at
+                  value: now()
+              - column:
+                  name: dialog_id
+                  value: 2
+              - column:
+                  name: user_id
+                  value: 3
+
+        - insert:
+            tableName: chatmessages
+            columns:
+              - column:
+                  name: id
+                  valueSequenceNext: chatmessages_id_seq
+              - column:
+                  name: text
+                  value: "What happened?"
+              - column:
+                  name: created_at
+                  value: now()
+              - column:
+                  name: dialog_id
+                  value: 2
+              - column:
+                  name: user_id
+                  value: 2
+
+        - insert:
+            tableName: chatmessages
+            columns:
+              - column:
+                  name: id
+                  valueSequenceNext: chatmessages_id_seq
+              - column:
+                  name: text
+                  value: "I don't want to"
+              - column:
+                  name: created_at
+                  value: now()
+              - column:
+                  name: dialog_id
+                  value: 2
+              - column:
+                  name: user_id
+                  value: 3

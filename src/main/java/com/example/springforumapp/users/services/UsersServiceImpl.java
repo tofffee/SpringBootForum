@@ -71,6 +71,12 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
+    public UserDTO getProfile(long id) {
+        User user = findById(id);
+        return modelMapper.map(user, UserDTO.class);
+    }
+
+    @Override
     public void forgetPassword(ForgetPasswordInDTO forgetPasswordInDTO) {
 //        if (usersService.findByUsername(forgetPasswordRequestDTO.getUserNameOrEmail()) == null)
 //            throw new AuthException("User with such username is not registered","AuthService.java: AuthException");

@@ -9,7 +9,6 @@ import lombok.*;
 @EqualsAndHashCode(callSuper = true)
 public class ResponseSuccessApi extends ResponseApi{
     private Object body;
-
     public ResponseSuccessApi(ResponseStatusApi status, Object body) {
         super(status);
         this.body = body;

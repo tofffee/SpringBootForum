@@ -1,0 +1,63 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-dummy-dialogs-fields
+      author: tofffee
+      changes:
+        - insert:
+            tableName: dialogs
+            columns:
+              - column:
+                  name: id
+                  value: "1"
+              - column:
+                  name: created_at
+                  value: now()
+
+        - insert:
+            tableName: users_dialogs
+            columns:
+              - column:
+                  name: user_id
+                  value: 1
+              - column:
+                  name: dialog_id
+                  value: 1
+        - insert:
+            tableName: users_dialogs
+            columns:
+              - column:
+                  name: user_id
+                  value: 2
+              - column:
+                  name: dialog_id
+                  value: 1
+
+
+        - insert:
+            tableName: dialogs
+            columns:
+              - column:
+                  name: id
+                  value: "2"
+              - column:
+                  name: created_at
+                  value: now()
+
+        - insert:
+            tableName: users_dialogs
+            columns:
+              - column:
+                  name: user_id
+                  value: 2
+              - column:
+                  name: dialog_id
+                  value: 2
+        - insert:
+            tableName: users_dialogs
+            columns:
+              - column:
+                  name: user_id
+                  value: 3
+              - column:
+                  name: dialog_id
+                  value: 2

@@ -8,7 +8,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  value: "1"
+                  valueSequenceNext: publications_id_seq
               - column:
                   name: name
                   value: "football"
@@ -30,7 +30,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  value: "2"
+                  valueSequenceNext: publications_id_seq
               - column:
                   name: name
                   value: "basketball"
@@ -52,7 +52,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  value: "3"
+                  valueSequenceNext: publications_id_seq
               - column:
                   name: name
                   value: "tennis"
@@ -74,7 +74,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  value: "4"
+                  valueSequenceNext: publications_id_seq
               - column:
                   name: name
                   value: "hockey"
@@ -96,7 +96,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  value: "5"
+                  valueSequenceNext: publications_id_seq
               - column:
                   name: name
                   value: "skateboarding"
@@ -118,7 +118,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  value: "6"
+                  valueSequenceNext: publications_id_seq
               - column:
                   name: name
                   value: "rap"
@@ -140,7 +140,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  value: "7"
+                  valueSequenceNext: publications_id_seq
               - column:
                   name: name
                   value: "classic music"
@@ -162,7 +162,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  value: "8"
+                  valueSequenceNext: publications_id_seq
               - column:
                   name: name
                   value: "electronic"
@@ -184,7 +184,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  value: "9"
+                  valueSequenceNext: publications_id_seq
               - column:
                   name: name
                   value: "rock"
@@ -206,7 +206,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  value: "10"
+                  valueSequenceNext: publications_id_seq
               - column:
                   name: name
                   value: "disco"

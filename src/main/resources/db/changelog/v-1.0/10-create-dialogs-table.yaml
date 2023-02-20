@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: 10
+      author: tofffee
+      changes:
+        - createTable:
+            tableName: dialogs
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_dialogs
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: date
+      rollback:
+        - dropTable:
+            tableName: dialogs

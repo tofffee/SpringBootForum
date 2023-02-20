@@ -12,6 +12,7 @@ public interface UsersService {
     public boolean existsByUsername(String username);
     public boolean existsByEmail(String email);
     public AuthUserInfoOutDTO getAuthUserInfo(UserDetailsImpl userDetails);
+    public UserDTO getProfile(long id);
     public void forgetPassword(ForgetPasswordInDTO forgetPasswordInDTO);
     public void activateUser(UserDetailsImpl userDetailsImpl, ActivationCodeRequestDTO activationCodeRequestDTO);
     public void deleteUser(long id);

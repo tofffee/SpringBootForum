@@ -1,0 +1,4 @@
+databaseChangeLog:
+  - include:
+      file: "11-create-users-dialogs-table.yaml"
+      relativeToChangelogFile: true

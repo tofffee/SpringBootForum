@@ -1,0 +1,39 @@
+#databaseChangeLog:
+#  - changeSet:
+#      id: 12
+#      author: tofffee
+#      changes:
+#        - createTable:
+#            tableName: chatmessages
+#            columns:
+#              - column:
+#                  name: id
+#                  type: bigint
+#                  autoIncrement: true
+#                  constraints:
+#                    primaryKey: true
+#                    primaryKeyName: pk_chatmessages
+#                    nullable: false
+#              - column:
+#                  name: text
+#                  type: varchar(255)
+#                  constraints:
+#                    nullable: false
+#              - column:
+#                  name: created_at
+#                  type: date
+#              - column:
+#                  name: dialog_id
+#                  type: bigint
+#                  constraints:
+#                    foreignKeyName: fk_dialog_id
+#                    references: dialogs(id)
+#              - column:
+#                  name: user_id
+#                  type: bigint
+#                  constraints:
+#                    foreignKeyName: fk_user_id
+#                    references: users(id)
+#      rollback:
+#        - dropTable:
+#            tableName:  chatmessages
