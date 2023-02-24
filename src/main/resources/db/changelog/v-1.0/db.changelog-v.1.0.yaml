@@ -32,9 +32,9 @@ databaseChangeLog:
   - include:
       file: "11-changeset-users-dialogs-table.yaml"
       relativeToChangelogFile: true
-#  - include:
-#      file: "12-changeset-chatmessages-table.yaml"
-#      relativeToChangelogFile: true
+  - include:
+      file: "12-changeset-chatmessages-table.yaml"
+      relativeToChangelogFile: true
 
   #insert
   - include:
@@ -54,12 +54,12 @@ databaseChangeLog:
   - include:
       file: "insert/dummyData/insert-dummy-comments.yaml"
       relativeToChangelogFile: true
-#  - include:
-#      file: "insert/dummyData/insert-dummy-dialogs.yaml"
-#      relativeToChangelogFile: true
-#  - include:
-#      file: "insert/dummyData/insert-dummy-chatmessages.yaml"
-#      relativeToChangelogFile: true
+  - include:
+      file: "insert/dummyData/insert-dummy-dialogs.yaml"
+      relativeToChangelogFile: true
+  - include:
+      file: "insert/dummyData/insert-dummy-chatmessages.yaml"
+      relativeToChangelogFile: true
 
 
 

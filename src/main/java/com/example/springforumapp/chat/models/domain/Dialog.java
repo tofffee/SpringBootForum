@@ -31,10 +31,6 @@ public class Dialog {
     @Column(name = "created_at")
     private LocalDate createdAt;
 
-//    @OneToMany(mappedBy = "dialog")
-//    private List<ChatMessage> chatMessages;
-
-
 
     @ManyToMany
     @JoinTable(
@@ -44,8 +40,19 @@ public class Dialog {
     )
     private Set<User> users = new HashSet<>();
 
+    @OneToMany(mappedBy = "dialog")
+    private List<ChatMessage> chatMessages;
+
     public void addUser(User user) {
         this.users.add(user);
         user.getDialogs().add(this);
     }
+
+    public void addUsers(Set<User> users) {
+        this.users.addAll(users);
+        users.forEach(user->{
+            user.getDialogs().add(this);
+        });
+    }
+
 }

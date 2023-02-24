@@ -1,5 +1,6 @@
 package com.example.springforumapp.users.models.domain;
 
+import com.example.springforumapp.chat.models.domain.ChatMessage;
 import com.example.springforumapp.chat.models.domain.Dialog;
 import com.example.springforumapp.comments.models.domain.Comment;
 import com.example.springforumapp.files.models.domain.UpFile;
@@ -71,8 +72,8 @@ public class User {
     @ManyToMany(mappedBy = "users")
     private Set<Dialog> dialogs = new HashSet<>();
 
-//    @OneToMany(mappedBy = "user")
-//    private List<ChatMessage> chatMessages;
+    @OneToMany(mappedBy = "user")
+    private List<ChatMessage> chatMessages;
 
 
 }

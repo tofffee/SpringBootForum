@@ -1,4 +1,4 @@
-#databaseChangeLog:
-#  - include:
-#      file: "12-create-chatmessages-table.yaml"
-#      relativeToChangelogFile: true
+databaseChangeLog:
+  - include:
+      file: "12-create-chatmessages-table.yaml"
+      relativeToChangelogFile: true

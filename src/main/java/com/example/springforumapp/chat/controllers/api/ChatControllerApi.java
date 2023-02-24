@@ -1,7 +1,11 @@
 package com.example.springforumapp.chat.controllers.api;
 
 
+import com.example.springforumapp.chat.models.domain.Dialog;
+import com.example.springforumapp.chat.models.dto.ChatMessageInDTO;
+import com.example.springforumapp.chat.models.dto.ChatMessageOutDTO;
 import com.example.springforumapp.chat.models.dto.DialogOutDTO;
+import com.example.springforumapp.chat.services.ChatServiceImpl;
 import com.example.springforumapp.chat.services.DialogServiceImpl;
 import com.example.springforumapp.common.api.ResponseApi;
 import com.example.springforumapp.common.api.ResponseStatusApi;
@@ -23,11 +27,11 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 public class ChatControllerApi {
-  //  private final ChatServiceImpl chatService;
+    private final ChatServiceImpl chatService;
     private final DialogServiceImpl dialogService;
     private final UsersServiceImpl usersService;
 
-    @GetMapping("/dialog/test/{userId}")
+    @GetMapping("/dialog/{userId}")
     public ResponseEntity<ResponseApi> getDialog(@AuthenticationPrincipal UserDetailsImpl userDetails,
                                                  @PathVariable("userId") long userId) {
 
@@ -37,20 +41,20 @@ public class ChatControllerApi {
         return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, dto));
     }
 
-//    @GetMapping("/dialog/{id}")
-//    public ResponseEntity<ResponseApi> getMessageInDialog(@PathVariable("id") long id) {
-//        Dialog dialog = dialogService.findById(id);
-//        List<ChatMessageOutDTO> dtos = chatService.findAllMessagesByDialog(dialog);
-//        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, dtos));
-//    }
-//
-//    @PostMapping("/dialog/{id}")
-//    public ResponseEntity<ResponseApi> createMessage(@PathVariable("id") long id,
-//                                                     @AuthenticationPrincipal UserDetailsImpl userDetails,
-//                                                     @RequestBody @Valid ChatMessageInDTO chatMessageInDTO) {
-//        Dialog dialog = dialogService.findById(id);
-//        User user = usersService.findById(userDetails.getUser().getId());
-//        ChatMessageOutDTO dto = chatService.createMessage(chatMessageInDTO, dialog, user);
-//        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, dto));
-//    }
+    @GetMapping("/dialog/{dialogId}/messages")
+    public ResponseEntity<ResponseApi> getMessageInDialog(@PathVariable("dialogId") long dialogId) {
+        Dialog dialog = dialogService.findById(dialogId);
+        List<ChatMessageOutDTO> dtos = chatService.findAllMessagesByDialog(dialog);
+        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, dtos));
+    }
+
+    @PostMapping("/dialog/{dialogId}/messages")
+    public ResponseEntity<ResponseApi> createMessage(@PathVariable("dialogId") long dialogId,
+                                                     @AuthenticationPrincipal UserDetailsImpl userDetails,
+                                                     @RequestBody @Valid ChatMessageInDTO chatMessageInDTO) {
+        Dialog dialog = dialogService.findById(dialogId);
+        User user = usersService.findById(userDetails.getUser().getId());
+        ChatMessageOutDTO dto = chatService.createMessage(chatMessageInDTO, dialog, user);
+        return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, dto));
+    }
 }

@@ -12,9 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Transactional(readOnly = true)
@@ -36,25 +34,15 @@ public class DialogServiceImpl implements DialogService{
 
     @Transactional
     @Override
-    public DialogOutDTO findByUsers(User user1, User user2){
-//        Dialog dialog = null;
-//        for(Dialog dialog1: user1.getDialogs()){
-//            for(Dialog dialog2: user2.getDialogs()){
-//                if(dialog1.getId() == dialog2.getId()){
-//                    dialog = dialog1;
-//                    break;
-//                }
-//            }
-//        }
-//        if (dialog!=null){
-//            return modelMapper.map(dialog, DialogOutDTO.class);
-//        } else{
+    public DialogOutDTO findByUsers(User user1, User user2) {
+        for (Dialog dialog2 : user2.getDialogs()) {
+            if (user1.getDialogs().contains(dialog2))
+                return modelMapper.map(dialog2, DialogOutDTO.class);
+        }
             Dialog dialog = new Dialog();
             dialog.setCreatedAt(LocalDate.now());
-            dialog.addUser(user1);
-            dialog.addUser(user2);
+            dialog.addUsers(Set.of(user1, user2));
             dialogRepository.save(dialog);
             return modelMapper.map(dialog, DialogOutDTO.class);
-        //}
     }
 }
