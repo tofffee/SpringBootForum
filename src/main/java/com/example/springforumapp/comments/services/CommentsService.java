@@ -9,6 +9,7 @@ import com.example.springforumapp.users.models.domain.User;
 import java.util.List;
 
 public interface CommentsService {
-    List<CommentOutDTO> findCommentsByPublication(Publication publication);
+    public Comment findCommentById(Long id);
+    public List<CommentOutDTO> findCommentsByPublication(Publication publication);
     public CommentOutDTO createComment(User user, Publication publication, CommentInDTO commentInDTO);
 }

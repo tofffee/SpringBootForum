@@ -4,6 +4,7 @@ import com.example.springforumapp.comments.models.domain.Comment;
 import com.example.springforumapp.comments.models.dto.CommentInDTO;
 import com.example.springforumapp.comments.models.dto.CommentOutDTO;
 import com.example.springforumapp.comments.repositories.CommentsRepository;
+import com.example.springforumapp.comments.util.exceptions.CommentNotFoundException;
 import com.example.springforumapp.publications.models.domain.Publication;
 import com.example.springforumapp.users.models.domain.User;
 import com.example.springforumapp.users.models.dto.UserDTO;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -27,6 +29,15 @@ public class CommentsServiceImpl implements CommentsService {
     private final ModelMapper modelMapper;
 
     @Override
+    public Comment findCommentById(Long id) {
+        Optional<Comment> comment = commentsRepository.findById(id);
+        if(comment.isEmpty())
+            throw new CommentNotFoundException(String.format("Comment with id %d not found",id),
+                                               "CommentsServiceImpl.java: CommentNotFoundException.java");
+        else return comment.get();
+    }
+
+    @Override
     public List<CommentOutDTO> findCommentsByPublication(Publication publication){
         List<Comment> comments = commentsRepository.findAllByPublicationId(publication.getId());
         return commentsToOutDtos(comments);
@@ -34,9 +45,14 @@ public class CommentsServiceImpl implements CommentsService {
     @Override
     @Transactional
     public CommentOutDTO createComment(User user, Publication publication, CommentInDTO commentInDTO){
-        Comment comment = modelMapper.map(commentInDTO, Comment.class);
+        Comment comment = new Comment();
+        comment.setText(commentInDTO.getText());
         comment.setPublication(publication);
         comment.setUser(user);
+        if(commentInDTO.getParentCommentId() != null){
+            Comment parentComment = findCommentById(commentInDTO.getParentCommentId());
+            comment.setParentComment(parentComment);
+        }
         comment.setCreatedAt(LocalDate.now());
         commentsRepository.save(comment);
         return commentToOutDTO(comment);

@@ -34,13 +34,13 @@ public class Producer {
         return BindingBuilder.bind(queue).to(exchange).with(routingKey);
     }
 
-    private static int i=0;
-    @Scheduled(fixedDelay = 2000)
-    public void produce(){
-        rabbitTemplate.convertAndSend(exchange, routingKey, String.format("counter is %d",i));
-        log.info(String.format("counter is %d",i));
-        i++;
-    }
+//    private static int i=0;
+//    @Scheduled(fixedDelay = 2000)
+//    public void produce(){
+//        rabbitTemplate.convertAndSend(exchange, routingKey, String.format("counter is %d",i));
+//        log.info(String.format("counter is %d",i));
+//        i++;
+//    }
 
 
 }

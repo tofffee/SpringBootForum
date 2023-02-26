@@ -36,6 +36,7 @@ public class CommentsControllerApi {
         List<CommentOutDTO> dtos = commentsFacade.findCommentsByPublicationId(boardName, publicationId);
         return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, dtos));
     }
+
     @PostMapping("/boards/{boardName}/{publicationId}/comments")
     public ResponseEntity<ResponseApi> createCommentInPublicationApi(
             @AuthenticationPrincipal UserDetailsImpl userDetails,

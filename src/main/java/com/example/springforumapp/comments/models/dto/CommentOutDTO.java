@@ -16,6 +16,7 @@ public class CommentOutDTO {
     private long id;
     private String text;
     private LocalDate createdAt;
+    private Long parentCommentId;
     @JsonProperty("user")
     private UserDTO userDTO;
 }
