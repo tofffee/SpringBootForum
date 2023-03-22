@@ -25,8 +25,6 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 public class CommentsControllerApi {
-
-    private final CommentsServiceImpl commentsService;
     private final CommentsFacadeImpl commentsFacade;
 
     @GetMapping ("/boards/{boardName}/{publicationId}/comments")
@@ -46,6 +44,16 @@ public class CommentsControllerApi {
         CommentOutDTO dto = commentsFacade.createComment(userDetails, boardName, publicationId, commentInDTO);
         return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, dto));
     }
+
+    @DeleteMapping("/boards/{boardName}/{publicationId}/comments")
+    public ResponseEntity<ResponseApi> deleteCommentInPublicationApi(
+            @AuthenticationPrincipal UserDetailsImpl userDetails,
+            @PathVariable("boardName") String boardName,
+            @PathVariable("publicationId") long publicationId,
+            @RequestBody @Valid CommentInDTO commentInDTO){
+         return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, dto));
+    }
+
 
 
 }

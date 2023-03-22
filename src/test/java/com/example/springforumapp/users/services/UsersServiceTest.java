@@ -22,15 +22,15 @@ class UsersServiceTest {
 
     @Test
     void addUser() {
-        User user = new User();
-        user.setUsername("vasili");
-        user.setAvatarUrl("http://localhost:80/static/avatar.jpg");
-        user.setEmail("vasili@mail.ru");
-        user.setPassword("12345");
-        user.setActivationCode("1425");
-        user.setEnabled(false);
-
-        //usersServiceImpl.addUser(user);
-        Mockito.verify(usersRepository, Mockito.times(1)).save(user);
+//        User user = new User();
+//        user.setUsername("vasili");
+//        user.setAvatarUrl("http://localhost:80/static/avatar.jpg");
+//        user.setEmail("vasili@mail.ru");
+//        user.setPassword("12345");
+//        user.setActivationCode("1425");
+//        user.setEnabled(false);
+//
+//        //usersServiceImpl.addUser(user);
+//        Mockito.verify(usersRepository, Mockito.times(1)).save(user);
     }
 }

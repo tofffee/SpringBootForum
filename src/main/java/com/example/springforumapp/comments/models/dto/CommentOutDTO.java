@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -17,6 +18,7 @@ public class CommentOutDTO {
     private String text;
     private LocalDate createdAt;
     private Long parentCommentId;
+    private List<CommentOutDTO> childComments;
     @JsonProperty("user")
     private UserDTO userDTO;
 }

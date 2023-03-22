@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -62,6 +63,11 @@ public class CommentsServiceImpl implements CommentsService {
         CommentOutDTO commentOutputDTO = modelMapper.map(comment, CommentOutDTO.class);
         UserDTO userDTO = modelMapper.map(comment.getUser(), UserDTO.class);
         commentOutputDTO.setUserDTO(userDTO);
+
+        List<CommentOutDTO> childCommentOutDtos = new ArrayList<>();
+        if(comment.getChildComments() != null)
+            comment.getChildComments().forEach(childComment-> childCommentOutDtos.add(commentToOutDTO(childComment)));
+        commentOutputDTO.setChildComments(childCommentOutDtos);
         return commentOutputDTO;
     }
 
