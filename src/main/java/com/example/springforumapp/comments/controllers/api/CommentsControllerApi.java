@@ -51,7 +51,7 @@ public class CommentsControllerApi {
             @PathVariable("boardName") String boardName,
             @PathVariable("publicationId") long publicationId,
             @RequestBody @Valid CommentInDTO commentInDTO){
-         return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, dto));
+         return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, "dto"));
     }
 
 
