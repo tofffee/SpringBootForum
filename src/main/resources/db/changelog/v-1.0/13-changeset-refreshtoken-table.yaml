@@ -1,0 +1,4 @@
+databaseChangeLog:
+  - include:
+      file: "13-create-refreshtoken-table.yaml"
+      relativeToChangelogFile: true

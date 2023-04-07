@@ -123,7 +123,7 @@ public class UsersServiceImpl implements UsersService {
         if (user.isEmpty())
             throw new UserNotFoundException("Such user is not found","UsersService.java : UserNotFoundException");
 
-        List<Role> roles = new ArrayList<>();
+        Set<Role> roles = new HashSet<>();
         roles.add(rolesRepository.findByName("ROLE_USER"));
         roles.add(rolesRepository.findByName("ROLE_ADMIN"));
         user.get().setRoles(roles);
@@ -137,7 +137,7 @@ public class UsersServiceImpl implements UsersService {
         if (user.isEmpty())
             throw new UserNotFoundException("Such user is not found","UsersService.java : UserNotFoundException");
 
-        List<Role> roles = new ArrayList<>();
+        Set<Role> roles = new HashSet<>();
         roles.add(rolesRepository.findByName("ROLE_USER"));
         user.get().setRoles(roles);
         usersRepository.save(user.get());

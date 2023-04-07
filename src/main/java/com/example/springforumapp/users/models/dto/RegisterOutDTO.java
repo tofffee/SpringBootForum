@@ -9,5 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class RegisterOutDTO {
-    private String jwt;
+    private String jwtToken;
+    private String refreshToken;
 }

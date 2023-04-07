@@ -3,11 +3,15 @@ package com.example.springforumapp.users.facades;
 import com.example.springforumapp.security.JWTUtil;
 import com.example.springforumapp.security.UserDetailsImpl;
 import com.example.springforumapp.security.UserDetailsServiceImpl;
+import com.example.springforumapp.users.models.domain.RefreshToken;
+import com.example.springforumapp.users.models.domain.User;
 import com.example.springforumapp.users.models.dto.LoginInDTO;
 import com.example.springforumapp.users.models.dto.LoginOutDTO;
-import com.example.springforumapp.users.services.AuthService;
-import com.example.springforumapp.users.services.AuthServiceImpl;
+import com.example.springforumapp.users.models.dto.RefreshTokenRequestDTO;
+import com.example.springforumapp.users.models.dto.RefreshTokenResponseDTO;
+import com.example.springforumapp.users.services.*;
 import com.example.springforumapp.users.util.exceptions.AuthException;
+import com.example.springforumapp.users.util.exceptions.RefreshTokenExpiredException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,19 +20,43 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional(readOnly = true)
 @Slf4j
 @RequiredArgsConstructor
 public class AuthFacadeImpl implements AuthFacade{
     private final AuthService authService;
     private final UserDetailsService userDetailsService;
+    private final UsersService usersService;
+    private final RefreshTokenService refreshTokenService;
     private final JWTUtil jwtUtil;
     @Override
     public LoginOutDTO login(LoginInDTO loginInDTO) throws AuthException, UsernameNotFoundException {
-        authService.auth(loginInDTO);
-        UserDetailsImpl userDetails = (UserDetailsImpl)userDetailsService.loadUserByUsername(loginInDTO.getUsername());
+        UserDetailsImpl userDetails = (UserDetailsImpl)authService.auth(loginInDTO);
+        User user = usersService.findByUsername(userDetails.getUsername());
+        try{
+            refreshTokenService.verifyRefreshTokenExpiration(userDetails.getUser().getRefreshToken());
+        } catch (RefreshTokenExpiredException e) {
+            refreshTokenService.createRefreshToken(user);
+        }
+
+
         return LoginOutDTO.builder()
                 .jwtToken(jwtUtil.generateToken(userDetails))
+                .refreshToken(user.getRefreshToken().getRefrtoken())
+                .build();
+    }
+
+    @Override
+    public RefreshTokenResponseDTO refreshToken(RefreshTokenRequestDTO refreshTokenRequestDTO) {
+        RefreshToken refreshToken = refreshTokenService.findByRefrtoken(refreshTokenRequestDTO.getRefreshToken());
+        refreshTokenService.verifyRefreshTokenExpiration(refreshToken);
+
+        refreshTokenService.deleteRefreshToken(refreshToken);
+
+        UserDetailsImpl userDetails = (UserDetailsImpl)userDetailsService.loadUserByUsername(refreshToken.getUser().getUsername());
+
+        return RefreshTokenResponseDTO.builder()
+                .jwtToken(jwtUtil.generateToken(userDetails))
+                .refreshToken(refreshTokenService.createRefreshToken(usersService.findByUsername(refreshToken.getUser().getUsername())).getRefrtoken())
                 .build();
     }
 }

@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Set;
 
 @Service
 @Transactional(readOnly = true)
@@ -45,7 +46,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         user.setAvatarUrl("http://localhost:80/images/default_avatar.jpg");
 
         Role role = rolesRepository.findByName("ROLE_USER");
-        user.setRoles(new ArrayList<>(Collections.singletonList(role)));
+        user.setRoles(Set.of(role));
         usersRepository.save(user);
         return user;
     }

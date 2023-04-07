@@ -11,9 +11,7 @@ import com.example.springforumapp.users.models.dto.RegisterInDTO;
 import com.example.springforumapp.users.models.dto.RegisterOutDTO;
 import com.example.springforumapp.security.JWTUtil;
 import com.example.springforumapp.users.models.domain.User;
-import com.example.springforumapp.users.services.AuthServiceImpl;
-import com.example.springforumapp.users.services.RegistrationService;
-import com.example.springforumapp.users.services.RegistrationServiceImpl;
+import com.example.springforumapp.users.services.*;
 import com.example.springforumapp.users.util.exceptions.RegistrationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +29,8 @@ public class RegistrationFacadeImpl implements RegistrationFacade{
     private final RegistrationService registrationService;
     private final EmailService emailService;
     private final UserDetailsService userDetailsService;
+    private final UsersService usersService;
+    private final RefreshTokenService refreshTokenService;
     private final JWTUtil jwtUtil;
 
     @Override
@@ -39,7 +39,8 @@ public class RegistrationFacadeImpl implements RegistrationFacade{
         User user = registrationService.registerUser(registerInDTO);
         emailService.sendActivationCode(user);
         return RegisterOutDTO.builder()
-                .jwt(jwtUtil.generateToken(userDetailsService.loadUserByUsername(user.getUsername())))
+                .jwtToken(jwtUtil.generateToken(userDetailsService.loadUserByUsername(user.getUsername())))
+                .refreshToken(refreshTokenService.createRefreshToken(usersService.findByUsername(user.getUsername())).getRefrtoken())
                 .build();
     }
 }

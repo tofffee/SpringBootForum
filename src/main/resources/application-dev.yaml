@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 80
 #  ssl:
 #    enabled: true
 #    key-alias: local_ssl
@@ -25,11 +25,11 @@ spring:
         show-sql: true
         format_sql: true
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
 
   #liquibase
   liquibase:
-    enabled: true
+    enabled: false
 
   #max uploading file size
   servlet:

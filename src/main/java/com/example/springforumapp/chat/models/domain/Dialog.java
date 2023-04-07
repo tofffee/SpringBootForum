@@ -43,11 +43,6 @@ public class Dialog {
     @OneToMany(mappedBy = "dialog")
     private List<ChatMessage> chatMessages;
 
-    public void addUser(User user) {
-        this.users.add(user);
-        user.getDialogs().add(this);
-    }
-
     public void addUsers(Set<User> users) {
         this.users.addAll(users);
         users.forEach(user->{

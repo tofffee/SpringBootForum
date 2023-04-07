@@ -7,11 +7,8 @@ import com.example.springforumapp.comments.util.exceptions.CommentNotFoundExcept
 import com.example.springforumapp.common.util.AppException;
 import com.example.springforumapp.publications.util.exceptions.PublicationDeleteException;
 import com.example.springforumapp.publications.util.exceptions.PublicationNotFoundException;
-import com.example.springforumapp.users.util.exceptions.AuthException;
+import com.example.springforumapp.users.util.exceptions.*;
 import com.example.springforumapp.files.util.exceptions.FileException;
-import com.example.springforumapp.users.util.exceptions.RegistrationException;
-import com.example.springforumapp.users.util.exceptions.ActivationAccountException;
-import com.example.springforumapp.users.util.exceptions.UserNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -61,7 +58,8 @@ public class ExceptionHandlerApi {
                        UserNotFoundException.class,
                        PublicationNotFoundException.class,
                        DialogNotFoundException.class,
-                       CommentNotFoundException.class})
+                       CommentNotFoundException.class,
+                       RefreshTokenNotFoundException.class})
     protected ResponseEntity<ResponseApi> handleNotFoundException(AppException e) {
         ResponseErrorApi responseErrorApi = new ResponseErrorApi(
                 ResponseStatusApi.FAIL,
@@ -72,6 +70,17 @@ public class ExceptionHandlerApi {
         return new ResponseEntity<>(responseErrorApi, HttpStatus.NOT_FOUND);
     }
 
+    //AuthException
+    @ExceptionHandler({RefreshTokenExpiredException.class})
+    protected ResponseEntity<ResponseApi> AuthException(AppException e) {
+        ResponseErrorApi responseErrorApi = new ResponseErrorApi(
+                ResponseStatusApi.FAIL,
+                e.getMessage(),
+                e.getDbgMessage(),
+                System.currentTimeMillis()
+        );
+        return new ResponseEntity<>(responseErrorApi, HttpStatus.FORBIDDEN);
+    }
     //Create exception
     @ExceptionHandler({BoardCreateException.class})
     protected ResponseEntity<ResponseApi> handleCreateException(AppException e) {

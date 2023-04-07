@@ -6,6 +6,7 @@ import com.example.springforumapp.comments.models.domain.Comment;
 import com.example.springforumapp.files.models.domain.UpFile;
 import com.example.springforumapp.publications.models.domain.Publication;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -47,8 +48,14 @@ public class User {
     @NotNull
     private String password;
 
-    @ManyToMany(mappedBy = "users",fetch = FetchType.EAGER)
-    private List<Role> roles;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>(); 
 
     @Column(name = "activation_code")
     private String activationCode;
@@ -56,6 +63,9 @@ public class User {
     @Column(name = "enabled")
     @NotNull
     private Boolean enabled;
+
+    @OneToOne(mappedBy = "user")
+    private RefreshToken refreshToken;
 
     @OneToMany(mappedBy = "user")
     private List<Publication> publications;
@@ -74,6 +84,7 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<ChatMessage> chatMessages;
+
 
 
 }
