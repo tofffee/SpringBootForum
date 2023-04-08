@@ -23,7 +23,6 @@ import java.util.*;
 public class UsersServiceImpl implements UsersService {
     private final UsersRepository usersRepository;
     private final RolesRepository rolesRepository;
-
     private final ModelMapper modelMapper;
     @Override
     public User findById(long id) {
@@ -66,7 +65,7 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public AuthUserInfoOutDTO getAuthUserInfo(UserDetailsImpl userDetails) {
-        User user = userDetails.getUser();
+        User user = findByUsername(userDetails.getUsername());
         return modelMapper.map(user, AuthUserInfoOutDTO.class);
     }
 
@@ -119,28 +118,27 @@ public class UsersServiceImpl implements UsersService {
     @Override
     @Transactional
     public void grantAdminRole(long id){
-        Optional<User> user = usersRepository.findById(id);
-        if (user.isEmpty())
-            throw new UserNotFoundException("Such user is not found","UsersService.java : UserNotFoundException");
-
-        Set<Role> roles = new HashSet<>();
-        roles.add(rolesRepository.findByName("ROLE_USER"));
-        roles.add(rolesRepository.findByName("ROLE_ADMIN"));
-        user.get().setRoles(roles);
-        usersRepository.save(user.get());
+//        Optional<User> user = usersRepository.findById(id);
+//        if (user.isEmpty())
+//            throw new UserNotFoundException("Such user is not found","UsersService.java : UserNotFoundException");
+//
+//        Set<Role> roles = new HashSet<>();
+//        roles.add(rolesRepository.findByName("ROLE_USER"));
+//        roles.add(rolesRepository.findByName("ROLE_ADMIN"));
+//        user.get().setRoles(roles);
+     //   usersRepository.save(user.get());
     }
 
     @Override
     @Transactional
     public void ungrantAdminRole(long id){
-        Optional<User> user = usersRepository.findById(id);
-        if (user.isEmpty())
-            throw new UserNotFoundException("Such user is not found","UsersService.java : UserNotFoundException");
-
-        Set<Role> roles = new HashSet<>();
-        roles.add(rolesRepository.findByName("ROLE_USER"));
-        user.get().setRoles(roles);
-        usersRepository.save(user.get());
+//        Optional<User> user = usersRepository.findById(id);
+//        if (user.isEmpty())
+//            throw new UserNotFoundException("Such user is not found","UsersService.java : UserNotFoundException");
+//
+//        Set<Role> roles = new HashSet<>();
+//        roles.add(rolesRepository.findByName("ROLE_USER"));
+//        user.get().setRoles(roles);
+//        usersRepository.save(user.get());
     }
-
 }

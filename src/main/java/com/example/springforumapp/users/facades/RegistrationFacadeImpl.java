@@ -25,22 +25,17 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @RequiredArgsConstructor
 public class RegistrationFacadeImpl implements RegistrationFacade{
-
     private final RegistrationService registrationService;
     private final EmailService emailService;
-    private final UserDetailsService userDetailsService;
-    private final UsersService usersService;
-    private final RefreshTokenService refreshTokenService;
-    private final JWTUtil jwtUtil;
 
     @Override
     @Transactional
-    public RegisterOutDTO register(RegisterInDTO registerInDTO) throws RegistrationException, EmailException, UsernameNotFoundException {
+    public LoginInDTO register(RegisterInDTO registerInDTO) throws RegistrationException, EmailException, UsernameNotFoundException {
         User user = registrationService.registerUser(registerInDTO);
         emailService.sendActivationCode(user);
-        return RegisterOutDTO.builder()
-                .jwtToken(jwtUtil.generateToken(userDetailsService.loadUserByUsername(user.getUsername())))
-                .refreshToken(refreshTokenService.createRefreshToken(usersService.findByUsername(user.getUsername())).getRefrtoken())
+        return LoginInDTO.builder()
+                .usernameOrEmail(registerInDTO.getUsername())
+                .password(registerInDTO.getPassword())
                 .build();
     }
 }

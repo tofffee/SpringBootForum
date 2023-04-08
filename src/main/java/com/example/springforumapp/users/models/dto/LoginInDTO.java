@@ -12,9 +12,9 @@ import javax.validation.constraints.Size;
 @Builder
 public class LoginInDTO {
 
-    @Size(min = 4, message = "username must contains minimum 4 symbols")
-    @Size(max = 40, message = "username must contains maximum 40 symbols")
-    private String username;
+    @Size(min = 4, message = "username or email must contains minimum 4 symbols")
+    @Size(max = 40, message = "username or email must contains maximum 40 symbols")
+    private String usernameOrEmail;
 
     @Size(min = 5, message = "password must contains minimum 5 symbols")
     @Size(max = 40, message = "password must contains maximum 40 symbols")

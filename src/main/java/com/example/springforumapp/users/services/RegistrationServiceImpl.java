@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 @Service
@@ -23,10 +24,8 @@ import java.util.Set;
 @Slf4j
 @RequiredArgsConstructor
 public class RegistrationServiceImpl implements RegistrationService {
-
     private final UsersRepository usersRepository;
     private final RolesRepository rolesRepository;
-    private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
     private final RandomUtil randomUtil;
 
@@ -39,14 +38,19 @@ public class RegistrationServiceImpl implements RegistrationService {
         if (usersRepository.existsByEmail(registerInDTO.getEmail()))
             throw new RegistrationException("Such email is already used","RegistrationService.java: RegistrationException");
 
-        User user = modelMapper.map(registerInDTO, User.class);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        User user = new User();
+        user.setUsername(registerInDTO.getUsername());
+        user.setEmail(registerInDTO.getEmail());
+        user.setPassword(passwordEncoder.encode(registerInDTO.getPassword()));
         user.setEnabled(false);
         user.setActivationCode(randomUtil.generateCode());
         user.setAvatarUrl("http://localhost:80/images/default_avatar.jpg");
 
-        Role role = rolesRepository.findByName("ROLE_USER");
-        user.setRoles(Set.of(role));
+        Set<Role> roles = new HashSet<>();
+        Role userRole = rolesRepository.findByName("ROLE_USER").get();
+        roles.add(userRole);
+        user.setRoles(roles);
+
         usersRepository.save(user);
         return user;
     }

@@ -42,6 +42,10 @@ public class RefreshTokenServiceImpl implements RefreshTokenService{
 
     @Override
     public RefreshToken createRefreshToken(User user) {
+
+        Optional<RefreshToken> refreshTo = refreshTokenRepository.findByUserId(user.getId());
+        refreshTo.ifPresent(refreshTokenRepository::delete);
+
         RefreshToken refreshToken = new RefreshToken();
         refreshToken.setRefrtoken(UUID.randomUUID().toString());
         refreshToken.setCreatedAt(LocalDateTime.now());
@@ -61,8 +65,4 @@ public class RefreshTokenServiceImpl implements RefreshTokenService{
         }
     }
 
-    public void deleteRefreshToken(RefreshToken refreshToken){
-        RefreshToken existedRefreshToken = findByRefrtoken(refreshToken.getRefrtoken());
-        refreshTokenRepository.delete(existedRefreshToken);
-    }
 }

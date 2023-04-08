@@ -32,16 +32,11 @@ public class AuthFacadeImpl implements AuthFacade{
     public LoginOutDTO login(LoginInDTO loginInDTO) throws AuthException, UsernameNotFoundException {
         UserDetailsImpl userDetails = (UserDetailsImpl)authService.auth(loginInDTO);
         User user = usersService.findByUsername(userDetails.getUsername());
-        try{
-            refreshTokenService.verifyRefreshTokenExpiration(userDetails.getUser().getRefreshToken());
-        } catch (RefreshTokenExpiredException e) {
-            refreshTokenService.createRefreshToken(user);
-        }
-
+        RefreshToken refreshToken = refreshTokenService.createRefreshToken(user);
 
         return LoginOutDTO.builder()
                 .jwtToken(jwtUtil.generateToken(userDetails))
-                .refreshToken(user.getRefreshToken().getRefrtoken())
+                .refreshToken(refreshToken.getRefrtoken())
                 .build();
     }
 
@@ -50,13 +45,12 @@ public class AuthFacadeImpl implements AuthFacade{
         RefreshToken refreshToken = refreshTokenService.findByRefrtoken(refreshTokenRequestDTO.getRefreshToken());
         refreshTokenService.verifyRefreshTokenExpiration(refreshToken);
 
-        refreshTokenService.deleteRefreshToken(refreshToken);
-
         UserDetailsImpl userDetails = (UserDetailsImpl)userDetailsService.loadUserByUsername(refreshToken.getUser().getUsername());
+        User user = usersService.findByUsername(userDetails.getUsername());
 
         return RefreshTokenResponseDTO.builder()
                 .jwtToken(jwtUtil.generateToken(userDetails))
-                .refreshToken(refreshTokenService.createRefreshToken(usersService.findByUsername(refreshToken.getUser().getUsername())).getRefrtoken())
+                .refreshToken(refreshTokenService.createRefreshToken(user).getRefrtoken())
                 .build();
     }
 }

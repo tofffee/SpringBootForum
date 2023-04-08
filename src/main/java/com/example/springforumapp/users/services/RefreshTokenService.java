@@ -8,5 +8,4 @@ public interface RefreshTokenService {
     public RefreshToken findByUserId(long userId);
     public RefreshToken createRefreshToken(User user);
     public void verifyRefreshTokenExpiration(RefreshToken refreshToken);
-    public void deleteRefreshToken(RefreshToken refreshToken);
 }

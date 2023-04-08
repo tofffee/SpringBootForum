@@ -19,15 +19,15 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
     private final AuthenticationManager authenticationManager;
-    private final UserDetailsService userDetailsService;
+    private final UserDetailsServiceImpl userDetailsService;
     @Override
     public UserDetails auth(LoginInDTO loginInDTO) throws AuthException {
         try{
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginInDTO.getUsername(), loginInDTO.getPassword()));
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginInDTO.getUsernameOrEmail(), loginInDTO.getPassword()));
         } catch (BadCredentialsException badCredentialsException){
             throw new AuthException("Incorrect credentials","AuthService.java: AuthException");
         }
-        return userDetailsService.loadUserByUsername(loginInDTO.getUsername());
+        return userDetailsService.loadUserByUsername(loginInDTO.getUsernameOrEmail());
     }
 
 }

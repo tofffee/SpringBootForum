@@ -35,7 +35,7 @@ public class ChatControllerApi {
     public ResponseEntity<ResponseApi> getDialog(@AuthenticationPrincipal UserDetailsImpl userDetails,
                                                  @PathVariable("userId") long userId) {
 
-        User user1 = usersService.findById(userDetails.getUser().getId());
+        User user1 = usersService.findById(userDetails.getId());
         User user2 = usersService.findById(userId);
         DialogOutDTO dto = dialogService.findByUsers(user1, user2);
         return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, dto));
@@ -53,7 +53,7 @@ public class ChatControllerApi {
                                                      @AuthenticationPrincipal UserDetailsImpl userDetails,
                                                      @RequestBody @Valid ChatMessageInDTO chatMessageInDTO) {
         Dialog dialog = dialogService.findById(dialogId);
-        User user = usersService.findById(userDetails.getUser().getId());
+        User user = usersService.findById(userDetails.getId());
         ChatMessageOutDTO dto = chatService.createMessage(chatMessageInDTO, dialog, user);
         return ResponseEntity.ok(new ResponseSuccessApi(ResponseStatusApi.SUCCESS, dto));
     }

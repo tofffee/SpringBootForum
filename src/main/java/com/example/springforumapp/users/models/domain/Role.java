@@ -25,8 +25,4 @@ public class Role {
     @Column(name = "name")
     @NotNull
     private String name;
-
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> users = new HashSet<>();
-
 }
