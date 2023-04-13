@@ -25,7 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Slf4j
 @RequiredArgsConstructor
 public class FileUploadController {
-        private final UpFileFacadeImpl upFileFacade;
+        private final UpFileFacade upFileFacade;
 
         @PostMapping()
         public ResponseEntity<ResponseApi> uploadFile(@AuthenticationPrincipal UserDetailsImpl userDetails,

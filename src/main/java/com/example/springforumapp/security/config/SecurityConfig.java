@@ -43,7 +43,8 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.POST,"/api/boards/{boardName}",
                                                         "/api/upload/image",
                                                         "/api/boards/{boardName}/{publicationId}",
-                                                        "/api/dialog/{id}").authenticated()
+                                                        "/api/dialog/{id}",
+                                                        "/api/test/greetingWithJWT").authenticated()
                 .antMatchers(HttpMethod.DELETE,"/api/boards/{boardName}/{publicationId}").authenticated()
 
                 .antMatchers(HttpMethod.POST,"/api/boards").hasRole("ADMIN")

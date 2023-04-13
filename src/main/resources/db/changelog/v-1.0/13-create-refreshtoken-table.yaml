@@ -4,7 +4,7 @@ databaseChangeLog:
       author: tofffee
       changes:
         - createTable:
-            tableName: refreshtoken
+            tableName: refreshtokens
             columns:
               - column:
                   name: id
@@ -15,7 +15,7 @@ databaseChangeLog:
                     primaryKeyName: pk_refreshtoken
                     nullable: false
               - column:
-                  name: text
+                  name: refrtoken
                   type: varchar(255)
                   constraints:
                     nullable: false
@@ -25,6 +25,13 @@ databaseChangeLog:
               - column:
                   name: expired_at
                   type: date
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    #unique: true
+                    foreignKeyName: fk_user_id
+                    references: users(id)
       rollback:
         - dropTable:
-            tableName:  refreshtoken
+            tableName:  refreshtokens

@@ -25,11 +25,11 @@ spring:
         show-sql: true
         format_sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
 
   #liquibase
   liquibase:
-    enabled: false
+    enabled: true
 
   #max uploading file size
   servlet:

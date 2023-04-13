@@ -23,7 +23,7 @@ public class JWTUtil {
     @Value("${jwt.secret}")
     private String secret;
 
-    private final long minutesExpired = 60000;//60 * 60 * 1000; //60 minutes
+    private final long minutesExpired = 60 * 60 * 1000;//60 * 60 * 1000; //60 minutes
 
     private Claims extractAllClaims(String token) {
         return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();

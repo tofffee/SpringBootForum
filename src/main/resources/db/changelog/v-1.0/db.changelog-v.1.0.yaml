@@ -35,6 +35,9 @@ databaseChangeLog:
   - include:
       file: "12-changeset-chatmessages-table.yaml"
       relativeToChangelogFile: true
+  - include:
+      file: "13-changeset-refreshtoken-table.yaml"
+      relativeToChangelogFile: true
 
   #insert
   - include:
@@ -61,5 +64,7 @@ databaseChangeLog:
       file: "insert/dummyData/insert-dummy-chatmessages.yaml"
       relativeToChangelogFile: true
 
-
-
+  #test
+  - include:
+      file: "test/changeset-greeting-table.yaml"
+      relativeToChangelogFile: true

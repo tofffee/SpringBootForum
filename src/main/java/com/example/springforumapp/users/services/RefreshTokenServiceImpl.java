@@ -23,7 +23,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class RefreshTokenServiceImpl implements RefreshTokenService{
     private final RefreshTokenRepository refreshTokenRepository;
-    private final long refreshTokenExpiredTime = 3; //60 minutes
+    private final long refreshTokenExpiredTime = 1000; //60 minutes
     @Override
     public RefreshToken findByRefrtoken(String refrtoken) {
         Optional<RefreshToken> refreshToken = refreshTokenRepository.findByRefrtoken(refrtoken);
